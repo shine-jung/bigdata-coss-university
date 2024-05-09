@@ -22,10 +22,9 @@ export const viewport = {
 };
 
 export const metadata = {
-  title: 'Minimal UI Kit',
-  description:
-    'The starting point for your next project with Minimal UI Kit, built on the newest version of Material-UI ©, ready to be customized to your style',
-  keywords: 'react,material,kit,application,dashboard,admin,template',
+  title: '빅데이터혁신공유대학 마일리지 시스템',
+  description: '빅데이터혁신공유대학 마일리지 시스템',
+  keywords: '빅데이터혁신공유대학,mileage,마일리지',
   manifest: '/manifest.json',
   icons: [
     { rel: 'icon', url: '/favicon/favicon.ico' },
@@ -41,7 +40,7 @@ type Props = {
 
 export default function RootLayout({ children }: Props) {
   return (
-    <html lang="en" className={primaryFont.className}>
+    <html lang="ko" className={primaryFont.className}>
       <body>
         <AuthProvider>
           <SettingsProvider

@@ -15,8 +15,6 @@ import Iconify from '../../iconify';
 import Scrollbar from '../../scrollbar';
 import BaseOptions from './base-option';
 import LayoutOptions from './layout-options';
-import PresetsOptions from './presets-options';
-import StretchOptions from './stretch-options';
 import { useSettingsContext } from '../context';
 import FullScreenOption from './fullscreen-option';
 
@@ -73,36 +71,6 @@ export default function SettingsDrawer() {
     </div>
   );
 
-  const renderContrast = (
-    <div>
-      <Typography variant="caption" component="div" sx={{ ...labelStyles }}>
-        Contrast
-      </Typography>
-
-      <BaseOptions
-        value={settings.themeContrast}
-        onChange={(newValue: string) => settings.onUpdate('themeContrast', newValue)}
-        options={['default', 'bold']}
-        icons={['contrast', 'contrast_bold']}
-      />
-    </div>
-  );
-
-  const renderDirection = (
-    <div>
-      <Typography variant="caption" component="div" sx={{ ...labelStyles }}>
-        Direction
-      </Typography>
-
-      <BaseOptions
-        value={settings.themeDirection}
-        onChange={(newValue: string) => settings.onUpdate('themeDirection', newValue)}
-        options={['ltr', 'rtl']}
-        icons={['align_left', 'align_right']}
-      />
-    </div>
-  );
-
   const renderLayout = (
     <div>
       <Typography variant="caption" component="div" sx={{ ...labelStyles }}>
@@ -113,43 +81,6 @@ export default function SettingsDrawer() {
         value={settings.themeLayout}
         onChange={(newValue: string) => settings.onUpdate('themeLayout', newValue)}
         options={['vertical', 'horizontal', 'mini']}
-      />
-    </div>
-  );
-
-  const renderStretch = (
-    <div>
-      <Typography
-        variant="caption"
-        component="div"
-        sx={{
-          ...labelStyles,
-          display: 'inline-flex',
-          alignItems: 'center',
-        }}
-      >
-        Stretch
-        <Tooltip title="Only available at large resolutions > 1600px (xl)">
-          <Iconify icon="eva:info-outline" width={16} sx={{ ml: 0.5 }} />
-        </Tooltip>
-      </Typography>
-
-      <StretchOptions
-        value={settings.themeStretch}
-        onChange={() => settings.onUpdate('themeStretch', !settings.themeStretch)}
-      />
-    </div>
-  );
-
-  const renderPresets = (
-    <div>
-      <Typography variant="caption" component="div" sx={{ ...labelStyles }}>
-        Presets
-      </Typography>
-
-      <PresetsOptions
-        value={settings.themeColorPresets}
-        onChange={(newValue: string) => settings.onUpdate('themeColorPresets', newValue)}
       />
     </div>
   );
@@ -177,15 +108,7 @@ export default function SettingsDrawer() {
         <Stack spacing={3} sx={{ p: 3 }}>
           {renderMode}
 
-          {renderContrast}
-
-          {renderDirection}
-
           {renderLayout}
-
-          {renderStretch}
-
-          {renderPresets}
         </Stack>
       </Scrollbar>
 
