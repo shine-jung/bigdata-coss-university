@@ -1,11 +1,11 @@
-import { JwtRegisterView } from 'src/sections/auth/jwt';
+import { FirebaseRegisterView } from 'src/sections/auth/firebase';
 
 // ----------------------------------------------------------------------
 
 export const metadata = {
-  title: 'Jwt: Register',
+  title: '회원가입',
 };
 
 export default function RegisterPage() {
-  return <JwtRegisterView />;
+  return <FirebaseRegisterView />;
 }

@@ -1,11 +1,11 @@
-import { JwtLoginView } from 'src/sections/auth/jwt';
+import { FirebaseLoginView } from 'src/sections/auth/firebase';
 
 // ----------------------------------------------------------------------
 
 export const metadata = {
-  title: 'Jwt: Login',
+  title: '로그인',
 };
 
 export default function LoginPage() {
-  return <JwtLoginView />;
+  return <FirebaseLoginView />;
 }

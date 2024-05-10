@@ -2,8 +2,8 @@
 
 import { createContext } from 'react';
 
-import { JWTContextType } from '../../types';
+import { FirebaseContextType } from '../../types';
 
 // ----------------------------------------------------------------------
 
-export const AuthContext = createContext({} as JWTContextType);
+export const AuthContext = createContext({} as FirebaseContextType);

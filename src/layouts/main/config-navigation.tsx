@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
 import { paths } from 'src/routes/paths';
 
@@ -40,8 +40,8 @@ const boardData = {
 
 // ----------------------------------------------------------------------
 
-export function useNavData() {
-  const [isAdmin, setIsAdmin] = useState(false);
+export function useNavData(currentRole?: string) {
+  const isAdmin = currentRole === 'admin';
 
   const data = useMemo(
     () => [

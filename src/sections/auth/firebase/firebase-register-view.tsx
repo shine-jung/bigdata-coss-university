@@ -14,42 +14,35 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import InputAdornment from '@mui/material/InputAdornment';
 
 import { paths } from 'src/routes/paths';
+import { useRouter } from 'src/routes/hooks';
 import { RouterLink } from 'src/routes/components';
-import { useRouter, useSearchParams } from 'src/routes/hooks';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
 import { useAuthContext } from 'src/auth/hooks';
-import { PATH_AFTER_LOGIN } from 'src/config-global';
 
 import Iconify from 'src/components/iconify';
 import FormProvider, { RHFTextField } from 'src/components/hook-form';
 
 // ----------------------------------------------------------------------
 
-export default function JwtRegisterView() {
+export default function FirebaseRegisterView() {
   const { register } = useAuthContext();
-
-  const router = useRouter();
 
   const [errorMsg, setErrorMsg] = useState('');
 
-  const searchParams = useSearchParams();
-
-  const returnTo = searchParams.get('returnTo');
+  const router = useRouter();
 
   const password = useBoolean();
 
   const RegisterSchema = Yup.object().shape({
-    firstName: Yup.string().required('First name required'),
-    lastName: Yup.string().required('Last name required'),
+    name: Yup.string().required('Name required'),
     email: Yup.string().required('Email is required').email('Email must be a valid email address'),
     password: Yup.string().required('Password is required'),
   });
 
   const defaultValues = {
-    firstName: '',
-    lastName: '',
+    name: '',
     email: '',
     password: '',
   };
@@ -67,9 +60,14 @@ export default function JwtRegisterView() {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      await register?.(data.email, data.password, data.firstName, data.lastName);
+      await register?.(data.email, data.password, data.name);
+      const searchParams = new URLSearchParams({
+        email: data.email,
+      }).toString();
 
-      router.push(returnTo || PATH_AFTER_LOGIN);
+      const href = `${paths.auth.firebase.verify}?${searchParams}`;
+
+      router.push(href);
     } catch (error) {
       console.error(error);
       reset();
@@ -84,7 +82,7 @@ export default function JwtRegisterView() {
       <Stack direction="row" spacing={0.5}>
         <Typography variant="body2"> Already have an account? </Typography>
 
-        <Link href={paths.auth.jwt.login} component={RouterLink} variant="subtitle2">
+        <Link href={paths.auth.firebase.login} component={RouterLink} variant="subtitle2">
           Sign in
         </Link>
       </Stack>
@@ -116,15 +114,14 @@ export default function JwtRegisterView() {
   const renderForm = (
     <Stack spacing={2.5}>
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-        <RHFTextField name="firstName" label="First name" />
-        <RHFTextField name="lastName" label="Last name" />
+        <RHFTextField name="name" label="이름" />
       </Stack>
 
-      <RHFTextField name="email" label="Email address" />
+      <RHFTextField name="email" label="이메일" />
 
       <RHFTextField
         name="password"
-        label="Password"
+        label="비밀번호"
         type={password.value ? 'text' : 'password'}
         InputProps={{
           endAdornment: (
@@ -155,7 +152,7 @@ export default function JwtRegisterView() {
       {renderHead}
 
       {!!errorMsg && (
-        <Alert severity="error" sx={{ m: 3 }}>
+        <Alert severity="error" sx={{ mb: 3 }}>
           {errorMsg}
         </Alert>
       )}

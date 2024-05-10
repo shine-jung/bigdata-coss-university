@@ -3,14 +3,13 @@ import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 
-import { useMockedUser } from 'src/hooks/use-mocked-user';
-
+import { useAuthContext } from 'src/auth/hooks';
 import { EMAIL_CONTACT } from 'src/config-global';
 
 // ----------------------------------------------------------------------
 
 export default function NavUpgrade() {
-  const { user } = useMockedUser();
+  const { user } = useAuthContext();
 
   return (
     <Stack
