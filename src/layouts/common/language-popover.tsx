@@ -12,7 +12,7 @@ import CustomPopover, { usePopover } from 'src/components/custom-popover';
 
 export const allLangs = [
   {
-    label: 'Korean',
+    label: '한국어',
     value: 'ko',
     icon: 'flagpack:kr',
   },

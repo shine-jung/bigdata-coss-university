@@ -2,13 +2,12 @@
 
 const ROOTS = {
   AUTH: '/auth',
-  DASHBOARD: '/dashboard',
+  MAIN: '/main',
 };
 
 // ----------------------------------------------------------------------
 
 export const paths = {
-  minimalUI: 'https://mui.com/store/items/minimal-dashboard/',
   // AUTH
   auth: {
     jwt: {
@@ -16,16 +15,24 @@ export const paths = {
       register: `${ROOTS.AUTH}/jwt/register`,
     },
   },
-  // DASHBOARD
-  dashboard: {
-    root: ROOTS.DASHBOARD,
-    one: `${ROOTS.DASHBOARD}/one`,
-    two: `${ROOTS.DASHBOARD}/two`,
-    three: `${ROOTS.DASHBOARD}/three`,
-    group: {
-      root: `${ROOTS.DASHBOARD}/group`,
-      five: `${ROOTS.DASHBOARD}/group/five`,
-      six: `${ROOTS.DASHBOARD}/group/six`,
-    },
+  // MAIN
+  main: {
+    root: ROOTS.MAIN,
+    notice: `${ROOTS.MAIN}/notice`,
+    formDownload: `${ROOTS.MAIN}/form-download`,
+    adminManagement: `${ROOTS.MAIN}/admin-management`,
+    schoolManagement: `${ROOTS.MAIN}/school-management`,
+    noticeCreation: `${ROOTS.MAIN}/notice-creation`,
+    formDownloadCreation: `${ROOTS.MAIN}/form-download-creation`,
+    popupNoticeManagement: `${ROOTS.MAIN}/popup-notice-management`,
+    mileageScholarshipApplicationList: `${ROOTS.MAIN}/mileage-scholarship-application-list`,
+    mileageManagement: `${ROOTS.MAIN}/mileage-management`,
+    MDCompletionApplicationList: `${ROOTS.MAIN}/md-completion-application-list`,
+    MDCourseManagement: `${ROOTS.MAIN}/md-course-management`,
+    mileageScholarshipApplication: `${ROOTS.MAIN}/mileage-scholarship-application`,
+    mileageScholarshipApplicationHistory: `${ROOTS.MAIN}/mileage-scholarship-application-history`,
+    MDCompletionApplication: `${ROOTS.MAIN}/md-completion-application`,
+    MDCompletionApplicationHistory: `${ROOTS.MAIN}/md-completion-application-history`,
+    studentRecordManagement: `${ROOTS.MAIN}/student-record-management`,
   },
 };
