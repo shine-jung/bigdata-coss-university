@@ -19,6 +19,7 @@ import { useRouter, useSearchParams } from 'src/routes/hooks';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
+import { useTranslate } from 'src/locales';
 import { useAuthContext } from 'src/auth/hooks';
 import { PATH_AFTER_LOGIN } from 'src/config-global';
 
@@ -28,6 +29,8 @@ import FormProvider, { RHFTextField } from 'src/components/hook-form';
 // ----------------------------------------------------------------------
 
 export default function FirebaseLoginView() {
+  const { t } = useTranslate();
+
   const { login } = useAuthContext();
 
   const router = useRouter();
@@ -41,8 +44,8 @@ export default function FirebaseLoginView() {
   const password = useBoolean();
 
   const LoginSchema = Yup.object().shape({
-    email: Yup.string().required('Email is required').email('Email must be a valid email address'),
-    password: Yup.string().required('Password is required'),
+    email: Yup.string().required(t('login.emailRequired')).email(t('login.emailInvalid')),
+    password: Yup.string().required(t('login.passwordRequired')),
   });
 
   const defaultValues = {
@@ -75,13 +78,13 @@ export default function FirebaseLoginView() {
 
   const renderHead = (
     <Stack spacing={2} sx={{ mb: 5 }}>
-      <Typography variant="h4">Sign in to Minimal</Typography>
+      <Typography variant="h4">{t('login.title')}</Typography>
 
       <Stack direction="row" spacing={0.5}>
-        <Typography variant="body2">New user?</Typography>
+        <Typography variant="body2">{t('login.dontHaveAccount')}</Typography>
 
         <Link component={RouterLink} href={paths.auth.firebase.register} variant="subtitle2">
-          Create an account
+          {t('login.createAccount')}
         </Link>
       </Stack>
     </Stack>
@@ -89,11 +92,11 @@ export default function FirebaseLoginView() {
 
   const renderForm = (
     <Stack spacing={2.5}>
-      <RHFTextField name="email" label="Email address" />
+      <RHFTextField name="email" label={t('login.email')} />
 
       <RHFTextField
         name="password"
-        label="Password"
+        label={t('login.password')}
         type={password.value ? 'text' : 'password'}
         InputProps={{
           endAdornment: (
@@ -114,7 +117,7 @@ export default function FirebaseLoginView() {
         underline="always"
         sx={{ alignSelf: 'flex-end' }}
       >
-        Forgot password?
+        {t('login.forgotPassword')}
       </Link>
 
       <LoadingButton
@@ -125,7 +128,7 @@ export default function FirebaseLoginView() {
         variant="contained"
         loading={isSubmitting}
       >
-        Login
+        {t('login.login')}
       </LoadingButton>
     </Stack>
   );

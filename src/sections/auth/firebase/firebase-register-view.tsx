@@ -19,14 +19,18 @@ import { RouterLink } from 'src/routes/components';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
+import { useTranslate } from 'src/locales';
 import { useAuthContext } from 'src/auth/hooks';
+import { EMAIL_CONTACT } from 'src/config-global';
 
 import Iconify from 'src/components/iconify';
-import FormProvider, { RHFTextField } from 'src/components/hook-form';
+import FormProvider, { RHFTextField, RHFRadioGroup } from 'src/components/hook-form';
 
 // ----------------------------------------------------------------------
 
 export default function FirebaseRegisterView() {
+  const { t } = useTranslate();
+
   const { register } = useAuthContext();
 
   const [errorMsg, setErrorMsg] = useState('');
@@ -36,15 +40,31 @@ export default function FirebaseRegisterView() {
   const password = useBoolean();
 
   const RegisterSchema = Yup.object().shape({
-    name: Yup.string().required('Name required'),
-    email: Yup.string().required('Email is required').email('Email must be a valid email address'),
-    password: Yup.string().required('Password is required'),
+    name: Yup.string()
+      .required(t('register.nameRequired'))
+      .min(2, t('register.nameMinLength'))
+      .max(30, t('register.nameMaxLength')),
+    email: Yup.string().required(t('register.emailRequired')).email(t('register.emailInvalid')),
+    password: Yup.string()
+      .required(t('register.passwordRequired'))
+      .min(6, t('register.passwordLength')),
+    passwordConfirm: Yup.string()
+      .required(t('register.passwordConfirmRequired'))
+      .oneOf([Yup.ref('password')], t('register.passwordMismatch')),
+    role: Yup.string().required(t('register.roleRequired')),
   });
 
   const defaultValues = {
     name: '',
     email: '',
     password: '',
+    passwordConfirm: '',
+    role: 'user',
+    studentNumber: '',
+    department: '',
+    major: '',
+    grade: '',
+    semester: '',
   };
 
   const methods = useForm({
@@ -53,10 +73,13 @@ export default function FirebaseRegisterView() {
   });
 
   const {
+    watch,
     reset,
     handleSubmit,
     formState: { isSubmitting },
   } = methods;
+
+  const isStudent = watch('role') === 'user';
 
   const onSubmit = handleSubmit(async (data) => {
     try {
@@ -77,51 +100,51 @@ export default function FirebaseRegisterView() {
 
   const renderHead = (
     <Stack spacing={2} sx={{ mb: 5, position: 'relative' }}>
-      <Typography variant="h4">Get started absolutely free</Typography>
+      <Typography variant="h4">{t('register.title')}</Typography>
 
       <Stack direction="row" spacing={0.5}>
-        <Typography variant="body2"> Already have an account? </Typography>
+        <Typography variant="body2">{t('register.haveAccount')}</Typography>
 
         <Link href={paths.auth.firebase.login} component={RouterLink} variant="subtitle2">
-          Sign in
+          {t('register.login')}
         </Link>
       </Stack>
     </Stack>
   );
 
-  const renderTerms = (
-    <Typography
-      component="div"
-      sx={{
-        mt: 2.5,
-        textAlign: 'center',
-        typography: 'caption',
-        color: 'text.secondary',
-      }}
-    >
-      {'By signing up, I agree to '}
-      <Link underline="always" color="text.primary">
-        Terms of Service
-      </Link>
-      {' and '}
-      <Link underline="always" color="text.primary">
-        Privacy Policy
-      </Link>
-      .
-    </Typography>
+  const renderStudentForm = (
+    <>
+      <RHFTextField name="studentNumber" label={t('register.studentNumber')} />
+
+      <RHFTextField name="department" label={t('register.department')} />
+
+      <RHFTextField name="major" label={t('register.major')} />
+
+      <Stack spacing={2} direction={{ xs: 'column', sm: 'row' }}>
+        <RHFTextField name="grade" label={t('register.grade')} type="number" />
+
+        <RHFTextField name="semester" label={t('register.semester')} type="number" />
+      </Stack>
+    </>
+  );
+
+  const renderStaffAlert = (
+    <Alert severity="info" sx={{ whiteSpace: 'pre-line' }}>
+      {t('register.staffAlert', { email: EMAIL_CONTACT })}
+    </Alert>
   );
 
   const renderForm = (
     <Stack spacing={2.5}>
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-        <RHFTextField name="name" label="이름" />
+        <RHFTextField name="name" label={t('register.name')} />
       </Stack>
 
-      <RHFTextField name="email" label="이메일" />
+      <RHFTextField name="email" label={t('register.email')} />
 
       <RHFTextField
         name="password"
-        label="비밀번호"
+        label={t('register.password')}
         type={password.value ? 'text' : 'password'}
         InputProps={{
           endAdornment: (
@@ -134,6 +157,33 @@ export default function FirebaseRegisterView() {
         }}
       />
 
+      <RHFTextField
+        name="passwordConfirm"
+        label={t('register.passwordConfirm')}
+        type={password.value ? 'text' : 'password'}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton onClick={password.onToggle} edge="end">
+                <Iconify icon={password.value ? 'solar:eye-bold' : 'solar:eye-closed-bold'} />
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
+      />
+
+      <RHFRadioGroup
+        row
+        name="role"
+        label={t('register.role')}
+        options={[
+          { label: t('register.student'), value: 'user' },
+          { label: t('register.staff'), value: 'staff' },
+        ]}
+      />
+
+      {isStudent ? renderStudentForm : renderStaffAlert}
+
       <LoadingButton
         fullWidth
         color="inherit"
@@ -142,7 +192,7 @@ export default function FirebaseRegisterView() {
         variant="contained"
         loading={isSubmitting}
       >
-        Create account
+        {t('register.register')}
       </LoadingButton>
     </Stack>
   );
@@ -160,8 +210,6 @@ export default function FirebaseRegisterView() {
       <FormProvider methods={methods} onSubmit={onSubmit}>
         {renderForm}
       </FormProvider>
-
-      {renderTerms}
     </>
   );
 }

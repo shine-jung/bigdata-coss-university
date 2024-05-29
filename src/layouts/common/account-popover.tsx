@@ -12,6 +12,7 @@ import Typography from '@mui/material/Typography';
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
 
+import { useTranslate } from 'src/locales';
 import { useAuthContext } from 'src/auth/hooks';
 
 import { varHover } from 'src/components/animate';
@@ -21,11 +22,11 @@ import CustomPopover, { usePopover } from 'src/components/custom-popover';
 
 const OPTIONS = [
   {
-    label: '홈',
+    label: 'account.home',
     linkTo: paths.main.notice,
   },
   {
-    label: '프로필',
+    label: 'account.profile',
     linkTo: paths.main.studentRecordManagement,
   },
 ];
@@ -33,6 +34,8 @@ const OPTIONS = [
 // ----------------------------------------------------------------------
 
 export default function AccountPopover() {
+  const { t } = useTranslate();
+
   const router = useRouter();
 
   const { logout, user } = useAuthContext();
@@ -101,7 +104,7 @@ export default function AccountPopover() {
         <Stack sx={{ p: 1 }}>
           {OPTIONS.map((option) => (
             <MenuItem key={option.label} onClick={() => handleClickItem(option.linkTo)}>
-              {option.label}
+              {t(option.label)}
             </MenuItem>
           ))}
         </Stack>
@@ -112,7 +115,7 @@ export default function AccountPopover() {
           onClick={handleLogout}
           sx={{ m: 1, fontWeight: 'fontWeightBold', color: 'error.main' }}
         >
-          로그아웃
+          {t('logout')}
         </MenuItem>
       </CustomPopover>
     </>

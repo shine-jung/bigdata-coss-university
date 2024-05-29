@@ -1,6 +1,9 @@
 /* eslint-disable perfectionist/sort-imports */
 import 'src/global.css';
 
+// i18n
+import 'src/locales/i18n';
+
 // ----------------------------------------------------------------------
 
 import ThemeProvider from 'src/theme';
@@ -10,6 +13,7 @@ import ProgressBar from 'src/components/progress-bar';
 import { MotionLazy } from 'src/components/animate/motion-lazy';
 import { SettingsDrawer, SettingsProvider } from 'src/components/settings';
 import { AuthProvider } from 'src/auth/context/firebase';
+import { LocalizationProvider } from 'src/locales';
 
 // ----------------------------------------------------------------------
 
@@ -42,24 +46,26 @@ export default function RootLayout({ children }: Props) {
     <html lang="ko" className={primaryFont.className}>
       <body>
         <AuthProvider>
-          <SettingsProvider
-            defaultSettings={{
-              themeMode: 'light', // 'light' | 'dark'
-              themeDirection: 'ltr', //  'rtl' | 'ltr'
-              themeContrast: 'default', // 'default' | 'bold'
-              themeLayout: 'vertical', // 'vertical' | 'horizontal' | 'mini'
-              themeColorPresets: 'default', // 'default' | 'cyan' | 'purple' | 'blue' | 'orange' | 'red'
-              themeStretch: false,
-            }}
-          >
-            <ThemeProvider>
-              <MotionLazy>
-                <SettingsDrawer />
-                <ProgressBar />
-                {children}
-              </MotionLazy>
-            </ThemeProvider>
-          </SettingsProvider>
+          <LocalizationProvider>
+            <SettingsProvider
+              defaultSettings={{
+                themeMode: 'light', // 'light' | 'dark'
+                themeDirection: 'ltr', //  'rtl' | 'ltr'
+                themeContrast: 'default', // 'default' | 'bold'
+                themeLayout: 'vertical', // 'vertical' | 'horizontal' | 'mini'
+                themeColorPresets: 'default', // 'default' | 'cyan' | 'purple' | 'blue' | 'orange' | 'red'
+                themeStretch: false,
+              }}
+            >
+              <ThemeProvider>
+                <MotionLazy>
+                  <SettingsDrawer />
+                  <ProgressBar />
+                  {children}
+                </MotionLazy>
+              </ThemeProvider>
+            </SettingsProvider>
+          </LocalizationProvider>
         </AuthProvider>
       </body>
     </html>

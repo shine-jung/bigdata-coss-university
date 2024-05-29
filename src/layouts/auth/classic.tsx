@@ -1,4 +1,5 @@
-import Box from '@mui/material/Box';
+import Lottie from 'react-lottie-player';
+
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { alpha, useTheme } from '@mui/material/styles';
@@ -6,6 +7,8 @@ import { alpha, useTheme } from '@mui/material/styles';
 import { useResponsive } from 'src/hooks/use-responsive';
 
 import { bgGradient } from 'src/theme/css';
+import { useTranslate } from 'src/locales';
+import lottieJson from 'src/assets/lotties/school-lottie1.json';
 
 import Logo from 'src/components/logo';
 
@@ -18,6 +21,8 @@ type Props = {
 };
 
 export default function AuthClassicLayout({ children, image, title }: Props) {
+  const { t } = useTranslate();
+
   const theme = useTheme();
 
   const mdUp = useResponsive('up', 'md');
@@ -64,21 +69,10 @@ export default function AuthClassicLayout({ children, image, title }: Props) {
       }}
     >
       <Typography variant="h3" sx={{ maxWidth: 480, textAlign: 'center' }}>
-        {title || 'Hi, Welcome back'}
+        {title || t('title')}
       </Typography>
 
-      <Box
-        component="img"
-        alt="auth"
-        src={image || '/assets/illustrations/illustration_dashboard.png'}
-        sx={{
-          maxWidth: {
-            xs: 480,
-            lg: 560,
-            xl: 720,
-          },
-        }}
-      />
+      <Lottie loop animationData={lottieJson} play style={{ width: 480 }} />
     </Stack>
   );
 
