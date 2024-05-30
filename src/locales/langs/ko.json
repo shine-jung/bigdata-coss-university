@@ -29,6 +29,28 @@
     "searchClearPromptMessage": "검색을 지우시겠습니까?",
     "searchClearPromptTitle": "검색 지우기"
   },
+  "nav": {
+    "board": "게시판",
+    "notice": "공지사항",
+    "formDownload": "양식 다운로드",
+    "admin": "관리자",
+    "adminAccountManagement": "관리자 계정 관리",
+    "schoolManagement": "학교 관리",
+    "noticeCreation": "공지사항 작성",
+    "formUpload": "양식 업로드",
+    "popupNoticeManagement": "팝업 공지 관리",
+    "mileageScholarshipApplicationList": "마일리지 장학금 신청 목록",
+    "mileageManagement": "마일리지 항목 관리",
+    "MDCompletionApplicationList": "MD 이수 신청 목록",
+    "MDCourseManagement": "MD 과정 관리",
+    "mileageScholarship": "마일리지 장학금",
+    "mileageScholarshipApplication": "마일리지 장학금 신청",
+    "mileageScholarshipApplicationHistory": "마일리지 장학금 신청 내역",
+    "MDCompletion": "마이크로디그리(MD) 이수",
+    "MDCompletionApplication": "MD 이수 신청",
+    "MDCompletionApplicationHistory": "MD 이수 신청 내역",
+    "studentRecordManagement": "학적 관리"
+  },
   "logout": "로그아웃",
   "login": {
     "title": "로그인",
@@ -86,7 +108,7 @@
     "register": "회원가입",
     "registerSuccess": "회원가입이 완료되었습니다",
     "registerError": "회원가입 중 오류가 발생했습니다",
-    "staffAlert": "교직원 계정은 관리자의 승인이 필요합니다.\n회원가입 후 {{email}}로 권한 요청 메일을 보내주세요.\n메일 내용은 자유롭게 가입 사유를 작성해주세요."
+    "staffAlert": "교직원 계정은 관리자의 승인이 필요합니다.\n회원가입 후 {{email}}로 권한 요청 메일을 보내주세요.\n메일 내용에는 권한 요청 사유를 적어주시면 됩니다."
   },
   "account": {
     "home": "홈",

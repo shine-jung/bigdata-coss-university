@@ -29,6 +29,28 @@
     "searchClearPromptMessage": "Are you sure you want to clear the search?",
     "searchClearPromptTitle": "Clear search"
   },
+  "nav": {
+    "board": "Board",
+    "notice": "Notice",
+    "formDownload": "Form Download",
+    "admin": "Admin",
+    "adminAccountManagement": "Admin Account Management",
+    "schoolManagement": "School Management",
+    "noticeCreation": "Create Notice",
+    "formUpload": "Upload Form",
+    "popupNoticeManagement": "Popup Notice Management",
+    "mileageScholarshipApplicationList": "Mileage Scholarship Application List",
+    "mileageManagement": "Mileage Item Management",
+    "MDCompletionApplicationList": "MD Completion Application List",
+    "MDCourseManagement": "MD Course Management",
+    "mileageScholarship": "Mileage Scholarship",
+    "mileageScholarshipApplication": "Apply for Mileage Scholarship",
+    "mileageScholarshipApplicationHistory": "Mileage Scholarship Application History",
+    "MDCompletion": "MicroDegree (MD) Completion",
+    "MDCompletionApplication": "Apply for MD Completion",
+    "MDCompletionApplicationHistory": "MD Completion Application History",
+    "studentRecordManagement": "Student Record Management"
+  },
   "logout": "Logout",
   "login": {
     "title": "Login",

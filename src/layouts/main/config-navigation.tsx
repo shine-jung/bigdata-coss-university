@@ -2,6 +2,8 @@ import { useMemo } from 'react';
 
 import { paths } from 'src/routes/paths';
 
+import { useTranslate } from 'src/locales';
+
 import Iconify from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
@@ -22,26 +24,31 @@ const ICONS = {
   settings: icon('widget-add-bold-duotone'),
 };
 
-const boardData = {
-  subheader: '게시판',
-  items: [
-    {
-      title: '공지사항',
-      path: paths.main.notice,
-      icon: ICONS.notice,
-    },
-    {
-      title: '양식 다운로드',
-      path: paths.main.formDownload,
-      icon: ICONS.fileDownload,
-    },
-  ],
-};
-
 // ----------------------------------------------------------------------
 
 export function useNavData(currentRole?: string) {
+  const { t } = useTranslate();
+
   const isAdmin = currentRole === 'admin';
+
+  const boardData = useMemo(
+    () => ({
+      subheader: t('nav.board'),
+      items: [
+        {
+          title: t('nav.notice'),
+          path: paths.main.notice,
+          icon: ICONS.notice,
+        },
+        {
+          title: t('nav.formDownload'),
+          path: paths.main.formDownload,
+          icon: ICONS.fileDownload,
+        },
+      ],
+    }),
+    [t]
+  );
 
   const data = useMemo(
     () => [
@@ -49,50 +56,50 @@ export function useNavData(currentRole?: string) {
       ...(isAdmin
         ? [
             {
-              subheader: '관리자',
+              subheader: t('nav.admin'),
               items: [
                 {
-                  title: '관리자 계정 관리',
+                  title: t('nav.adminAccountManagement'),
                   path: paths.main.adminManagement,
                   icon: ICONS.admin,
                 },
                 {
-                  title: '학교 관리',
+                  title: t('nav.schoolManagement'),
                   path: paths.main.schoolManagement,
                   icon: ICONS.school,
                 },
                 {
-                  title: '공지사항 작성',
+                  title: t('nav.noticeCreation'),
                   path: paths.main.noticeCreation,
                   icon: ICONS.write,
                 },
                 {
-                  title: '양식 업로드',
+                  title: t('nav.formUpload'),
                   path: paths.main.formDownloadCreation,
                   icon: ICONS.fileUpload,
                 },
                 {
-                  title: '팝업 공지 관리',
+                  title: t('nav.popupNoticeManagement'),
                   path: paths.main.popupNoticeManagement,
                   icon: ICONS.popup,
                 },
                 {
-                  title: '마일리지 장학금 신청 목록',
+                  title: t('nav.mileageScholarshipApplicationList'),
                   path: paths.main.mileageScholarshipApplicationList,
                   icon: ICONS.scholarship,
                 },
                 {
-                  title: '마일리지 항목 관리',
+                  title: t('nav.mileageManagement'),
                   path: paths.main.mileageManagement,
                   icon: ICONS.settings,
                 },
                 {
-                  title: 'MD 이수 신청 목록',
+                  title: t('nav.MDCompletionApplicationList'),
                   path: paths.main.MDCompletionApplicationList,
                   icon: ICONS.degree,
                 },
                 {
-                  title: 'MD 과정 관리',
+                  title: t('nav.MDCourseManagement'),
                   path: paths.main.MDCourseManagement,
                   icon: ICONS.settings,
                 },
@@ -101,40 +108,40 @@ export function useNavData(currentRole?: string) {
           ]
         : [
             {
-              subheader: '마일리지 장학금',
+              subheader: t('nav.mileageScholarship'),
               items: [
                 {
-                  title: '마일리지 장학금 신청',
+                  title: t('nav.mileageScholarshipApplication'),
                   path: paths.main.mileageScholarshipApplication,
                   icon: ICONS.write,
                 },
                 {
-                  title: '마일리지 장학금 신청 내역',
+                  title: t('nav.mileageScholarshipApplicationHistory'),
                   path: paths.main.mileageScholarshipApplicationHistory,
                   icon: ICONS.scholarship,
                 },
               ],
             },
             {
-              subheader: '마이크로디그리(MD) 이수',
+              subheader: t('nav.MDCompletion'),
               items: [
                 {
-                  title: 'MD 이수 신청',
+                  title: t('nav.MDCompletionApplication'),
                   path: paths.main.MDCompletionApplication,
                   icon: ICONS.write,
                 },
                 {
-                  title: 'MD 이수 신청 내역',
+                  title: t('nav.MDCompletionApplicationHistory'),
                   path: paths.main.MDCompletionApplicationHistory,
                   icon: ICONS.degree,
                 },
               ],
             },
             {
-              subheader: '학적 관리',
+              subheader: t('nav.studentRecordManagement'),
               items: [
                 {
-                  title: '학적 관리',
+                  title: t('nav.studentRecordManagement'),
                   path: paths.main.studentRecordManagement,
                   icon: ICONS.user,
                 },
@@ -142,7 +149,7 @@ export function useNavData(currentRole?: string) {
             },
           ]),
     ],
-    [isAdmin]
+    [isAdmin, t, boardData]
   );
 
   return data;
