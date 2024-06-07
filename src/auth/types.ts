@@ -24,18 +24,6 @@ export type AuthStateType = {
 // ----------------------------------------------------------------------
 
 type CanRemove = {
-  login?: (email: string, password: string) => Promise<void>;
-  register?: (
-    email: string,
-    password: string,
-    firstName: string,
-    lastName: string
-  ) => Promise<void>;
-  //
-  loginWithGoogle?: () => Promise<void>;
-  loginWithGithub?: () => Promise<void>;
-  loginWithTwitter?: () => Promise<void>;
-  //
   loginWithPopup?: (options?: PopupLoginOptions) => Promise<void>;
   loginWithRedirect?: (options?: RedirectLoginOptions) => Promise<void>;
   //
@@ -52,8 +40,19 @@ export type FirebaseContextType = CanRemove & {
   loading: boolean;
   authenticated: boolean;
   unauthenticated: boolean;
-  logout: () => Promise<void>;
-  forgotPassword?: (email: string) => Promise<void>;
   login: (email: string, password: string) => Promise<void>;
-  register: (email: string, password: string, name: string) => Promise<void>;
+  logout: () => Promise<void>;
+  register: (
+    email: string,
+    password: string,
+    name: string,
+    university: string,
+    role: string,
+    studentNumber: string | undefined,
+    department: string | undefined,
+    major: string | undefined,
+    grade: string | undefined,
+    semester: string | undefined
+  ) => Promise<void>;
+  forgotPassword: (email: string) => Promise<void>;
 };

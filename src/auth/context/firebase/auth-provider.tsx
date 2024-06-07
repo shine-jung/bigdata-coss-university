@@ -92,6 +92,8 @@ export function AuthProvider({ children }: Props) {
                 user: null,
               },
             });
+            await signOut(AUTH);
+            alert('이메일 인증을 완료해주세요.\nPlease verify your email.');
           }
         } else {
           dispatch({
@@ -123,24 +125,42 @@ export function AuthProvider({ children }: Props) {
   }, []);
 
   // REGISTER
-  const register = useCallback(async (email: string, password: string, name: string) => {
-    const newUser = await createUserWithEmailAndPassword(AUTH, email, password);
+  const register = useCallback(
+    async (
+      email: string,
+      password: string,
+      name: string,
+      university: string,
+      role: string,
+      studentNumber: string | undefined,
+      department: string | undefined,
+      major: string | undefined,
+      grade: string | undefined,
+      semester: string | undefined
+    ) => {
+      const newUser = await createUserWithEmailAndPassword(AUTH, email, password);
 
-    await sendEmailVerification(newUser.user);
+      await sendEmailVerification(newUser.user);
 
-    const userProfile = doc(collection(DB, 'users'), newUser.user?.uid);
+      const userProfile = doc(collection(DB, 'users'), newUser.user?.uid);
 
-    await setDoc(userProfile, {
-      uid: newUser.user?.uid,
-      email,
-      displayName: name,
-      role: 'user',
-      createdAt: Timestamp.now(),
-      updatedAt: Timestamp.now(),
-    });
-
-    await signOut(AUTH);
-  }, []);
+      await setDoc(userProfile, {
+        uid: newUser.user?.uid,
+        email,
+        displayName: name,
+        university,
+        role,
+        studentNumber,
+        department,
+        major,
+        grade,
+        semester,
+        createdAt: Timestamp.now(),
+        updatedAt: Timestamp.now(),
+      });
+    },
+    []
+  );
 
   // LOGOUT
   const logout = useCallback(async () => {

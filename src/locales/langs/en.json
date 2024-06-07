@@ -96,6 +96,8 @@
     "passwordConfirm": "Confirm password",
     "passwordConfirmRequired": "Confirm password is required",
     "passwordMismatch": "Passwords do not match",
+    "university": "University",
+    "universityRequired": "Select a university",
     "role": "Type",
     "student": "Student",
     "staff": "Staff",
@@ -109,6 +111,21 @@
     "registerSuccess": "Registration successful",
     "registerError": "Error registering",
     "staffAlert": "Staff account requires administrator approval.\nAfter registration, please send an email to {{email}} requesting permission.\nPlease write freely about the reason for registration in the email."
+  },
+  "verifyEmail": {
+    "title": "Please check your email!",
+    "subTitle": "We have sent a confirmation link to",
+    "description": "Please check your inbox/spam.",
+    "returnSignIn": "Return to sign in"
+  },
+  "forgotPassword": {
+    "title": "Forgot your password?",
+    "subTitle": "Please enter the email address associated with your account and We will email you a link to reset your password.",
+    "email": "Email",
+    "emailRequired": "Email is required",
+    "emailInvalid": "Invalid email",
+    "sendRequest": "Send request",
+    "returnSignIn": "Return to sign in"
   },
   "account": {
     "home": "Home",

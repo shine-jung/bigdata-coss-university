@@ -8,6 +8,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import Link from '@mui/material/Link';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
+import { MenuItem } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -24,9 +25,14 @@ import { useAuthContext } from 'src/auth/hooks';
 import { EMAIL_CONTACT } from 'src/config-global';
 
 import Iconify from 'src/components/iconify';
-import FormProvider, { RHFTextField, RHFRadioGroup } from 'src/components/hook-form';
+import FormProvider, { RHFSelect, RHFTextField, RHFRadioGroup } from 'src/components/hook-form';
 
 // ----------------------------------------------------------------------
+
+const UNIVERSITY_OPTIONS = [
+  { value: 'HGU', label: '한동대학교' },
+  { value: 'SNU', label: '서울대학교' },
+];
 
 export default function FirebaseRegisterView() {
   const { t } = useTranslate();
@@ -51,7 +57,13 @@ export default function FirebaseRegisterView() {
     passwordConfirm: Yup.string()
       .required(t('register.passwordConfirmRequired'))
       .oneOf([Yup.ref('password')], t('register.passwordMismatch')),
+    university: Yup.string().required(t('register.universityRequired')),
     role: Yup.string().required(t('register.roleRequired')),
+    studentNumber: Yup.string(),
+    department: Yup.string(),
+    major: Yup.string(),
+    grade: Yup.string(),
+    semester: Yup.string(),
   });
 
   const defaultValues = {
@@ -59,6 +71,7 @@ export default function FirebaseRegisterView() {
     email: '',
     password: '',
     passwordConfirm: '',
+    university: '',
     role: 'user',
     studentNumber: '',
     department: '',
@@ -83,7 +96,18 @@ export default function FirebaseRegisterView() {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      await register?.(data.email, data.password, data.name);
+      await register(
+        data.email,
+        data.password,
+        data.name,
+        data.university,
+        data.role,
+        data.studentNumber,
+        data.department,
+        data.major,
+        data.grade,
+        data.semester
+      );
       const searchParams = new URLSearchParams({
         email: data.email,
       }).toString();
@@ -136,9 +160,15 @@ export default function FirebaseRegisterView() {
 
   const renderForm = (
     <Stack spacing={2.5}>
-      <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-        <RHFTextField name="name" label={t('register.name')} />
-      </Stack>
+      <RHFSelect name="university" label={t('register.university')}>
+        {UNIVERSITY_OPTIONS.map((option) => (
+          <MenuItem key={option.value} value={option.value}>
+            {option.label}
+          </MenuItem>
+        ))}
+      </RHFSelect>
+
+      <RHFTextField name="name" label={t('register.name')} />
 
       <RHFTextField name="email" label={t('register.email')} />
 

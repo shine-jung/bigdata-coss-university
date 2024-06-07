@@ -9,6 +9,7 @@ import { paths } from 'src/routes/paths';
 import { useSearchParams } from 'src/routes/hooks';
 import { RouterLink } from 'src/routes/components';
 
+import { useTranslate } from 'src/locales';
 import { EmailInboxIcon } from 'src/assets/icons';
 
 import Iconify from 'src/components/iconify';
@@ -16,6 +17,8 @@ import Iconify from 'src/components/iconify';
 // ----------------------------------------------------------------------
 
 export default function FirebaseVerifyView() {
+  const { t } = useTranslate();
+
   const searchParams = useSearchParams();
 
   const email = searchParams.get('email');
@@ -25,15 +28,15 @@ export default function FirebaseVerifyView() {
       <EmailInboxIcon sx={{ mb: 5, height: 96 }} />
 
       <Typography variant="h3" sx={{ mb: 1 }}>
-        Please check your email!
+        {t('verifyEmail.title')}
       </Typography>
 
       <Stack spacing={1} sx={{ color: 'text.secondary', typography: 'body2', mb: 5 }}>
-        <Box component="span"> We have sent a confirmation link to</Box>
+        <Box component="span">{t('verifyEmail.subTitle')}</Box>
         <Box component="strong" sx={{ color: 'text.primary' }}>
           {email}
         </Box>
-        <Box component="div">Please check your inbox/spam.</Box>
+        <Box component="div">{t('verifyEmail.description')}</Box>
       </Stack>
     </>
   );
@@ -51,7 +54,7 @@ export default function FirebaseVerifyView() {
         startIcon={<Iconify icon="eva:arrow-ios-back-fill" />}
         sx={{ alignSelf: 'center' }}
       >
-        Return to sign in
+        {t('verifyEmail.returnSignIn')}
       </Button>
     </>
   );

@@ -13,6 +13,7 @@ import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
 import { RouterLink } from 'src/routes/components';
 
+import { useTranslate } from 'src/locales';
 import { useAuthContext } from 'src/auth/hooks';
 import { PasswordIcon } from 'src/assets/icons';
 
@@ -22,12 +23,16 @@ import FormProvider, { RHFTextField } from 'src/components/hook-form';
 // ----------------------------------------------------------------------
 
 export default function FirebaseForgotPasswordView() {
+  const { t } = useTranslate();
+
   const { forgotPassword } = useAuthContext();
 
   const router = useRouter();
 
   const ForgotPasswordSchema = Yup.object().shape({
-    email: Yup.string().required('Email is required').email('Email must be a valid email address'),
+    email: Yup.string()
+      .required(t('forgotPassword.emailRequired'))
+      .email(t('forgotPassword.emailInvalid')),
   });
 
   const defaultValues = {
@@ -61,7 +66,7 @@ export default function FirebaseForgotPasswordView() {
 
   const renderForm = (
     <Stack spacing={3} alignItems="center">
-      <RHFTextField name="email" label="Email address" />
+      <RHFTextField name="email" label={t('forgotPassword.email')} />
 
       <LoadingButton
         fullWidth
@@ -70,7 +75,7 @@ export default function FirebaseForgotPasswordView() {
         variant="contained"
         loading={isSubmitting}
       >
-        Send Request
+        {t('forgotPassword.sendRequest')}
       </LoadingButton>
 
       <Link
@@ -84,7 +89,8 @@ export default function FirebaseForgotPasswordView() {
         }}
       >
         <Iconify icon="eva:arrow-ios-back-fill" width={16} />
-        Return to sign in
+
+        {t('forgotPassword.returnSignIn')}
       </Link>
     </Stack>
   );
@@ -94,11 +100,10 @@ export default function FirebaseForgotPasswordView() {
       <PasswordIcon sx={{ height: 96 }} />
 
       <Stack spacing={1} sx={{ mt: 3, mb: 5 }}>
-        <Typography variant="h3">Forgot your password?</Typography>
+        <Typography variant="h3">{t('forgotPassword.title')}</Typography>
 
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          Please enter the email address associated with your account and We will email you a link
-          to reset your password.
+          {t('forgotPassword.subTitle')}
         </Typography>
       </Stack>
     </>
