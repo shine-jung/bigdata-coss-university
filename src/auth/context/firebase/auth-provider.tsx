@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useEffect, useReducer, useCallback } from 'react';
-import { doc, getDoc, setDoc, Timestamp, collection, getFirestore } from 'firebase/firestore';
+import { doc, getDoc, setDoc, Timestamp, collection } from 'firebase/firestore';
 import {
   signOut,
   getAuth,
@@ -12,7 +12,7 @@ import {
   createUserWithEmailAndPassword,
 } from 'firebase/auth';
 
-import { firebaseApp } from './lib';
+import { DB, firebaseApp } from './lib';
 import { AuthContext } from './auth-context';
 import { AuthUserType, ActionMapType, AuthStateType } from '../../types';
 
@@ -25,8 +25,6 @@ import { AuthUserType, ActionMapType, AuthStateType } from '../../types';
 // ----------------------------------------------------------------------
 
 const AUTH = getAuth(firebaseApp);
-
-const DB = getFirestore(firebaseApp);
 
 enum Types {
   INITIAL = 'INITIAL',

@@ -6,6 +6,8 @@ import dynamic from 'next/dynamic';
 import { alpha } from '@mui/material/styles';
 import Skeleton from '@mui/material/Skeleton';
 
+import { Stack } from '@mui/material';
+import { useTranslate } from 'src/locales';
 import { EditorProps } from './types';
 import { StyledEditor } from './styles';
 import Toolbar, { formats } from './toolbar';
@@ -37,6 +39,8 @@ export default function Editor({
   sx,
   ...other
 }: EditorProps) {
+  const { t } = useTranslate();
+
   const modules = {
     toolbar: {
       container: `#${id}`,
@@ -53,7 +57,7 @@ export default function Editor({
   };
 
   return (
-    <>
+    <Stack>
       <StyledEditor
         sx={{
           ...(error && {
@@ -70,12 +74,12 @@ export default function Editor({
         <ReactQuill
           modules={modules}
           formats={formats}
-          placeholder="Write something awesome..."
+          placeholder={t('editor.placeholder')}
           {...other}
         />
       </StyledEditor>
 
       {helperText && helperText}
-    </>
+    </Stack>
   );
 }

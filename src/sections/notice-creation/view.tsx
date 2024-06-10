@@ -1,27 +1,55 @@
 'use client';
 
-import Box from '@mui/material/Box';
-import { alpha } from '@mui/material/styles';
+import axios from 'axios';
+
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
+
+import { paths } from 'src/routes/paths';
+import { useRouter } from 'src/routes/hooks';
+
+import { useTranslate } from 'src/locales';
+import { useAuthContext } from 'src/auth/hooks';
+
+import { useSnackbar } from 'src/components/snackbar';
+
+import NoticeForm from './form';
 
 // ----------------------------------------------------------------------
 
 export default function NoticeCreationView() {
+  const { t } = useTranslate();
+
+  const { user } = useAuthContext();
+
+  const router = useRouter();
+
+  const { enqueueSnackbar } = useSnackbar();
+
+  const handleAddNotice = async (title: string, content: string) => {
+    try {
+      await axios.post('/api/notices', {
+        universityCode: user?.university,
+        title,
+        content,
+        author: user?.displayName,
+      });
+
+      router.push(paths.main.notice);
+      enqueueSnackbar(t('notice.createNoticeSuccess'), { variant: 'success' });
+    } catch (error) {
+      console.error('공지사항 추가 중 오류가 발생했습니다:', error);
+      enqueueSnackbar(t('notice.createNoticeError'), { variant: 'error' });
+    }
+  };
+
   return (
     <Container>
-      <Typography variant="h4">공지사항 작성</Typography>
+      <Typography variant="h4" mb={5}>
+        {t('nav.noticeCreation')}
+      </Typography>
 
-      <Box
-        sx={{
-          mt: 5,
-          width: 1,
-          height: 320,
-          borderRadius: 2,
-          bgcolor: (theme) => alpha(theme.palette.grey[500], 0.04),
-          border: (theme) => `dashed 1px ${theme.palette.divider}`,
-        }}
-      />
+      <NoticeForm onAddNotice={handleAddNotice} />
     </Container>
   );
 }

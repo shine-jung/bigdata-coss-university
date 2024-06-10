@@ -129,6 +129,35 @@
   },
   "account": {
     "home": "Home",
-    "profile": "Profile"
+    "profile": "Profile",
+    "contact": "Contact",
+    "staffAlert": "Staff account requires administrator approval.\nPlease send an email to {{email}} requesting permission.\nPlease write freely about the reason for registration in the email."
+  },
+  "university": {
+    "HGU": "Handong Global University",
+    "SNU": "Seoul National University"
+  },
+  "notice": {
+    "title": "Title",
+    "titleRequired": "Title is required",
+    "content": "Content",
+    "contentRequired": "Content is required",
+    "author": "Author",
+    "createdAt": "Created at",
+    "updatedAt": "Updated at",
+    "noNotice": "No notices",
+    "createNotice": "Create notice",
+    "editNotice": "Edit notice",
+    "deleteNotice": "Delete notice",
+    "deleteNoticePrompt": "Are you sure you want to delete the notice?",
+    "deleteNoticeSuccess": "Notice has been deleted",
+    "deleteNoticeError": "Error deleting notice",
+    "createNoticeSuccess": "Notice has been created",
+    "createNoticeError": "Error creating notice",
+    "editNoticeSuccess": "Notice has been edited",
+    "editNoticeError": "Error editing notice"
+  },
+  "editor": {
+    "placeholder": "Write content here..."
   }
 }

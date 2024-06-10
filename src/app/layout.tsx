@@ -14,6 +14,7 @@ import { MotionLazy } from 'src/components/animate/motion-lazy';
 import { SettingsDrawer, SettingsProvider } from 'src/components/settings';
 import { AuthProvider } from 'src/auth/context/firebase';
 import { LocalizationProvider } from 'src/locales';
+import SnackbarProvider from 'src/components/snackbar/snackbar-provider';
 
 // ----------------------------------------------------------------------
 
@@ -59,9 +60,11 @@ export default function RootLayout({ children }: Props) {
             >
               <ThemeProvider>
                 <MotionLazy>
-                  <SettingsDrawer />
-                  <ProgressBar />
-                  {children}
+                  <SnackbarProvider>
+                    <SettingsDrawer />
+                    <ProgressBar />
+                    {children}
+                  </SnackbarProvider>
                 </MotionLazy>
               </ThemeProvider>
             </SettingsProvider>

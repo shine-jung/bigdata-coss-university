@@ -1,3 +1,4 @@
+import { Timestamp } from 'firebase/firestore';
 import { format, getTime, formatDistanceToNow } from 'date-fns';
 
 // ----------------------------------------------------------------------
@@ -49,4 +50,8 @@ export function isAfter(startDate: Date | null, endDate: Date | null) {
     startDate && endDate ? new Date(startDate).getTime() > new Date(endDate).getTime() : false;
 
   return results;
+}
+
+export function fTimestampToDateTime(date: Timestamp) {
+  return date ? format(date.toDate(), 'yyyy-MM-dd HH:mm') : '';
 }
