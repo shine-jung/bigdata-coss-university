@@ -179,6 +179,7 @@ export function AuthProvider({ children }: Props) {
   const memoizedValue = useMemo(
     () => ({
       user: state.user,
+      isAdmin: state.user?.role === 'admin',
       method: 'firebase',
       loading: status === 'loading',
       authenticated: status === 'authenticated',

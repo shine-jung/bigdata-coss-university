@@ -19,9 +19,9 @@ import HeaderShadow from '../common/header-shadow';
 function NavHorizontal() {
   const theme = useTheme();
 
-  const { user } = useAuthContext();
+  const { user, isAdmin } = useAuthContext();
 
-  const navData = useNavData(user?.role);
+  const navData = useNavData(isAdmin);
 
   return (
     <AppBar

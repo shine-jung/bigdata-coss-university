@@ -26,10 +26,8 @@ const ICONS = {
 
 // ----------------------------------------------------------------------
 
-export function useNavData(currentRole?: string) {
+export function useNavData(isAdmin: boolean) {
   const { t } = useTranslate();
-
-  const isAdmin = currentRole === 'admin';
 
   const boardData = useMemo(
     () => ({

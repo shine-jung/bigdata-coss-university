@@ -41,9 +41,9 @@ function Searchbar() {
 
   const [searchQuery, setSearchQuery] = useState('');
 
-  const { user } = useAuthContext();
+  const { isAdmin } = useAuthContext();
 
-  const navData = useNavData(user?.role);
+  const navData = useNavData(isAdmin);
 
   const handleClose = useCallback(() => {
     search.onFalse();

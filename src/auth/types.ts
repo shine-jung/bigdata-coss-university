@@ -36,6 +36,7 @@ type CanRemove = {
 
 export type FirebaseContextType = CanRemove & {
   user: AuthUserType;
+  isAdmin: boolean;
   method: string;
   loading: boolean;
   authenticated: boolean;

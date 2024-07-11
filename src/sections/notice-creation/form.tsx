@@ -6,14 +6,19 @@ import { LoadingButton } from '@mui/lab';
 import { Stack, Backdrop, CircularProgress } from '@mui/material';
 
 import { useTranslate } from 'src/locales';
+import { Notice } from 'src/domain/notice/notice';
 
 import FormProvider from 'src/components/hook-form/form-provider';
 import { RHFEditor, RHFTextField } from 'src/components/hook-form';
 
 const NoticeForm = ({
   onAddNotice,
+  notice,
+  isEditMode,
 }: {
   onAddNotice: (title: string, content: string) => Promise<void>;
+  notice?: Notice;
+  isEditMode?: boolean;
 }) => {
   const { t } = useTranslate();
 
@@ -23,8 +28,8 @@ const NoticeForm = ({
   });
 
   const defaultValues = {
-    title: '',
-    content: '',
+    title: notice?.title || '',
+    content: notice?.content || '',
   };
 
   const methods = useForm({
@@ -40,8 +45,10 @@ const NoticeForm = ({
 
   const onSubmit = handleSubmit(async (data) => {
     await onAddNotice(data.title, data.content);
-    setValue('title', '');
-    setValue('content', '');
+    if (!isEditMode) {
+      setValue('title', '');
+      setValue('content', '');
+    }
   });
 
   return (
@@ -65,7 +72,7 @@ const NoticeForm = ({
             loading={isSubmitting}
             sx={{ alignSelf: 'flex-start' }}
           >
-            {t('notice.createNotice')}
+            {t(isEditMode ? 'notice.editNotice' : 'notice.createNotice')}
           </LoadingButton>
         </Stack>
       </FormProvider>

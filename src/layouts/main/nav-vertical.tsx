@@ -27,13 +27,13 @@ type Props = {
 };
 
 export default function NavVertical({ openNav, onCloseNav }: Props) {
-  const { user } = useAuthContext();
+  const { user, isAdmin } = useAuthContext();
 
   const pathname = usePathname();
 
   const lgUp = useResponsive('up', 'lg');
 
-  const navData = useNavData(user?.role);
+  const navData = useNavData(isAdmin);
 
   useEffect(() => {
     if (openNav) {
