@@ -64,7 +64,6 @@ export function RHFUpload({ name, multiple, helperText, ...other }: Props) {
         multiple ? (
           <Upload
             multiple
-            accept={{ 'image/*': [] }}
             files={field.value}
             error={!!error}
             helperText={
@@ -78,7 +77,6 @@ export function RHFUpload({ name, multiple, helperText, ...other }: Props) {
           />
         ) : (
           <Upload
-            accept={{ 'image/*': [] }}
             file={field.value}
             error={!!error}
             helperText={

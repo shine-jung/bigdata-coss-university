@@ -7,6 +7,7 @@ import { alpha } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 
+import { useTranslate } from 'src/locales';
 import { UploadIllustration } from 'src/assets/illustrations';
 
 import Iconify from '../iconify';
@@ -24,6 +25,7 @@ export default function Upload({
   helperText,
   //
   file,
+  filename,
   onDelete,
   //
   files,
@@ -34,6 +36,8 @@ export default function Upload({
   sx,
   ...other
 }: UploadProps) {
+  const { t } = useTranslate();
+
   const { getRootProps, getInputProps, isDragActive, isDragReject, fileRejections } = useDropzone({
     multiple,
     disabled,
@@ -50,9 +54,9 @@ export default function Upload({
     <Stack spacing={3} alignItems="center" justifyContent="center" flexWrap="wrap">
       <UploadIllustration sx={{ width: 1, maxWidth: 200 }} />
       <Stack spacing={1} sx={{ textAlign: 'center' }}>
-        <Typography variant="h6">Drop or Select file</Typography>
+        <Typography variant="h6">{t('upload.dropOrSelectFile')}</Typography>
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          Drop files here or click
+          {t('upload.dropFilesHere')}
           <Box
             component="span"
             sx={{
@@ -61,17 +65,15 @@ export default function Upload({
               textDecoration: 'underline',
             }}
           >
-            browse
+            {t('upload.browse')}
           </Box>
-          thorough your machine
+          {t('upload.thoroughYourMachine')}
         </Typography>
       </Stack>
     </Stack>
   );
 
-  const renderSinglePreview = (
-    <SingleFilePreview imgUrl={typeof file === 'string' ? file : file?.preview} />
-  );
+  const renderSinglePreview = <SingleFilePreview filename={filename} />;
 
   const removeSinglePreview = hasFile && onDelete && (
     <IconButton
@@ -102,7 +104,7 @@ export default function Upload({
       <Stack direction="row" justifyContent="flex-end" spacing={1.5}>
         {onRemoveAll && (
           <Button color="inherit" variant="outlined" size="small" onClick={onRemoveAll}>
-            Remove All
+            {t('upload.removeAll')}
           </Button>
         )}
 
@@ -113,7 +115,7 @@ export default function Upload({
             onClick={onUpload}
             startIcon={<Iconify icon="eva:cloud-upload-fill" />}
           >
-            Upload
+            {t('upload.upload')}
           </Button>
         )}
       </Stack>
@@ -148,9 +150,6 @@ export default function Upload({
             color: 'error.main',
             borderColor: 'error.main',
             bgcolor: (theme) => alpha(theme.palette.error.main, 0.08),
-          }),
-          ...(hasFile && {
-            padding: '24% 0',
           }),
         }}
       >

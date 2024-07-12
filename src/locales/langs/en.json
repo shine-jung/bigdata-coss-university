@@ -129,7 +129,6 @@
   },
   "account": {
     "home": "Home",
-    "profile": "Profile",
     "contact": "Contact",
     "staffAlert": "Staff account requires administrator approval.\nPlease send an email to {{email}} requesting permission.\nPlease write freely about the reason for registration in the email."
   },
@@ -157,7 +156,40 @@
     "editNoticeSuccess": "Notice has been edited",
     "editNoticeError": "Error editing notice"
   },
+  "form": {
+    "title": "Title",
+    "titleRequired": "Title is required",
+    "content": "Content",
+    "contentRequired": "Content is required",
+    "fileRequired": "File is required",
+    "author": "Author",
+    "createdAt": "Created at",
+    "updatedAt": "Updated at",
+    "noForm": "No forms",
+    "uploadForm": "Upload form",
+    "editForm": "Edit form",
+    "deleteForm": "Delete form",
+    "deleteFormPrompt": "Are you sure you want to delete the form?",
+    "deleteFormSuccess": "Form has been deleted",
+    "deleteFormError": "Error deleting form",
+    "uploadFormSuccess": "Form has been uploaded",
+    "uploadFormError": "Error uploading form",
+    "editFormSuccess": "Form has been edited",
+    "editFormError": "Error editing form",
+    "downloadForm": "Download form",
+    "downloadFormSuccess": "Form has been downloaded",
+    "downloadFormError": "Error downloading form",
+    "editFormAlert": "If you do not select a new file, the existing file will be maintained."
+  },
   "editor": {
     "placeholder": "Write content here..."
+  },
+  "upload": {
+    "dropOrSelectFile": "Drop or Select file",
+    "dropFilesHere": "Drop files here or click",
+    "browse": "browse",
+    "thoroughYourMachine": "thorough your machine",
+    "removeAll": "Remove all",
+    "upload": "Upload"
   }
 }

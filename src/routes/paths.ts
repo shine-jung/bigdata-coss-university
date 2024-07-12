@@ -25,7 +25,7 @@ export const paths = {
     adminManagement: `${ROOTS.MAIN}/admin-management`,
     schoolManagement: `${ROOTS.MAIN}/school-management`,
     noticeCreation: `${ROOTS.MAIN}/notice-creation`,
-    formDownloadCreation: `${ROOTS.MAIN}/form-download-creation`,
+    formUpload: `${ROOTS.MAIN}/form-upload`,
     popupNoticeManagement: `${ROOTS.MAIN}/popup-notice-management`,
     mileageScholarshipApplicationList: `${ROOTS.MAIN}/mileage-scholarship-application-list`,
     mileageManagement: `${ROOTS.MAIN}/mileage-management`,
