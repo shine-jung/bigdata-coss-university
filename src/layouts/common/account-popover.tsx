@@ -20,25 +20,12 @@ import CustomPopover, { usePopover } from 'src/components/custom-popover';
 
 // ----------------------------------------------------------------------
 
-const OPTIONS = [
-  {
-    label: 'account.home',
-    linkTo: paths.main.notice,
-  },
-  {
-    label: 'account.profile',
-    linkTo: paths.main.studentRecordManagement,
-  },
-];
-
-// ----------------------------------------------------------------------
-
 export default function AccountPopover() {
   const { t } = useTranslate();
 
   const router = useRouter();
 
-  const { logout, user } = useAuthContext();
+  const { logout, user, isAdmin } = useAuthContext();
 
   const popover = usePopover();
 
@@ -102,11 +89,19 @@ export default function AccountPopover() {
         <Divider sx={{ borderStyle: 'dashed' }} />
 
         <Stack sx={{ p: 1 }}>
-          {OPTIONS.map((option) => (
-            <MenuItem key={option.label} onClick={() => handleClickItem(option.linkTo)}>
-              {t(option.label)}
+          <MenuItem onClick={() => handleClickItem(paths.main.notice)}>
+            {t('account.home')}
+          </MenuItem>
+
+          {isAdmin ? (
+            <MenuItem onClick={() => handleClickItem(paths.main.adminManagement)}>
+              {t('nav.adminAccountManagement')}
             </MenuItem>
-          ))}
+          ) : (
+            <MenuItem onClick={() => handleClickItem(paths.main.studentRecordManagement)}>
+              {t('nav.studentRecordManagement')}
+            </MenuItem>
+          )}
         </Stack>
 
         <Divider sx={{ borderStyle: 'dashed' }} />

@@ -5,10 +5,10 @@ import {
   addDoc,
   getDocs,
   orderBy,
-  Timestamp,
   updateDoc,
   deleteDoc,
   collection,
+  serverTimestamp,
 } from 'firebase/firestore';
 
 import { Notice } from 'src/domain/notice/notice';
@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
       title,
       content,
       author,
-      createdAt: Timestamp.now(),
+      createdAt: serverTimestamp(),
     });
 
     return NextResponse.json(
@@ -84,7 +84,7 @@ export async function PUT(request: NextRequest) {
       title,
       content,
       author,
-      updatedAt: Timestamp.now(),
+      updatedAt: serverTimestamp(),
     });
 
     return NextResponse.json({ message: '공지사항이 성공적으로 수정되었습니다' }, { status: 200 });

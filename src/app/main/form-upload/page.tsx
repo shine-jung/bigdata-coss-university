@@ -1,4 +1,4 @@
-import FormDownloadCreationView from 'src/sections/form-download-creation/view';
+import FormUploadView from 'src/sections/form-upload/view';
 
 // ----------------------------------------------------------------------
 
@@ -7,5 +7,5 @@ export const metadata = {
 };
 
 export default function Page() {
-  return <FormDownloadCreationView />;
+  return <FormUploadView />;
 }

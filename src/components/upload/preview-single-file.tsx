@@ -1,34 +1,15 @@
-import Box from '@mui/material/Box';
-
-import Image from '../image';
+import { Typography } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
 type Props = {
-  imgUrl?: string;
+  filename?: string | null;
 };
 
-export default function SingleFilePreview({ imgUrl = '' }: Props) {
+export default function SingleFilePreview({ filename = '' }: Props) {
   return (
-    <Box
-      sx={{
-        p: 1,
-        top: 0,
-        left: 0,
-        width: 1,
-        height: 1,
-        position: 'absolute',
-      }}
-    >
-      <Image
-        alt="file preview"
-        src={imgUrl}
-        sx={{
-          width: 1,
-          height: 1,
-          borderRadius: 1,
-        }}
-      />
-    </Box>
+    <Typography variant="subtitle2" noWrap color="text.secondary">
+      {filename}
+    </Typography>
   );
 }

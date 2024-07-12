@@ -129,7 +129,6 @@
   },
   "account": {
     "home": "홈",
-    "profile": "프로필",
     "contact": "문의하기",
     "staffAlert": "교직원 계정은 관리자의 승인이 필요합니다.\n{{email}}로 권한 요청 메일을 보내주세요.\n메일 내용에는 권한 요청 사유를 적어주시면 됩니다."
   },
@@ -157,7 +156,40 @@
     "editNoticeSuccess": "공지사항이 수정되었습니다",
     "editNoticeError": "공지사항 수정 중 오류가 발생했습니다"
   },
+  "form": {
+    "title": "제목",
+    "titleRequired": "제목이 필요합니다",
+    "content": "내용",
+    "contentRequired": "내용이 필요합니다",
+    "fileRequired": "파일이 필요합니다",
+    "author": "작성자",
+    "createdAt": "작성일",
+    "updatedAt": "수정일",
+    "noForm": "양식이 없습니다",
+    "uploadForm": "양식 업로드",
+    "editForm": "양식 수정",
+    "deleteForm": "양식 삭제",
+    "deleteFormPrompt": "양식을 삭제하시겠습니까?",
+    "deleteFormSuccess": "양식이 삭제되었습니다",
+    "deleteFormError": "양식 삭제 중 오류가 발생했습니다",
+    "uploadFormSuccess": "양식이 업로드되었습니다",
+    "uploadFormError": "양식 업로드 중 오류가 발생했습니다",
+    "editFormSuccess": "양식이 수정되었습니다",
+    "editFormError": "양식 수정 중 오류가 발생했습니다",
+    "downloadForm": "양식 다운로드",
+    "downloadFormSuccess": "양식이 다운로드되었습니다",
+    "downloadFormError": "다운로드 중 오류가 발생했습니다",
+    "editFormAlert": "새로운 파일을 선택하지 않으면 기존 파일이 유지됩니다."
+  },
   "editor": {
     "placeholder": "내용을 입력하세요..."
+  },
+  "upload": {
+    "dropOrSelectFile": "파일을 여기에 놓거나 선택하세요",
+    "dropFilesHere": "파일을 여기에 놓거나",
+    "browse": "클릭하여",
+    "thoroughYourMachine": "기기에서 파일을 찾아보세요",
+    "removeAll": "모두 제거",
+    "upload": "업로드"
   }
 }

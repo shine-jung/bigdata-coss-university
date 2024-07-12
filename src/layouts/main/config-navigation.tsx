@@ -73,7 +73,7 @@ export function useNavData(isAdmin: boolean) {
                 },
                 {
                   title: t('nav.formUpload'),
-                  path: paths.main.formDownloadCreation,
+                  path: paths.main.formUpload,
                   icon: ICONS.fileUpload,
                 },
                 {
