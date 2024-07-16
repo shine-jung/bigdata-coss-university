@@ -12,20 +12,19 @@ import { UploadIllustration } from 'src/assets/illustrations';
 
 import Iconify from '../iconify';
 import { UploadProps } from './types';
-import FileNamePreview from './preview-file-name';
 import MultiFilePreview from './preview-multi-file';
 import RejectionFiles from './errors-rejection-files';
+import SingleFilePreview from './preview-single-file';
 
 // ----------------------------------------------------------------------
 
-export default function Upload({
+export default function UploadImage({
   disabled,
   multiple = false,
   error,
   helperText,
   //
   file,
-  filename,
   onDelete,
   //
   files,
@@ -73,7 +72,9 @@ export default function Upload({
     </Stack>
   );
 
-  const renderSinglePreview = <FileNamePreview filename={filename} />;
+  const renderSinglePreview = (
+    <SingleFilePreview imgUrl={typeof file === 'string' ? file : file?.preview} />
+  );
 
   const removeSinglePreview = hasFile && onDelete && (
     <IconButton
@@ -150,6 +151,9 @@ export default function Upload({
             color: 'error.main',
             borderColor: 'error.main',
             bgcolor: (theme) => alpha(theme.palette.error.main, 0.08),
+          }),
+          ...(hasFile && {
+            padding: '24% 0',
           }),
         }}
       >
