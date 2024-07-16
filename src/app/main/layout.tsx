@@ -6,7 +6,7 @@ import MainLayout from 'src/layouts/main';
 import { AuthGuard } from 'src/auth/guard';
 import { useAuthContext } from 'src/auth/hooks';
 
-import PopupNotice from 'src/sections/popup-notice/view';
+import { PopupNotice } from 'src/sections/popup-notice/view';
 
 // ----------------------------------------------------------------------
 
