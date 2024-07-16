@@ -181,6 +181,23 @@
     "downloadFormError": "Error downloading form",
     "editFormAlert": "If you do not select a new file, the existing file will be maintained."
   },
+  "popupNotice": {
+    "title": "Title",
+    "titleRequired": "Title is required",
+    "image": "Image",
+    "imageRequired": "Image is required",
+    "expiryDate": "Expiry date",
+    "expiryDateRequired": "Expiry date is required",
+    "createPopupNotice": "Create popup notice",
+    "createPopupNoticeSuccess": "Popup notice has been created",
+    "createPopupNoticeError": "Error creating popup notice",
+    "hideForToday": "Hide for today",
+    "close": "Close",
+    "currentPopupNotice": "Current popup notice",
+    "noCurrentPopupNotice": "No current popup notice",
+    "currentTitle": "Title: {{title}}",
+    "currentExpiryDate": "Expiry date: {{expiryDate}}"
+  },
   "editor": {
     "placeholder": "Write content here..."
   },
