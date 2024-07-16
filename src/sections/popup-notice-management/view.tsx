@@ -27,7 +27,13 @@ const PopupNoticeView = () => {
 
       <Grid container spacing={3} direction={{ xs: 'column', sm: 'row' }}>
         <Grid item xs={12} md={6}>
-          <Box p={2} border={1} borderRadius={2} borderColor="divider">
+          <Box
+            p={2}
+            sx={{
+              borderRadius: 2,
+              border: (theme) => `dashed 1px ${theme.palette.divider}`,
+            }}
+          >
             <Typography variant="h5" gutterBottom>
               {t('popupNotice.currentPopupNotice')}
             </Typography>
@@ -50,7 +56,13 @@ const PopupNoticeView = () => {
           </Box>
         </Grid>
         <Grid item xs={12} md={6}>
-          <Box p={2} border={1} borderRadius={2} borderColor="divider">
+          <Box
+            p={2}
+            sx={{
+              borderRadius: 2,
+              border: (theme) => `dashed 1px ${theme.palette.divider}`,
+            }}
+          >
             <Typography variant="h5" mb={4}>
               {t('popupNotice.createPopupNotice')}
             </Typography>

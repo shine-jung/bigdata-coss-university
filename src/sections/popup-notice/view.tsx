@@ -10,15 +10,17 @@ import Image from 'src/components/image';
 
 // ----------------------------------------------------------------------
 
+const STORAGE_KEY = 'hide-popup';
+
 interface PopupNoticeProps {
   title: string;
   imageUrl: string;
   expiryDate: string;
 }
 
-export default function PopupNotice({ title, imageUrl, expiryDate }: PopupNoticeProps) {
+export function PopupNotice({ title, imageUrl, expiryDate }: PopupNoticeProps) {
   const { t } = useTranslate();
-  const { state, update } = useLocalStorage('hidePopup', {});
+  const { state, update } = useLocalStorage(STORAGE_KEY, {});
 
   const [open, setOpen] = useState(false);
 
