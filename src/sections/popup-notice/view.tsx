@@ -4,6 +4,8 @@ import { Dialog, Button, DialogTitle, DialogActions, DialogContent } from '@mui/
 
 import { useLocalStorage } from 'src/hooks/use-local-storage';
 
+import { localStorageGetItem } from 'src/utils/storage-available';
+
 import { useTranslate } from 'src/locales';
 
 import Image from 'src/components/image';
@@ -15,21 +17,26 @@ const STORAGE_KEY = 'hide-popup';
 interface PopupNoticeProps {
   title: string;
   imageUrl: string;
-  expiryDate: string;
 }
 
-export function PopupNotice({ title, imageUrl, expiryDate }: PopupNoticeProps) {
+export function PopupNotice({ title, imageUrl }: PopupNoticeProps) {
   const { t } = useTranslate();
-  const { state, update } = useLocalStorage(STORAGE_KEY, {});
+  const { update } = useLocalStorage(STORAGE_KEY, {});
+  const hidePopupString = localStorageGetItem(STORAGE_KEY, '{}');
 
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const today = new Date().toISOString().split('T')[0];
-    const shouldShowPopup = !state[today];
+    if (hidePopupString) {
+      const today = new Date().toISOString().split('T')[0];
+      const hidePopupObject = JSON.parse(hidePopupString);
+      const shouldShowPopup = !hidePopupObject[today];
 
-    setOpen(shouldShowPopup);
-  }, [state, expiryDate]);
+      if (shouldShowPopup) {
+        setOpen(true);
+      }
+    }
+  }, [hidePopupString]);
 
   const handleClose = () => {
     setOpen(false);
