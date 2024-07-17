@@ -24,13 +24,7 @@ export default function Layout({ children }: Props) {
     <AuthGuard>
       <MainLayout>{children}</MainLayout>
 
-      {popupNotice && (
-        <PopupNotice
-          title={popupNotice.title}
-          imageUrl={popupNotice.imageUrl}
-          expiryDate={popupNotice.expiryDate}
-        />
-      )}
+      {popupNotice && <PopupNotice title={popupNotice.title} imageUrl={popupNotice.imageUrl} />}
     </AuthGuard>
   );
 }
