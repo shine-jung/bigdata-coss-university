@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Grid, Container, Typography } from '@mui/material';
+import { Box, Grid, Stack, Skeleton, Container, Typography } from '@mui/material';
 
 import { useFetchPopupNotice } from 'src/hooks/use-fetch-popup-notice';
 
@@ -17,7 +17,7 @@ const PopupNoticeView = () => {
   const { user } = useAuthContext();
   const universityCode = user?.university;
 
-  const { popupNotice, refetch } = useFetchPopupNotice(universityCode);
+  const { popupNotice, loading, refetch } = useFetchPopupNotice(universityCode);
 
   return (
     <Container>
@@ -34,24 +34,34 @@ const PopupNoticeView = () => {
               border: (theme) => `dashed 1px ${theme.palette.divider}`,
             }}
           >
-            <Typography variant="h5" gutterBottom>
+            <Typography variant="h6" mb={3}>
               {t('popupNotice.currentPopupNotice')}
             </Typography>
 
-            {popupNotice ? (
-              <Box>
-                <Typography variant="h6" gutterBottom>
-                  {t('popupNotice.currentTitle', { title: popupNotice.title })}
-                </Typography>
-                <Image src={popupNotice.imageUrl} alt="Popup Notice" />
-                <Typography variant="subtitle1" mt={2}>
-                  {t('popupNotice.currentExpiryDate', {
-                    expiryDate: new Date(popupNotice.expiryDate).toLocaleDateString(),
-                  })}
-                </Typography>
-              </Box>
+            {loading ? (
+              <Stack spacing={1.5}>
+                <Skeleton />
+                <Skeleton variant="rectangular" height={500} />
+                <Skeleton />
+              </Stack>
             ) : (
-              <Typography variant="body1">{t('popupNotice.noCurrentPopupNotice')}</Typography>
+              <>
+                {popupNotice ? (
+                  <Box>
+                    <Typography variant="subtitle1" gutterBottom>
+                      {t('popupNotice.currentTitle', { title: popupNotice.title })}
+                    </Typography>
+                    <Image src={popupNotice.imageUrl} alt="Popup Notice" />
+                    <Typography variant="subtitle2" mt={1}>
+                      {t('popupNotice.currentExpiryDate', {
+                        expiryDate: new Date(popupNotice.expiryDate).toLocaleDateString(),
+                      })}
+                    </Typography>
+                  </Box>
+                ) : (
+                  <Typography>{t('popupNotice.noCurrentPopupNotice')}</Typography>
+                )}
+              </>
             )}
           </Box>
         </Grid>
@@ -63,7 +73,7 @@ const PopupNoticeView = () => {
               border: (theme) => `dashed 1px ${theme.palette.divider}`,
             }}
           >
-            <Typography variant="h5" mb={4}>
+            <Typography variant="h6" mb={3}>
               {t('popupNotice.createPopupNotice')}
             </Typography>
 
