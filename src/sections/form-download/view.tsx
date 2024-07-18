@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Timestamp } from 'firebase/firestore';
 
+import { Skeleton } from '@mui/material';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
@@ -21,6 +22,7 @@ export default function FormView() {
   const { user } = useAuthContext();
   const [forms, setForms] = useState<Form[]>([]);
   const [selectedForm, setSelectedForm] = useState<Form | null>(null);
+  const [loading, setLoading] = useState(true);
 
   const fetchForms = async () => {
     if (user?.university) {
@@ -35,6 +37,8 @@ export default function FormView() {
         setForms(formsData);
       } catch (error) {
         console.error('양식을 가져오는 중 오류가 발생했습니다', error);
+      } finally {
+        setLoading(false);
       }
     }
   };
@@ -50,14 +54,20 @@ export default function FormView() {
         {t('nav.formDownload')}
       </Typography>
 
-      {selectedForm ? (
-        <FormDetail
-          form={selectedForm}
-          onBack={() => setSelectedForm(null)}
-          refetchForms={fetchForms}
-        />
+      {loading ? (
+        <Skeleton variant="rounded" height={500} />
       ) : (
-        <FormList forms={forms} onSelectForm={setSelectedForm} />
+        <>
+          {selectedForm ? (
+            <FormDetail
+              form={selectedForm}
+              onBack={() => setSelectedForm(null)}
+              refetchForms={fetchForms}
+            />
+          ) : (
+            <FormList forms={forms} onSelectForm={setSelectedForm} />
+          )}
+        </>
       )}
     </Container>
   );

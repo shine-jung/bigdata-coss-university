@@ -2,6 +2,7 @@ import dynamic from 'next/dynamic';
 
 export * from './types';
 
+export { default as FileNamePreview } from './preview-file-name';
 export { default as MultiFilePreview } from './preview-multi-file';
 export { default as RejectionFiles } from './errors-rejection-files';
 export { default as SingleFilePreview } from './preview-single-file';
@@ -15,5 +16,9 @@ export const UploadBox = dynamic(() => import('./upload-box'), {
 });
 
 export const UploadAvatar = dynamic(() => import('./upload-avatar'), {
+  ssr: false,
+});
+
+export const UploadImage = dynamic(() => import('./upload-image'), {
   ssr: false,
 });

@@ -181,6 +181,23 @@
     "downloadFormError": "다운로드 중 오류가 발생했습니다",
     "editFormAlert": "새로운 파일을 선택하지 않으면 기존 파일이 유지됩니다."
   },
+  "popupNotice": {
+    "title": "제목",
+    "titleRequired": "제목이 필요합니다",
+    "image": "이미지",
+    "imageRequired": "이미지가 필요합니다",
+    "expiryDate": "만료일",
+    "expiryDateRequired": "만료일이 필요합니다",
+    "createPopupNotice": "팝업 공지 생성",
+    "createPopupNoticeSuccess": "팝업 공지가 생성되었습니다",
+    "createPopupNoticeError": "팝업 공지 생성 중 오류가 발생했습니다",
+    "hideForToday": "오늘 하루 보지 않기",
+    "close": "닫기",
+    "currentPopupNotice": "현재 팝업 공지",
+    "noCurrentPopupNotice": "현재 팝업 공지가 없습니다",
+    "currentTitle": "제목: {{title}}",
+    "currentExpiryDate": "만료일: {{expiryDate}}"
+  },
   "editor": {
     "placeholder": "내용을 입력하세요..."
   },
