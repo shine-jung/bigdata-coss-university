@@ -208,5 +208,19 @@
     "thoroughYourMachine": "thorough your machine",
     "removeAll": "Remove all",
     "upload": "Upload"
+  },
+  "mileageManagement": {
+    "alert": {
+      "title": "Please follow these instructions to prepare the Excel file:",
+      "instructions": {
+        "fieldNameInFirstColumn": "Enter the field names in the <strong>first column</strong> and the field types in the <strong>second column</strong>.",
+        "allowedFieldTypes": "Field types must be one of: <strong>string</strong> (text), <strong>number</strong>, <strong>date</strong>, <strong>boolean</strong> (true/false).",
+        "defaultPoints": "Enter the <strong>default points</strong> for each area."
+      },
+      "additionalInfo": {
+        "modifyScores": "<strong>You can modify the scores for each mileage item in the 'Mileage Scholarship Application List' menu.</strong> (If not modified, the default points will apply.)",
+        "dataAggregationWarning": "If you modify the area after students have registered mileage items, <strong>data for removed areas will not be aggregated.</strong>"
+      }
+    }
   }
 }
