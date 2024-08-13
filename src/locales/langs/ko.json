@@ -208,5 +208,19 @@
     "thoroughYourMachine": "기기에서 파일을 찾아보세요",
     "removeAll": "모두 제거",
     "upload": "업로드"
+  },
+  "mileageManagement": {
+    "alert": {
+      "title": "다음 사항을 참고하여 엑셀 파일을 작성해 주세요:",
+      "instructions": {
+        "fieldNameInFirstColumn": "필드 이름은 <strong>1열</strong>에, 필드 타입은 <strong>2열</strong>에 입력해주세요.",
+        "allowedFieldTypes": "필드 타입은 <strong>string</strong> (문자열), <strong>number</strong> (숫자), <strong>date</strong> (날짜), <strong>boolean</strong> (참/거짓) 중 하나여야 합니다.",
+        "defaultPoints": "각 영역의 <strong>항목 당 기본 점수</strong>를 입력해주세요."
+      },
+      "additionalInfo": {
+        "modifyScores": "<strong>'마일리지 장학금 신청 목록' 메뉴에서 학생들이 등록한 마일리지 항목 점수를 수정할 수 있습니다.</strong> (수정하지 않으면 기본 점수가 적용됩니다.)",
+        "dataAggregationWarning": "학생들이 마일리지 항목을 등록한 후, 관리자가 해당 영역을 수정했을 경우 <strong>없어진 영역에 대한 데이터는 집계되지 않습니다.</strong>"
+      }
+    }
   }
 }
