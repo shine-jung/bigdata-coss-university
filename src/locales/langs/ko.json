@@ -208,5 +208,61 @@
     "thoroughYourMachine": "기기에서 파일을 찾아보세요",
     "removeAll": "모두 제거",
     "upload": "업로드"
+  },
+  "mileageManagement": {
+    "year": "년도",
+    "yearOption": "{{year}}년",
+    "semester": "학기",
+    "semesterOption": "{{semester}}학기",
+    "area": "영역",
+    "fieldName": "필드 이름",
+    "fieldType": "필드 타입",
+    "defaultPoints": "항목 당 기본 점수: {{points}}",
+    "downloadTemplate": "엑셀 템플릿 다운로드",
+    "downloadExcel": "현재 마일리지 영역 엑셀 다운로드",
+    "downloadCourseExcel": "현재 교과목 목록 엑셀 다운로드",
+    "excelSelect": "엑셀 파일 선택",
+    "excelUpload": "엑셀 파일 업로드",
+    "courseCompletion": "교과목 성적 반영(갈) 영역 활성화",
+    "courseCompletionToggle": "교과목 성적 반영(갈) 영역 활성화/비활성화",
+    "courseCompletionName": "영역 이름",
+    "editCourseCompletionName": "영역 이름 수정",
+    "courseCompletionNameRequired": "영역 이름이 필요합니다",
+    "activated": "활성화",
+    "deactivated": "비활성화",
+    "toggleCourseCompletionSuccess": "교과목 성적 반영(갈) 영역이 {{status}}되었습니다",
+    "toggleCourseCompletionError": "교과목 성적 반영(갈) 영역 변경 중 오류가 발생했습니다",
+    "alert": {
+      "title": "다음 사항을 참고하여 엑셀 파일을 작성해 주세요:",
+      "instructions": {
+        "fieldNameInFirstColumn": "필드 이름은 <strong>1열</strong>에, 필드 타입은 <strong>2열</strong>에 입력해주세요.",
+        "allowedFieldTypes": "필드 타입은 <strong>string</strong> (문자열), <strong>number</strong> (숫자), <strong>date</strong> (날짜), <strong>boolean</strong> (참/거짓) 중 하나여야 합니다.",
+        "defaultPoints": "각 영역의 <strong>항목 당 기본 점수</strong>를 입력해주세요."
+      },
+      "additionalInfo": {
+        "modifyScores": "<strong>'마일리지 장학금 신청 목록' 메뉴에서 학생들이 등록한 마일리지 항목 점수를 수정할 수 있습니다.</strong> (수정하지 않으면 기본 점수가 적용됩니다.)",
+        "dataAggregationWarning": "학생들이 마일리지 항목을 등록한 후, 관리자가 해당 영역을 수정했을 경우 <strong>없어진 영역에 대한 데이터는 집계되지 않습니다.</strong>"
+      },
+      "update": "새로운 엑셀 파일을 업로드하면 {{year}}년 {{semester}}학기의 마일리지 영역이 업데이트됩니다.",
+      "select": "업로드할 엑셀 파일을 선택하고 '엑셀 파일 업로드' 버튼을 눌러주세요."
+    },
+    "courseCompletionAlert": {
+      "description": "해당 기능을 사용하면 학생이 수강한 과목을 간단히 입력할 수 있습니다.",
+      "toggleDescription": "토글을 활성화하면 교과목 성적 반영 영역이 추가되며, 엑셀로 과목 목록을 업로드할 수 있습니다.",
+      "handongUsage": "한동대학교에서는 이 영역을 <strong>'갈'</strong> 영역으로 사용하고 있습니다."
+    },
+    "manageCourseList": "교과목 목록 관리",
+    "courseListDescription": "엑셀 파일을 업로드하면 해당 학기의 교과목 목록이 업데이트됩니다.",
+    "courseTable": {
+      "code": "과목 코드",
+      "name": "과목 이름",
+      "credit": "이수 학점",
+      "isPBL": "PBL 여부"
+    },
+    "noCoursesAvailable": "등록된 교과목이 없습니다"
+  },
+  "permission": {
+    "denied": "접근 권한이 없습니다",
+    "deniedDescription": "해당 페이지에 접근할 권한이 없습니다. 관리자에게 문의하세요."
   }
 }

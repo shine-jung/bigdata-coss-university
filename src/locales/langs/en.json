@@ -208,5 +208,61 @@
     "thoroughYourMachine": "thorough your machine",
     "removeAll": "Remove all",
     "upload": "Upload"
+  },
+  "mileageManagement": {
+    "year": "Year",
+    "yearOption": "{{year}}",
+    "semester": "Semester",
+    "semesterOption": "{{semester}}",
+    "area": "Area",
+    "fieldName": "Field Name",
+    "fieldType": "Field Type",
+    "defaultPoints": "Default points per item: {{points}}",
+    "downloadTemplate": "Download Excel template",
+    "downloadExcel": "Download current mileage areas as Excel",
+    "downloadCourseExcel": "Download current course list as Excel",
+    "excelSelect": "Select Excel file",
+    "excelUpload": "Upload Excel file",
+    "courseCompletion": "Enable Course Completion Area",
+    "courseCompletionToggle": "Toggle Course Completion Area",
+    "courseCompletionName": "Area Name",
+    "editCourseCompletionName": "Edit Area Name",
+    "courseCompletionNameRequired": "Area name is required",
+    "activated": "Activated",
+    "deactivated": "Deactivated",
+    "toggleCourseCompletionSuccess": "Course completion area has been {{status}}",
+    "toggleCourseCompletionError": "Error toggling course completion area",
+    "alert": {
+      "title": "Please follow these instructions to prepare the Excel file:",
+      "instructions": {
+        "fieldNameInFirstColumn": "Enter the field names in the <strong>first column</strong> and the field types in the <strong>second column</strong>.",
+        "allowedFieldTypes": "Field types must be one of: <strong>string</strong> (text), <strong>number</strong>, <strong>date</strong>, <strong>boolean</strong> (true/false).",
+        "defaultPoints": "Enter the <strong>default points</strong> for each area."
+      },
+      "additionalInfo": {
+        "modifyScores": "<strong>You can modify the scores for each mileage item in the 'Mileage Scholarship Application List' menu.</strong> (If not modified, the default points will apply.)",
+        "dataAggregationWarning": "If you modify the area after students have registered mileage items, <strong>data for removed areas will not be aggregated.</strong>"
+      },
+      "update": "Uploading a new Excel file will update the mileage areas for {{year}} {{semester}}.",
+      "select": "Select the Excel file to upload and click the 'Upload Excel file' button."
+    },
+    "courseCompletionAlert": {
+      "description": "This feature allows students to easily enter the courses they have taken.",
+      "toggleDescription": "Activating the toggle will add a course grading area, allowing you to upload course lists via Excel.",
+      "handongUsage": "At Handong University, this area is used as the <strong>'갈(Gal)'</strong> area."
+    },
+    "manageCourseList": "Manage Course List",
+    "courseListDescription": "Uploading an Excel file will update the course list for the semester.",
+    "courseTable": {
+      "code": "Course Code",
+      "name": "Course Name",
+      "credit": "Credit",
+      "isPBL": "PBL"
+    },
+    "noCoursesAvailable": "No courses available"
+  },
+  "permission": {
+    "denied": "Access denied",
+    "deniedDescription": "You do not have permission to access this page. Please contact the administrator."
   }
 }
