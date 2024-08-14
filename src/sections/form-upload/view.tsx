@@ -9,6 +9,7 @@ import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
 
 import { useTranslate } from 'src/locales';
+import { AdminGuard } from 'src/auth/guard';
 import { useAuthContext } from 'src/auth/hooks';
 
 import { useSnackbar } from 'src/components/snackbar';
@@ -51,12 +52,14 @@ export default function FormUploadView() {
   };
 
   return (
-    <Container>
-      <Typography variant="h4" mb={5}>
-        {t('nav.formUpload')}
-      </Typography>
+    <AdminGuard>
+      <Container>
+        <Typography variant="h4" mb={5}>
+          {t('nav.formUpload')}
+        </Typography>
 
-      <FormCreation onAddForm={handleAddForm} />
-    </Container>
+        <FormCreation onAddForm={handleAddForm} />
+      </Container>
+    </AdminGuard>
   );
 }
