@@ -21,7 +21,7 @@ interface EditCourseCompletionNameModalProps {
   open: boolean;
   onClose: () => void;
   onSave: (name: string) => Promise<void>;
-  existingName: string;
+  existingName?: string;
   initialName: string;
 }
 
@@ -61,7 +61,7 @@ export default function EditCourseCompletionNameModal({
 
   useEffect(() => {
     if (open) {
-      reset({ name: existingName });
+      reset({ name: existingName || '' });
       // TODO(seokmin): Focus is not working
       setFocus('name');
     }
