@@ -4,6 +4,7 @@ import * as XLSX from 'xlsx';
 
 import { Button } from '@mui/material';
 
+import { useTranslate } from 'src/locales';
 import { MileageArea } from 'src/domain/mileage-management/mileage-area';
 
 import Iconify from 'src/components/iconify';
@@ -13,6 +14,8 @@ interface ExcelDownloadButtonProps {
 }
 
 const ExcelDownloadButton = ({ mileageAreas }: ExcelDownloadButtonProps) => {
+  const { t } = useTranslate();
+
   const handleDownload = () => {
     const workbook = XLSX.utils.book_new();
     const headerStyle = {
@@ -85,7 +88,9 @@ const ExcelDownloadButton = ({ mileageAreas }: ExcelDownloadButtonProps) => {
     XLSX.writeFile(workbook, mileageAreas ? 'mileage-areas.xlsx' : 'mileage-template.xlsx');
   };
 
-  const buttonLabel = mileageAreas ? '현재 마일리지 영역 엑셀 다운로드' : '엑셀 템플릿 다운로드';
+  const buttonLabel = mileageAreas
+    ? t('mileageManagement.downloadExcel')
+    : t('mileageManagement.downloadTemplate');
   const buttonColor = mileageAreas ? 'secondary' : 'info';
   const buttonStartIcon = mileageAreas ? 'eva:download-outline' : 'eva:file-text-outline';
 
