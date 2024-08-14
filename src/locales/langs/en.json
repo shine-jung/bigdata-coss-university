@@ -220,6 +220,7 @@
     "defaultPoints": "Default points per item: {{points}}",
     "downloadTemplate": "Download Excel template",
     "downloadExcel": "Download current mileage areas as Excel",
+    "downloadCourseExcel": "Download current course list as Excel",
     "excelSelect": "Select Excel file",
     "excelUpload": "Upload Excel file",
     "courseCompletion": "Enable Course Completion Area",
@@ -249,6 +250,19 @@
       "description": "This feature allows students to easily enter the courses they have taken.",
       "toggleDescription": "Activating the toggle will add a course grading area, allowing you to upload course lists via Excel.",
       "handongUsage": "At Handong University, this area is used as the <strong>'갈(Gal)'</strong> area."
-    }
+    },
+    "manageCourseList": "Manage Course List",
+    "courseListDescription": "Uploading an Excel file will update the course list for the semester.",
+    "courseTable": {
+      "code": "Course Code",
+      "name": "Course Name",
+      "credit": "Credit",
+      "isPBL": "PBL"
+    },
+    "noCoursesAvailable": "No courses available"
+  },
+  "permission": {
+    "denied": "Access denied",
+    "deniedDescription": "You do not have permission to access this page. Please contact the administrator."
   }
 }

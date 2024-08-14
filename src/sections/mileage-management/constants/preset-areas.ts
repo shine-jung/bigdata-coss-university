@@ -71,3 +71,12 @@ export const OTHER_AREAS: MileageArea[] = [
     ],
   },
 ];
+
+export const COURSE_SAMPLE_WORKSHEET_DATA = [
+  {
+    code: 'GCS10004',
+    name: '파이썬 프로그래밍',
+    credit: 3,
+    isPBL: false,
+  },
+];
