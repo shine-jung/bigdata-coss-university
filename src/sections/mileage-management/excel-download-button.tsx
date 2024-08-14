@@ -9,6 +9,8 @@ import { MileageArea } from 'src/domain/mileage-management/mileage-area';
 
 import Iconify from 'src/components/iconify';
 
+import { OTHER_AREAS } from './constants/preset-areas';
+
 interface ExcelDownloadButtonProps {
   mileageAreas?: MileageArea[];
 }
@@ -24,37 +26,7 @@ const ExcelDownloadButton = ({ mileageAreas }: ExcelDownloadButtonProps) => {
     };
     // TODO(seokmin): headerStyle is not working. Need to fix this.
 
-    const areas = mileageAreas || [
-      {
-        name: '갈',
-        defaultPoints: 10,
-        fields: [
-          { name: '과목코드', type: 'string' },
-          { name: '과목명', type: 'string' },
-          { name: '년도', type: 'number' },
-          { name: '학기', type: 'number' },
-          { name: '담당교수', type: 'string' },
-          { name: '이수학점', type: 'number' },
-          { name: '성적', type: 'string' },
-          { name: 'PBL여부', type: 'boolean' },
-          { name: '비고', type: 'string' },
-        ],
-      },
-      {
-        name: '매',
-        defaultPoints: 20,
-        fields: [
-          { name: '행사명', type: 'string' },
-          { name: '주관대학', type: 'string' },
-          { name: '시작일', type: 'date' },
-          { name: '종료일', type: 'date' },
-          { name: '년도', type: 'number' },
-          { name: '학기', type: 'number' },
-          { name: '수상내역', type: 'string' },
-          { name: '비고', type: 'string' },
-        ],
-      },
-    ];
+    const areas = (mileageAreas || OTHER_AREAS).filter((area) => !area.isCourseCompletion);
 
     areas.forEach((area) => {
       const worksheetData = [

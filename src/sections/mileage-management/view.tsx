@@ -1,45 +1,35 @@
 'use client';
 
 import axios from 'axios';
-import { Trans } from 'react-i18next';
 import { useSnackbar } from 'notistack';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
+import Stack from '@mui/material/Stack';
+import Alert from '@mui/material/Alert';
+import Skeleton from '@mui/material/Skeleton';
 import Container from '@mui/material/Container';
-import {
-  Table,
-  Stack,
-  Alert,
-  Select,
-  Button,
-  MenuItem,
-  TableRow,
-  Skeleton,
-  TableBody,
-  TableCell,
-  TableHead,
-  InputLabel,
-  Typography,
-  FormControl,
-  TableContainer,
-} from '@mui/material';
+import Typography from '@mui/material/Typography';
 
 import { useTranslate } from 'src/locales';
 import { useAuthContext } from 'src/auth/hooks';
 import { MileageArea } from 'src/domain/mileage-management/mileage-area';
 
-import Iconify from 'src/components/iconify';
-
+import AreaList from './area-list';
+import ExcelUploadSection from './excel-upload-section';
 import ExcelDownloadButton from './excel-download-button';
 import { handleExcelFileUpload } from './utils/excel-utils';
-
-// ----------------------------------------------------------------------
+import YearSemesterSelector from './year-semester-selector';
+import MileageManagementAlert from './mileage-management-alert';
+import CourseCompletionSection from './course-completion-section';
+import { COURSE_COMPLETION_AREA_INITIAL_NAME } from './constants/preset-areas';
+import EditCourseCompletionNameModal from './edit-course-completion-name-modal';
 
 export default function MileageManagementView() {
   const { t } = useTranslate();
   const { user } = useAuthContext();
   const { enqueueSnackbar } = useSnackbar();
 
+  const universityCode = user?.university;
   const currentYear = new Date().getFullYear();
   const currentMonth = new Date().getMonth() + 1;
 
@@ -51,21 +41,10 @@ export default function MileageManagementView() {
   const [semester, setSemester] = useState(defaultSemester);
   const [file, setFile] = useState<File | null>(null);
   const [areas, setAreas] = useState<MileageArea[] | null>(null);
-  const universityCode = user?.university;
-
-  const yearOptions = [];
-  // eslint-disable-next-line no-plusplus
-  for (let y = 2024; y <= currentYear; y++) {
-    yearOptions.push(y.toString());
-  }
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { files } = e.target;
-    if (files && files[0]) {
-      setFile(files[0]);
-      e.target.value = '';
-    }
-  };
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const courseCompletionArea = areas?.find((area) => area.isCourseCompletion);
+  const courseCompletionName = courseCompletionArea?.name || COURSE_COMPLETION_AREA_INITIAL_NAME;
+  const isCourseCompletionActive = !!courseCompletionArea;
 
   const fetchAreas = async () => {
     setLoading(true);
@@ -101,6 +80,28 @@ export default function MileageManagementView() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [universityCode, year, semester]);
 
+  const handleCourseCompletionNameChange = async (newName: string) => {
+    const updatedAreas = areas?.map((area) =>
+      area.isCourseCompletion ? { ...area, name: newName } : area
+    );
+
+    if (updatedAreas) {
+      try {
+        await axios.post('/api/mileage', {
+          universityCode,
+          year,
+          semester,
+          areas: updatedAreas,
+        });
+
+        fetchAreas();
+        enqueueSnackbar('영역 이름이 성공적으로 변경되었습니다.', { variant: 'success' });
+      } catch (error) {
+        enqueueSnackbar('영역 이름 변경 중 오류가 발생했습니다.', { variant: 'error' });
+      }
+    }
+  };
+
   return (
     <Container>
       <Typography variant="h4" mb={5}>
@@ -108,38 +109,12 @@ export default function MileageManagementView() {
       </Typography>
 
       <Stack spacing={3}>
-        <Stack flexDirection="row" spacing={2}>
-          <FormControl fullWidth margin="normal">
-            <InputLabel>{t('mileageManagement.year')}</InputLabel>
-            <Select
-              value={year}
-              onChange={(e) => setYear(e.target.value)}
-              label={t('mileageManagement.year')}
-            >
-              {yearOptions.map((y) => (
-                <MenuItem key={y} value={y}>
-                  {t('mileageManagement.yearOption', { year: y })}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-
-          <FormControl fullWidth margin="normal">
-            <InputLabel>{t('mileageManagement.semester')}</InputLabel>
-            <Select
-              value={semester}
-              onChange={(e) => setSemester(e.target.value)}
-              label={t('mileageManagement.semester')}
-            >
-              <MenuItem value="1">
-                {t('mileageManagement.semesterOption', { semester: '1' })}
-              </MenuItem>
-              <MenuItem value="2">
-                {t('mileageManagement.semesterOption', { semester: '2' })}
-              </MenuItem>
-            </Select>
-          </FormControl>
-        </Stack>
+        <YearSemesterSelector
+          year={year}
+          semester={semester}
+          setYear={setYear}
+          setSemester={setSemester}
+        />
 
         {loading ? (
           <Skeleton variant="rounded" height={500} />
@@ -151,104 +126,26 @@ export default function MileageManagementView() {
               {areas && <ExcelDownloadButton mileageAreas={areas} />}
             </Stack>
 
-            <Alert severity="info">
-              <Typography variant="body1" gutterBottom>
-                {t('mileageManagement.alert.title')}
-              </Typography>
-              <ul style={{ paddingLeft: '20px', margin: '10px 0' }}>
-                <li>
-                  <Trans
-                    i18nKey="mileageManagement.alert.instructions.fieldNameInFirstColumn"
-                    components={{ strong: <strong /> }}
-                  />
-                </li>
-                <li>
-                  <Trans
-                    i18nKey="mileageManagement.alert.instructions.allowedFieldTypes"
-                    components={{ strong: <strong /> }}
-                  />
-                </li>
-                <li>
-                  <Trans
-                    i18nKey="mileageManagement.alert.instructions.defaultPoints"
-                    components={{ strong: <strong /> }}
-                  />
-                </li>
-              </ul>
-              <Typography variant="body1" gutterBottom>
-                <Trans
-                  i18nKey="mileageManagement.alert.additionalInfo.modifyScores"
-                  components={{ strong: <strong /> }}
-                />
-              </Typography>
-              <Typography variant="body1" gutterBottom>
-                <Trans
-                  i18nKey="mileageManagement.alert.additionalInfo.dataAggregationWarning"
-                  components={{ strong: <strong /> }}
-                />
-              </Typography>
-            </Alert>
+            <MileageManagementAlert />
 
-            {areas && areas.length > 0 && (
-              <>
-                {areas.map((area, index) => (
-                  <Stack key={index}>
-                    <Typography variant="h4">
-                      {area.name} {t('mileageManagement.area')}
-                    </Typography>
-                    <Typography variant="body2" gutterBottom>
-                      {t('mileageManagement.defaultPoints', { points: area.defaultPoints })}
-                    </Typography>
-                    <TableContainer
-                      sx={{
-                        border: (theme) => `1px solid ${theme.palette.divider}`,
-                        borderRadius: 1,
-                      }}
-                    >
-                      <Table size="small">
-                        <TableHead>
-                          <TableRow>
-                            <TableCell>{t('mileageManagement.fieldName')}</TableCell>
-                            <TableCell>{t('mileageManagement.fieldType')}</TableCell>
-                          </TableRow>
-                        </TableHead>
-                        <TableBody>
-                          {area.fields.map((field, idx) => (
-                            <TableRow key={idx}>
-                              <TableCell>{field.name}</TableCell>
-                              <TableCell>{field.type}</TableCell>
-                            </TableRow>
-                          ))}
-                        </TableBody>
-                      </Table>
-                    </TableContainer>
-                  </Stack>
-                ))}
-              </>
-            )}
+            <CourseCompletionSection
+              isCourseCompletionActive={isCourseCompletionActive}
+              setIsModalOpen={setIsModalOpen}
+              fetchAreas={fetchAreas}
+              areas={areas}
+              universityCode={universityCode}
+              year={year}
+              semester={semester}
+              enqueueSnackbar={enqueueSnackbar}
+            />
 
-            <Stack flexDirection="row" spacing={2} alignItems="center">
-              <Button
-                variant="contained"
-                component="label"
-                startIcon={<Iconify icon="eva:file-text-fill" />}
-              >
-                {t('mileageManagement.excelSelect')}
-                <input type="file" accept=".xlsx, .xls" hidden onChange={handleFileChange} />
-              </Button>
+            {areas && <AreaList areas={areas.sort((a, b) => (a.isCourseCompletion ? -1 : 1))} />}
 
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={onClickExcelUpload}
-                startIcon={<Iconify icon="eva:upload-fill" />}
-                disabled={!file}
-              >
-                {t('mileageManagement.excelUpload')}
-              </Button>
-
-              {file && <Typography variant="subtitle2">{file.name}</Typography>}
-            </Stack>
+            <ExcelUploadSection
+              file={file}
+              setFile={setFile}
+              onClickExcelUpload={onClickExcelUpload}
+            />
 
             <Alert severity="info">
               {areas && areas.length > 0 ? (
@@ -260,6 +157,14 @@ export default function MileageManagementView() {
           </>
         )}
       </Stack>
+
+      <EditCourseCompletionNameModal
+        open={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSave={handleCourseCompletionNameChange}
+        existingName={courseCompletionName}
+        initialName={COURSE_COMPLETION_AREA_INITIAL_NAME}
+      />
     </Container>
   );
 }

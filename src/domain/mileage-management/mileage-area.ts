@@ -7,4 +7,5 @@ export interface MileageArea {
   name: string;
   defaultPoints: number;
   fields: Field[];
+  isCourseCompletion?: boolean;
 }

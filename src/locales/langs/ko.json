@@ -222,6 +222,15 @@
     "downloadExcel": "현재 마일리지 영역 엑셀 다운로드",
     "excelSelect": "엑셀 파일 선택",
     "excelUpload": "엑셀 파일 업로드",
+    "courseCompletion": "교과목 성적 반영(갈) 영역 활성화",
+    "courseCompletionToggle": "교과목 성적 반영(갈) 영역 활성화/비활성화",
+    "courseCompletionName": "영역 이름",
+    "editCourseCompletionName": "영역 이름 수정",
+    "courseCompletionNameRequired": "영역 이름이 필요합니다",
+    "activated": "활성화",
+    "deactivated": "비활성화",
+    "toggleCourseCompletionSuccess": "교과목 성적 반영(갈) 영역이 {{status}}되었습니다",
+    "toggleCourseCompletionError": "교과목 성적 반영(갈) 영역 변경 중 오류가 발생했습니다",
     "alert": {
       "title": "다음 사항을 참고하여 엑셀 파일을 작성해 주세요:",
       "instructions": {
@@ -235,6 +244,11 @@
       },
       "update": "새로운 엑셀 파일을 업로드하면 {{year}}년 {{semester}}학기의 마일리지 영역이 업데이트됩니다.",
       "select": "업로드할 엑셀 파일을 선택하고 '엑셀 파일 업로드' 버튼을 눌러주세요."
+    },
+    "courseCompletionAlert": {
+      "description": "해당 기능을 사용하면 학생이 수강한 과목을 간단히 입력할 수 있습니다.",
+      "toggleDescription": "토글을 활성화하면 교과목 성적 반영 영역이 추가되며, 엑셀로 과목 목록을 업로드할 수 있습니다.",
+      "handongUsage": "한동대학교에서는 이 영역을 <strong>'갈'</strong> 영역으로 사용하고 있습니다."
     }
   }
 }
