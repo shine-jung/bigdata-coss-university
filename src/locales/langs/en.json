@@ -222,6 +222,15 @@
     "downloadExcel": "Download current mileage areas as Excel",
     "excelSelect": "Select Excel file",
     "excelUpload": "Upload Excel file",
+    "courseCompletion": "Enable Course Completion Area",
+    "courseCompletionToggle": "Toggle Course Completion Area",
+    "courseCompletionName": "Area Name",
+    "editCourseCompletionName": "Edit Area Name",
+    "courseCompletionNameRequired": "Area name is required",
+    "activated": "Activated",
+    "deactivated": "Deactivated",
+    "toggleCourseCompletionSuccess": "Course completion area has been {{status}}",
+    "toggleCourseCompletionError": "Error toggling course completion area",
     "alert": {
       "title": "Please follow these instructions to prepare the Excel file:",
       "instructions": {
@@ -235,6 +244,11 @@
       },
       "update": "Uploading a new Excel file will update the mileage areas for {{year}} {{semester}}.",
       "select": "Select the Excel file to upload and click the 'Upload Excel file' button."
+    },
+    "courseCompletionAlert": {
+      "description": "This feature allows students to easily enter the courses they have taken.",
+      "toggleDescription": "Activating the toggle will add a course grading area, allowing you to upload course lists via Excel.",
+      "handongUsage": "At Handong University, this area is used as the <strong>'갈(Gal)'</strong> area."
     }
   }
 }
