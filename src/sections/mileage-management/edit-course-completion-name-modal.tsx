@@ -95,7 +95,9 @@ export default function EditCourseCompletionNameModal({
         </DialogContent>
 
         <DialogActions>
-          <Button onClick={onClose}>{t('common.cancel')}</Button>
+          <Button variant="outlined" onClick={onClose}>
+            {t('common.cancel')}
+          </Button>
           <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
             {t('common.save')}
           </LoadingButton>
