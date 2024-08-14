@@ -220,6 +220,7 @@
     "defaultPoints": "항목 당 기본 점수: {{points}}",
     "downloadTemplate": "엑셀 템플릿 다운로드",
     "downloadExcel": "현재 마일리지 영역 엑셀 다운로드",
+    "downloadCourseExcel": "현재 교과목 목록 엑셀 다운로드",
     "excelSelect": "엑셀 파일 선택",
     "excelUpload": "엑셀 파일 업로드",
     "courseCompletion": "교과목 성적 반영(갈) 영역 활성화",
@@ -249,6 +250,19 @@
       "description": "해당 기능을 사용하면 학생이 수강한 과목을 간단히 입력할 수 있습니다.",
       "toggleDescription": "토글을 활성화하면 교과목 성적 반영 영역이 추가되며, 엑셀로 과목 목록을 업로드할 수 있습니다.",
       "handongUsage": "한동대학교에서는 이 영역을 <strong>'갈'</strong> 영역으로 사용하고 있습니다."
-    }
+    },
+    "manageCourseList": "교과목 목록 관리",
+    "courseListDescription": "엑셀 파일을 업로드하면 해당 학기의 교과목 목록이 업데이트됩니다.",
+    "courseTable": {
+      "code": "과목 코드",
+      "name": "과목 이름",
+      "credit": "이수 학점",
+      "isPBL": "PBL 여부"
+    },
+    "noCoursesAvailable": "등록된 교과목이 없습니다"
+  },
+  "permission": {
+    "denied": "접근 권한이 없습니다",
+    "deniedDescription": "해당 페이지에 접근할 권한이 없습니다. 관리자에게 문의하세요."
   }
 }

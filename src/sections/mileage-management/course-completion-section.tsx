@@ -1,5 +1,6 @@
-import React from 'react';
 import axios from 'axios';
+import React, { useState } from 'react';
+import { useSnackbar } from 'notistack';
 
 import { Stack, Button, Switch, Typography, InputLabel } from '@mui/material';
 
@@ -7,6 +8,7 @@ import { useTranslate } from 'src/locales';
 import { MileageArea } from 'src/domain/mileage-management/mileage-area';
 
 import CourseCompletionAlert from './course-completion-alert';
+import ManageCourseListModal from './manage-course-list-modal';
 import { COURSE_COMPLETION_AREA } from './constants/preset-areas';
 
 interface CourseCompletionSectionProps {
@@ -17,7 +19,6 @@ interface CourseCompletionSectionProps {
   universityCode: string;
   year: string;
   semester: string;
-  enqueueSnackbar: (message: string, options?: any) => void;
 }
 
 export default function CourseCompletionSection({
@@ -28,9 +29,10 @@ export default function CourseCompletionSection({
   universityCode,
   year,
   semester,
-  enqueueSnackbar,
 }: CourseCompletionSectionProps) {
   const { t } = useTranslate();
+  const { enqueueSnackbar } = useSnackbar();
+  const [isCourseListModalOpen, setIsCourseListModalOpen] = useState(false);
 
   const toggleCourseCompletion = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const isActive = event.target.checked;
@@ -72,22 +74,43 @@ export default function CourseCompletionSection({
       <CourseCompletionAlert />
 
       <Stack flexDirection="row" alignItems="center" mt={1}>
-        <InputLabel>{t('mileageManagement.courseCompletionToggle')}</InputLabel>
-        <Switch
-          checked={isCourseCompletionActive}
-          onChange={toggleCourseCompletion}
-          name="courseCompletionToggle"
-          color="primary"
-        />
+        <Stack flexDirection="row" alignItems="center">
+          <InputLabel>{t('mileageManagement.courseCompletionToggle')}</InputLabel>
+          <Switch
+            checked={isCourseCompletionActive}
+            onChange={toggleCourseCompletion}
+            name="courseCompletionToggle"
+            color="primary"
+          />
+        </Stack>
 
-        <Button
-          variant="contained"
-          onClick={() => setIsModalOpen(true)}
-          disabled={!isCourseCompletionActive}
-        >
-          {t('mileageManagement.editCourseCompletionName')}
-        </Button>
+        <Stack flexDirection="row" spacing={2}>
+          <Button
+            variant="contained"
+            onClick={() => setIsModalOpen(true)}
+            disabled={!isCourseCompletionActive}
+          >
+            {t('mileageManagement.editCourseCompletionName')}
+          </Button>
+
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => setIsCourseListModalOpen(true)}
+            disabled={!isCourseCompletionActive}
+          >
+            {t('mileageManagement.manageCourseList')}
+          </Button>
+        </Stack>
       </Stack>
+
+      <ManageCourseListModal
+        open={isCourseListModalOpen}
+        onClose={() => setIsCourseListModalOpen(false)}
+        universityCode={universityCode}
+        year={year}
+        semester={semester}
+      />
     </Stack>
   );
 }

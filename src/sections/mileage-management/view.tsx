@@ -11,6 +11,7 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
 import { useTranslate } from 'src/locales';
+import { AdminGuard } from 'src/auth/guard';
 import { useAuthContext } from 'src/auth/hooks';
 import { MileageArea } from 'src/domain/mileage-management/mileage-area';
 
@@ -103,68 +104,69 @@ export default function MileageManagementView() {
   };
 
   return (
-    <Container>
-      <Typography variant="h4" mb={5}>
-        {t('nav.mileageManagement')}
-      </Typography>
+    <AdminGuard>
+      <Container>
+        <Typography variant="h4" mb={5}>
+          {t('nav.mileageManagement')}
+        </Typography>
 
-      <Stack spacing={3}>
-        <YearSemesterSelector
-          year={year}
-          semester={semester}
-          setYear={setYear}
-          setSemester={setSemester}
+        <Stack spacing={3}>
+          <YearSemesterSelector
+            year={year}
+            semester={semester}
+            setYear={setYear}
+            setSemester={setSemester}
+          />
+
+          {loading ? (
+            <Skeleton variant="rounded" height={500} />
+          ) : (
+            <>
+              <Stack flexDirection="row" spacing={2}>
+                <ExcelDownloadButton />
+
+                {areas && <ExcelDownloadButton mileageAreas={areas} />}
+              </Stack>
+
+              <MileageManagementAlert />
+
+              <CourseCompletionSection
+                isCourseCompletionActive={isCourseCompletionActive}
+                setIsModalOpen={setIsModalOpen}
+                fetchAreas={fetchAreas}
+                areas={areas}
+                universityCode={universityCode}
+                year={year}
+                semester={semester}
+              />
+
+              {areas && <AreaList areas={areas.sort((a, b) => (a.isCourseCompletion ? -1 : 1))} />}
+
+              <ExcelUploadSection
+                file={file}
+                setFile={setFile}
+                onClickExcelUpload={onClickExcelUpload}
+              />
+
+              <Alert severity="info">
+                {areas && areas.length > 0 ? (
+                  <>{t('mileageManagement.alert.update', { year, semester })}</>
+                ) : (
+                  <>{t('mileageManagement.alert.select')}</>
+                )}
+              </Alert>
+            </>
+          )}
+        </Stack>
+
+        <EditCourseCompletionNameModal
+          open={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onSave={handleCourseCompletionNameChange}
+          existingName={courseCompletionName}
+          initialName={COURSE_COMPLETION_AREA_INITIAL_NAME}
         />
-
-        {loading ? (
-          <Skeleton variant="rounded" height={500} />
-        ) : (
-          <>
-            <Stack flexDirection="row" spacing={2}>
-              <ExcelDownloadButton />
-
-              {areas && <ExcelDownloadButton mileageAreas={areas} />}
-            </Stack>
-
-            <MileageManagementAlert />
-
-            <CourseCompletionSection
-              isCourseCompletionActive={isCourseCompletionActive}
-              setIsModalOpen={setIsModalOpen}
-              fetchAreas={fetchAreas}
-              areas={areas}
-              universityCode={universityCode}
-              year={year}
-              semester={semester}
-              enqueueSnackbar={enqueueSnackbar}
-            />
-
-            {areas && <AreaList areas={areas.sort((a, b) => (a.isCourseCompletion ? -1 : 1))} />}
-
-            <ExcelUploadSection
-              file={file}
-              setFile={setFile}
-              onClickExcelUpload={onClickExcelUpload}
-            />
-
-            <Alert severity="info">
-              {areas && areas.length > 0 ? (
-                <>{t('mileageManagement.alert.update', { year, semester })}</>
-              ) : (
-                <>{t('mileageManagement.alert.select')}</>
-              )}
-            </Alert>
-          </>
-        )}
-      </Stack>
-
-      <EditCourseCompletionNameModal
-        open={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onSave={handleCourseCompletionNameChange}
-        existingName={courseCompletionName}
-        initialName={COURSE_COMPLETION_AREA_INITIAL_NAME}
-      />
-    </Container>
+      </Container>
+    </AdminGuard>
   );
 }
