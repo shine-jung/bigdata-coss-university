@@ -43,7 +43,7 @@ export default function MileageManagementView() {
   const [areas, setAreas] = useState<MileageArea[] | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const courseCompletionArea = areas?.find((area) => area.isCourseCompletion);
-  const courseCompletionName = courseCompletionArea?.name || COURSE_COMPLETION_AREA_INITIAL_NAME;
+  const courseCompletionName = courseCompletionArea?.name;
   const isCourseCompletionActive = !!courseCompletionArea;
 
   const fetchAreas = async () => {
