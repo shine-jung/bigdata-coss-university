@@ -50,7 +50,7 @@ export const OTHER_AREAS: MileageArea[] = [
     ],
   },
   {
-    name: '털(산학연구 활동)',
+    name: '털(산학)',
     defaultPoints: 15,
     fields: [
       { name: '분류(현장실습/연구참여)', type: 'string' },
@@ -61,7 +61,7 @@ export const OTHER_AREAS: MileageArea[] = [
     ],
   },
   {
-    name: '털(자격증 취득)',
+    name: '털(자격증)',
     defaultPoints: 30,
     fields: [
       { name: '자격증명', type: 'string' },

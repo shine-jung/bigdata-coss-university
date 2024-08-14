@@ -10,6 +10,8 @@ import Skeleton from '@mui/material/Skeleton';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
+import { useYearSemesterSelector } from 'src/hooks/use-year-semester-selector';
+
 import { useTranslate } from 'src/locales';
 import { AdminGuard } from 'src/auth/guard';
 import { useAuthContext } from 'src/auth/hooks';
@@ -30,16 +32,10 @@ export default function MileageManagementView() {
   const { user } = useAuthContext();
   const { enqueueSnackbar } = useSnackbar();
 
+  const { year, semester, yearOptions, setYear, setSemester } = useYearSemesterSelector();
+
   const universityCode = user?.university;
-  const currentYear = new Date().getFullYear();
-  const currentMonth = new Date().getMonth() + 1;
-
-  const defaultYear = currentMonth === 1 || currentMonth === 2 ? currentYear - 1 : currentYear;
-  const defaultSemester = currentMonth >= 3 && currentMonth <= 8 ? '1' : '2';
-
   const [loading, setLoading] = useState(true);
-  const [year, setYear] = useState(defaultYear.toString());
-  const [semester, setSemester] = useState(defaultSemester);
   const [file, setFile] = useState<File | null>(null);
   const [areas, setAreas] = useState<MileageArea[] | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -116,6 +112,7 @@ export default function MileageManagementView() {
             semester={semester}
             setYear={setYear}
             setSemester={setSemester}
+            yearOptions={yearOptions}
           />
 
           {loading ? (
