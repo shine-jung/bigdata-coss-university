@@ -103,24 +103,40 @@ export default function MileageManagementView() {
 
   return (
     <Container>
+      <Typography variant="h4" mb={5}>
+        {t('nav.mileageManagement')}
+      </Typography>
+
       <Stack spacing={3}>
         <Stack flexDirection="row" spacing={2}>
           <FormControl fullWidth margin="normal">
-            <InputLabel>년도</InputLabel>
-            <Select value={year} onChange={(e) => setYear(e.target.value)} label="년도">
+            <InputLabel>{t('mileageManagement.year')}</InputLabel>
+            <Select
+              value={year}
+              onChange={(e) => setYear(e.target.value)}
+              label={t('mileageManagement.year')}
+            >
               {yearOptions.map((y) => (
                 <MenuItem key={y} value={y}>
-                  {y}년
+                  {t('mileageManagement.yearOption', { year: y })}
                 </MenuItem>
               ))}
             </Select>
           </FormControl>
 
           <FormControl fullWidth margin="normal">
-            <InputLabel>학기</InputLabel>
-            <Select value={semester} onChange={(e) => setSemester(e.target.value)} label="학기">
-              <MenuItem value="1">1학기</MenuItem>
-              <MenuItem value="2">2학기</MenuItem>
+            <InputLabel>{t('mileageManagement.semester')}</InputLabel>
+            <Select
+              value={semester}
+              onChange={(e) => setSemester(e.target.value)}
+              label={t('mileageManagement.semester')}
+            >
+              <MenuItem value="1">
+                {t('mileageManagement.semesterOption', { semester: '1' })}
+              </MenuItem>
+              <MenuItem value="2">
+                {t('mileageManagement.semesterOption', { semester: '2' })}
+              </MenuItem>
             </Select>
           </FormControl>
         </Stack>
@@ -177,9 +193,11 @@ export default function MileageManagementView() {
               <>
                 {areas.map((area, index) => (
                   <Stack key={index}>
-                    <Typography variant="h4">{area.name} 영역</Typography>
+                    <Typography variant="h4">
+                      {area.name} {t('mileageManagement.area')}
+                    </Typography>
                     <Typography variant="body2" gutterBottom>
-                      항목 당 기본 점수: {area.defaultPoints}점
+                      {t('mileageManagement.defaultPoints', { points: area.defaultPoints })}
                     </Typography>
                     <TableContainer
                       sx={{
@@ -190,8 +208,8 @@ export default function MileageManagementView() {
                       <Table size="small">
                         <TableHead>
                           <TableRow>
-                            <TableCell>필드 이름</TableCell>
-                            <TableCell>필드 타입</TableCell>
+                            <TableCell>{t('mileageManagement.fieldName')}</TableCell>
+                            <TableCell>{t('mileageManagement.fieldType')}</TableCell>
                           </TableRow>
                         </TableHead>
                         <TableBody>
@@ -215,7 +233,7 @@ export default function MileageManagementView() {
                 component="label"
                 startIcon={<Iconify icon="eva:file-text-fill" />}
               >
-                엑셀 선택
+                {t('mileageManagement.excelSelect')}
                 <input type="file" accept=".xlsx, .xls" hidden onChange={handleFileChange} />
               </Button>
 
@@ -226,16 +244,18 @@ export default function MileageManagementView() {
                 startIcon={<Iconify icon="eva:upload-fill" />}
                 disabled={!file}
               >
-                엑셀 업로드
+                {t('mileageManagement.excelUpload')}
               </Button>
 
               {file && <Typography variant="subtitle2">{file.name}</Typography>}
             </Stack>
 
             <Alert severity="info">
-              {areas && areas.length > 0
-                ? `새로운 엑셀 파일을 업로드하면 ${year}년 ${semester}학기의 마일리지 영역이 업데이트됩니다.`
-                : `업로드할 엑셀 파일을 선택하고 '엑셀 업로드' 버튼을 눌러주세요.`}
+              {areas && areas.length > 0 ? (
+                <>{t('mileageManagement.alert.update', { year, semester })}</>
+              ) : (
+                <>{t('mileageManagement.alert.select')}</>
+              )}
             </Alert>
           </>
         )}
