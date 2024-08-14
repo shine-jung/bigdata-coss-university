@@ -9,6 +9,7 @@ import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
 
 import { useTranslate } from 'src/locales';
+import { AdminGuard } from 'src/auth/guard';
 import { useAuthContext } from 'src/auth/hooks';
 
 import { useSnackbar } from 'src/components/snackbar';
@@ -44,12 +45,14 @@ export default function NoticeCreationView() {
   };
 
   return (
-    <Container>
-      <Typography variant="h4" mb={5}>
-        {t('nav.noticeCreation')}
-      </Typography>
+    <AdminGuard>
+      <Container>
+        <Typography variant="h4" mb={5}>
+          {t('nav.noticeCreation')}
+        </Typography>
 
-      <NoticeForm onAddNotice={handleAddNotice} />
-    </Container>
+        <NoticeForm onAddNotice={handleAddNotice} />
+      </Container>
+    </AdminGuard>
   );
 }
