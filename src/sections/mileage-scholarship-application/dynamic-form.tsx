@@ -1,4 +1,5 @@
 import React from 'react';
+import { isNaN } from 'lodash';
 import { Controller, useFormContext } from 'react-hook-form';
 
 import { Stack, MenuItem, TextField } from '@mui/material';
@@ -10,7 +11,10 @@ interface DynamicFormProps {
 }
 
 export const DynamicForm = ({ area }: DynamicFormProps) => {
-  const { control } = useFormContext();
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext();
 
   const renderField = (field: { name: string; type: string }) => {
     switch (field.type) {
@@ -26,12 +30,19 @@ export const DynamicForm = ({ area }: DynamicFormProps) => {
                 type="number"
                 fullWidth
                 value={value || ''}
-                onChange={onChange}
+                onChange={(e) => {
+                  const newValue = e.target.value;
+                  if (!isNaN(Number(newValue))) {
+                    onChange(newValue);
+                  }
+                }}
                 margin="normal"
+                error={Boolean(errors[field.name])}
               />
             )}
           />
         );
+
       case 'date':
         return (
           <Controller
@@ -49,6 +60,7 @@ export const DynamicForm = ({ area }: DynamicFormProps) => {
                 InputLabelProps={{
                   shrink: true,
                 }}
+                error={Boolean(errors[field.name])}
               />
             )}
           />
@@ -67,6 +79,7 @@ export const DynamicForm = ({ area }: DynamicFormProps) => {
                 value={value !== undefined ? String(value) : ''}
                 onChange={(e) => onChange(e.target.value)}
                 margin="normal"
+                error={Boolean(errors[field.name])}
               >
                 <MenuItem value="true">예</MenuItem>
                 <MenuItem value="false">아니오</MenuItem>
@@ -88,6 +101,7 @@ export const DynamicForm = ({ area }: DynamicFormProps) => {
                 value={value || ''}
                 onChange={onChange}
                 margin="normal"
+                error={Boolean(errors[field.name])}
               />
             )}
           />

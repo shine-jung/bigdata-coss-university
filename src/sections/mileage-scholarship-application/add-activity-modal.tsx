@@ -61,18 +61,30 @@ const AddActivityModal = ({
     }
   }, [area, semester, universityCode, year]);
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: { [key: string]: string | number | boolean }) => {
     if (area) {
-      const processedData = Object.keys(data).reduce(
-        (acc, key) => {
-          if (data[key] === 'true' || data[key] === 'false') {
-            acc[key] = data[key] === 'true';
-          } else {
-            acc[key] = data[key];
+      const isDataEmpty =
+        Object.keys(data).length === 0 ||
+        Object.values(data).every((value) => value === '' || value === undefined || value === null);
+
+      if (isDataEmpty) {
+        alert('입력된 내용이 없습니다.');
+        return;
+      }
+
+      const processedData = area.fields.reduce(
+        (acc, field) => {
+          const key = field.name;
+          if (data[key] !== undefined) {
+            if (data[key] === 'true' || data[key] === 'false') {
+              acc[key] = data[key] === 'true';
+            } else {
+              acc[key] = data[key];
+            }
           }
           return acc;
         },
-        {} as { [key: string]: any }
+        {} as { [key: string]: string | number | boolean }
       );
 
       // PBL 교과목 이수의 경우 35점, 그 외 활동은 각 영역별 기본 점수로 설정
@@ -105,7 +117,6 @@ const AddActivityModal = ({
               subjectType={subjectType}
               courses={courses}
               errors={errors}
-              year={year}
               yearOptions={yearOptions}
               handleChange={handleChange}
               setValue={setValue}

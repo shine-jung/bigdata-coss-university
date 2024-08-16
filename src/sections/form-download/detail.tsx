@@ -41,7 +41,7 @@ const FormDetail = ({
         universityCode: user?.university,
         title,
         content,
-        author: user?.displayName,
+        author: user?.name,
         ...(file && { file, fileName }),
       });
       refetchForms();
