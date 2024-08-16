@@ -35,7 +35,7 @@ const NoticeDetail = ({
         universityCode: user?.university,
         title,
         content,
-        author: user?.displayName,
+        author: user?.name,
       });
       refetchNotices();
       setIsEditMode(false);

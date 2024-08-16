@@ -89,8 +89,8 @@ export default function EditCourseCompletionNameModal({
             {...register('name')}
             error={!!errors.name}
             helperText={errors.name?.message}
-            sx={{ mt: 1 }}
             autoFocus
+            margin="normal"
           />
         </DialogContent>
 

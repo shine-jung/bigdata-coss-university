@@ -33,7 +33,7 @@ export default function NoticeCreationView() {
         universityCode: user?.university,
         title,
         content,
-        author: user?.displayName,
+        author: user?.name,
       });
 
       router.push(paths.main.notice);

@@ -215,7 +215,7 @@ export default function ManageCourseListModal({
                           <TableCell>{course.code}</TableCell>
                           <TableCell>{course.name}</TableCell>
                           <TableCell>{course.credit}</TableCell>
-                          <TableCell>{course.isPBL ? 'Yes' : 'No'}</TableCell>
+                          <TableCell>{course.isPBL ? 'O' : 'X'}</TableCell>
                         </TableRow>
                       ))}
                     </TableBody>

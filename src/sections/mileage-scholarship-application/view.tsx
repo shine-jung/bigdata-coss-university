@@ -18,6 +18,7 @@ import Iconify from 'src/components/iconify';
 import AreaSelector from './area-selector';
 import ActivityTable from './activity-table';
 import AddActivityModal from './add-activity-modal';
+import UserMileageOverview from './user-mileage-overview';
 import YearSemesterSelector from '../mileage-management/year-semester-selector';
 
 export default function MileageScholarshipApplicationView() {
@@ -163,7 +164,10 @@ export default function MileageScholarshipApplicationView() {
       </Stack>
 
       {mileageLoading ? (
-        <Skeleton variant="rounded" height={56} sx={{ borderRadius: 1 }} />
+        <Stack flexDirection="row" justifyContent="space-between">
+          <Skeleton variant="rounded" width={360} height={56} sx={{ borderRadius: 1 }} />
+          <Skeleton variant="rounded" width={120} height={56} sx={{ borderRadius: 1 }} />
+        </Stack>
       ) : (
         <Stack flexDirection="row" justifyContent="space-between" alignItems="center">
           <AreaSelector
@@ -196,14 +200,11 @@ export default function MileageScholarshipApplicationView() {
       </Card>
 
       <Stack mt={4} alignItems="center">
-        <Button
-          variant="contained"
-          color="primary"
-          // onClick={handleSubmit}
+        <UserMileageOverview
+          activities={activities}
+          areas={areas}
           disabled={activities.length === 0}
-        >
-          신청 제출
-        </Button>
+        />
       </Stack>
 
       {currentArea && (

@@ -17,11 +17,13 @@ import {
 
 import { Course } from 'src/domain/mileage-management/course';
 
+const SEMESTER_OPTIONS = [1, 2, 3, 4];
+const GRADE_OPTIONS = ['A+', 'A0', 'A-', 'B+', 'PD', 'P'];
+
 interface CourseCompletionFormProps {
   subjectType: number;
   courses: Course[];
   errors: any;
-  year: string;
   yearOptions: string[];
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   setValue: (name: string, value: any) => void;
@@ -31,7 +33,6 @@ export const CourseCompletionForm = ({
   subjectType,
   courses,
   errors,
-  year,
   yearOptions,
   handleChange,
   setValue,
@@ -112,8 +113,7 @@ export const CourseCompletionForm = ({
               {...register('년도', {
                 required: '필수 항목입니다.',
               })}
-              defaultValue={year}
-              displayEmpty
+              defaultValue=""
               error={Boolean(errors?.년도)}
             >
               {yearOptions.map((yearOption) => (
@@ -134,7 +134,7 @@ export const CourseCompletionForm = ({
               defaultValue=""
               error={Boolean(errors?.학기)}
             >
-              {[1, 2, 3, 4].map((semesterOption) => (
+              {SEMESTER_OPTIONS.map((semesterOption) => (
                 <MenuItem key={semesterOption} value={semesterOption}>
                   {semesterOption}
                 </MenuItem>
@@ -152,7 +152,7 @@ export const CourseCompletionForm = ({
               defaultValue=""
               error={Boolean(errors?.성적)}
             >
-              {['A+', 'A0', 'A-', 'B+', 'PD', 'P'].map((grade) => (
+              {GRADE_OPTIONS.map((grade) => (
                 <MenuItem key={grade} value={grade}>
                   {grade}
                 </MenuItem>
@@ -214,7 +214,7 @@ export const CourseCompletionForm = ({
             <Checkbox
               {...field}
               color="primary"
-              checked={field.value}
+              checked={field.value ?? false}
               onChange={(e) => {
                 if (subjectType === 0) field.onChange(e.target.checked);
               }}
