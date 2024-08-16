@@ -4,15 +4,15 @@ import { NextRequest, NextResponse } from 'next/server';
 import { DB } from 'src/auth/context/firebase/lib';
 
 export async function POST(request: NextRequest) {
-  const { universityCode, userId, year, semester, activities } = await request.json();
+  const { universityCode, userId, year, semester, activities, studentInfo } = await request.json();
 
-  if (!universityCode || !userId || !year || !semester || !activities) {
+  if (!universityCode || !userId || !year || !semester || !activities || !studentInfo) {
     return NextResponse.json({ error: '필드가 부족합니다' }, { status: 400 });
   }
 
   try {
     const applicationRef = doc(DB, `applications_${universityCode}/${year}/${semester}/${userId}`);
-    await setDoc(applicationRef, { activities });
+    await setDoc(applicationRef, { activities, studentInfo });
 
     return NextResponse.json({ message: '신청이 성공적으로 제출되었습니다' }, { status: 200 });
   } catch (error) {

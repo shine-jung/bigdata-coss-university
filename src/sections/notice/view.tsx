@@ -12,6 +12,8 @@ import { useTranslate } from 'src/locales';
 import { useAuthContext } from 'src/auth/hooks';
 import { Notice } from 'src/domain/notice/notice';
 
+import EmptyContent from 'src/components/empty-content';
+
 import NoticeList from './list';
 import NoticeDetail from './detail';
 
@@ -65,7 +67,13 @@ export default function NoticeView() {
               refetchNotices={fetchNotices}
             />
           ) : (
-            <NoticeList notices={notices} onSelectNotice={setSelectedNotice} />
+            <>
+              {notices.length === 0 ? (
+                <EmptyContent title={t('notice.noNoticesFound')} />
+              ) : (
+                <NoticeList notices={notices} onSelectNotice={setSelectedNotice} />
+              )}
+            </>
           )}
         </>
       )}
