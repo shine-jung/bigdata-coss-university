@@ -150,7 +150,7 @@ export default function MileageScholarshipApplicationView() {
 
   return (
     <Container>
-      <Stack flexDirection="row" justifyContent="space-between" alignItems="center" mb={3}>
+      <Stack flexDirection="row" justifyContent="space-between" alignItems="center" mb={5}>
         <Typography variant="h4">{t('nav.mileageScholarshipApplication')}</Typography>
 
         <YearSemesterSelector
@@ -176,15 +176,25 @@ export default function MileageScholarshipApplicationView() {
             handleAreaChange={handleAreaChange}
           />
 
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => setOpen(true)}
-            size="large"
-            startIcon={<Iconify icon="eva:plus-outline" />}
-          >
-            활동 추가
-          </Button>
+          <Stack flexDirection="row" spacing={2}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => setOpen(true)}
+              size="large"
+              startIcon={<Iconify icon="eva:plus-outline" />}
+            >
+              활동 추가
+            </Button>
+
+            <UserMileageOverview
+              activities={activities}
+              areas={areas}
+              year={year}
+              semester={semester}
+              disabled={activities.length === 0}
+            />
+          </Stack>
         </Stack>
       )}
 
@@ -198,14 +208,6 @@ export default function MileageScholarshipApplicationView() {
           handleDeleteClick={handleDeleteClick}
         />
       </Card>
-
-      <Stack mt={4} alignItems="center">
-        <UserMileageOverview
-          activities={activities}
-          areas={areas}
-          disabled={activities.length === 0}
-        />
-      </Stack>
 
       {currentArea && (
         <AddActivityModal

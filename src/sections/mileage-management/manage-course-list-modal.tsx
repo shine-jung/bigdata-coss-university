@@ -15,7 +15,6 @@ import {
   TableBody,
   TableCell,
   TableHead,
-  Typography,
   DialogTitle,
   DialogContent,
   DialogActions,
@@ -26,6 +25,7 @@ import { useTranslate } from 'src/locales';
 import { Course } from 'src/domain/mileage-management/course';
 
 import Iconify from 'src/components/iconify';
+import EmptyContent from 'src/components/empty-content';
 
 import ExcelUploadSection from './excel-upload-section';
 import { COURSE_SAMPLE_WORKSHEET_DATA } from './constants/preset-areas';
@@ -223,9 +223,10 @@ export default function ManageCourseListModal({
                 </TableContainer>
               ) : (
                 <Stack height={TABLE_HEIGHT} justifyContent="center" alignItems="center">
-                  <Typography variant="subtitle1" color="text.secondary">
-                    {t('mileageManagement.noCoursesAvailable')}
-                  </Typography>
+                  <EmptyContent
+                    title={t('mileageManagement.noCoursesFound')}
+                    description={t('mileageManagement.noCoursesFoundDescription')}
+                  />
                 </Stack>
               )}
             </>

@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
     const applicationDoc = await getDoc(applicationRef);
 
     if (!applicationDoc.exists()) {
-      return NextResponse.json({ error: '신청 정보를 찾을 수 없습니다' }, { status: 404 });
+      return NextResponse.json(null, { status: 200 });
     }
 
     return NextResponse.json(applicationDoc.data(), { status: 200 });

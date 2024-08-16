@@ -144,7 +144,7 @@
     "author": "Author",
     "createdAt": "Created at",
     "updatedAt": "Updated at",
-    "noNotice": "No notices",
+    "noNoticesFound": "No notices found",
     "createNotice": "Create notice",
     "editNotice": "Edit notice",
     "deleteNotice": "Delete notice",
@@ -165,7 +165,7 @@
     "author": "Author",
     "createdAt": "Created at",
     "updatedAt": "Updated at",
-    "noForm": "No forms",
+    "noFormsFound": "No forms found",
     "uploadForm": "Upload form",
     "editForm": "Edit form",
     "deleteForm": "Delete form",
@@ -259,7 +259,8 @@
       "credit": "Credit",
       "isPBL": "PBL"
     },
-    "noCoursesAvailable": "No courses available"
+    "noCoursesFound": "No courses found",
+    "noCoursesFoundDescription": "Upload an Excel file to add course lists."
   },
   "permission": {
     "denied": "Access denied",

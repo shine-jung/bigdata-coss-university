@@ -144,7 +144,7 @@
     "author": "작성자",
     "createdAt": "작성일",
     "updatedAt": "수정일",
-    "noNotice": "공지사항이 없습니다",
+    "noNoticesFound": "등록된 공지사항이 없습니다",
     "createNotice": "공지사항 작성",
     "editNotice": "공지사항 수정",
     "deleteNotice": "공지사항 삭제",
@@ -165,7 +165,7 @@
     "author": "작성자",
     "createdAt": "작성일",
     "updatedAt": "수정일",
-    "noForm": "양식이 없습니다",
+    "noFormsFound": "등록된 양식이 없습니다",
     "uploadForm": "양식 업로드",
     "editForm": "양식 수정",
     "deleteForm": "양식 삭제",
@@ -259,7 +259,8 @@
       "credit": "이수 학점",
       "isPBL": "PBL 여부"
     },
-    "noCoursesAvailable": "등록된 교과목이 없습니다"
+    "noCoursesFound": "등록된 교과목이 없습니다",
+    "noCoursesFoundDescription": "엑셀 파일을 업로드하여 교과목 목록을 추가하세요."
   },
   "permission": {
     "denied": "접근 권한이 없습니다",

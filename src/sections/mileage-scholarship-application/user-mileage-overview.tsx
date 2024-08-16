@@ -19,40 +19,34 @@ import {
   DialogContentText,
 } from '@mui/material';
 
-import { useYearSemesterSelector } from 'src/hooks/use-year-semester-selector';
-
 import { useAuthContext } from 'src/auth/hooks';
 import { Activity } from 'src/domain/activity/activity';
+import { StudentInfo } from 'src/domain/student/student-info';
 import { MileageArea } from 'src/domain/mileage-management/mileage-area';
 
 import Iconify from 'src/components/iconify';
 
 import generatePDF from './utils/generate-pdf';
+import { STUDENT_INFO_TABLE_HEAD } from '../../domain/student/student-info-table-head';
 
 const PDF_SECTION_ID = 'PDF';
-const USER_INFO_TABLE_HEAD = [
-  { key: '학번', value: 'studentNumber' },
-  { key: '이름', value: 'name' },
-  { key: '학부(학과)', value: 'department' },
-  { key: '전공', value: 'major' },
-  { key: '학년', value: 'grade' },
-  { key: '학기', value: 'semester' },
-  { key: '이메일', value: 'email' },
-];
 
 interface UserMileageOverviewProps {
   areas: MileageArea[];
   activities: Activity[];
+  year: string;
+  semester: string;
   disabled?: boolean;
 }
 
 export default function UserMileageOverview({
   areas,
   activities,
+  year,
+  semester,
   disabled,
 }: UserMileageOverviewProps) {
   const { user } = useAuthContext();
-  const { year, semester } = useYearSemesterSelector();
   const { enqueueSnackbar } = useSnackbar();
 
   const [open, setOpen] = useState(false);
@@ -63,7 +57,24 @@ export default function UserMileageOverview({
   const handleOpenDialog = () => setOpenDialog(true);
   const handleCloseDialog = () => setOpenDialog(false);
 
+  const studentInfo = user
+    ? ({
+        studentNumber: user.studentNumber,
+        name: user.name,
+        department: user.department,
+        major: user.major,
+        grade: user.grade,
+        semester: user.semester,
+        email: user.email,
+      } as StudentInfo)
+    : null;
+
   const handleApply = async () => {
+    if (!studentInfo) {
+      alert('User information is not available.');
+      return;
+    }
+
     try {
       await axios.post('/api/applications', {
         universityCode: user?.university,
@@ -71,6 +82,7 @@ export default function UserMileageOverview({
         year,
         semester,
         activities,
+        studentInfo,
       });
       enqueueSnackbar('Application submitted successfully.', { variant: 'success' });
       handleClose();
@@ -85,7 +97,8 @@ export default function UserMileageOverview({
       <Button
         variant="contained"
         onClick={handleOpen}
-        color="primary"
+        color="success"
+        size="large"
         disabled={disabled}
         startIcon={<Iconify icon="eva:file-text-outline" />}
       >
@@ -110,7 +123,7 @@ export default function UserMileageOverview({
                 <Table size="small" stickyHeader>
                   <TableHead>
                     <TableRow>
-                      {USER_INFO_TABLE_HEAD.map((head) => (
+                      {STUDENT_INFO_TABLE_HEAD.map((head) => (
                         <TableCell key={head.key} align="center">
                           {head.key}
                         </TableCell>
@@ -119,9 +132,9 @@ export default function UserMileageOverview({
                   </TableHead>
                   <TableBody>
                     <TableRow>
-                      {USER_INFO_TABLE_HEAD.map((head) => (
+                      {STUDENT_INFO_TABLE_HEAD.map((head) => (
                         <TableCell key={head.key} align="center">
-                          {user?.[head.value]}
+                          {studentInfo?.[head.value as keyof StudentInfo]}
                         </TableCell>
                       ))}
                     </TableRow>
@@ -217,7 +230,7 @@ export default function UserMileageOverview({
           <Button variant="contained" color="success" onClick={handleOpenDialog}>
             Apply for Scholarship
           </Button>
-          <Button variant="outlined" color="error" onClick={handleClose}>
+          <Button variant="contained" color="error" onClick={handleClose}>
             Close
           </Button>
         </DialogActions>

@@ -102,19 +102,20 @@ export default function MileageManagementView() {
   return (
     <AdminGuard>
       <Container>
-        <Typography variant="h4" mb={5}>
-          {t('nav.mileageManagement')}
-        </Typography>
+        <Stack flexDirection="row" justifyContent="space-between" alignItems="center" mb={5}>
+          <Typography variant="h4">{t('nav.mileageManagement')}</Typography>
 
-        <Stack spacing={3}>
           <YearSemesterSelector
             year={year}
             semester={semester}
             setYear={setYear}
             setSemester={setSemester}
             yearOptions={yearOptions}
+            size="small"
           />
+        </Stack>
 
+        <Stack spacing={3}>
           {loading ? (
             <Skeleton variant="rounded" height={500} />
           ) : (
