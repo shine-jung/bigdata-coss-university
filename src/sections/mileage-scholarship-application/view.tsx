@@ -19,7 +19,7 @@ import AreaSelector from './area-selector';
 import ActivityTable from './activity-table';
 import AddActivityModal from './add-activity-modal';
 import UserMileageOverview from './user-mileage-overview';
-import YearSemesterSelector from '../mileage-management/year-semester-selector';
+import YearSemesterSelector from '../common/year-semester-selector';
 
 export default function MileageScholarshipApplicationView() {
   const { t } = useTranslate();

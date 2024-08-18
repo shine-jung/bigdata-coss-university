@@ -25,7 +25,7 @@ import { STUDENT_INFO_TABLE_HEAD } from 'src/domain/student/student-info-table-h
 
 import EmptyContent from 'src/components/empty-content';
 
-import YearSemesterSelector from '../mileage-management/year-semester-selector';
+import YearSemesterSelector from '../common/year-semester-selector';
 
 // ----------------------------------------------------------------------
 

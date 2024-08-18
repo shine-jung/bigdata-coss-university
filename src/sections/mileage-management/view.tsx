@@ -21,9 +21,9 @@ import AreaList from './area-list';
 import ExcelUploadSection from './excel-upload-section';
 import ExcelDownloadButton from './excel-download-button';
 import { handleExcelFileUpload } from './utils/excel-utils';
-import YearSemesterSelector from './year-semester-selector';
 import MileageManagementAlert from './mileage-management-alert';
 import CourseCompletionSection from './course-completion-section';
+import YearSemesterSelector from '../common/year-semester-selector';
 import { COURSE_COMPLETION_AREA_INITIAL_NAME } from './constants/preset-areas';
 import EditCourseCompletionNameModal from './edit-course-completion-name-modal';
 
