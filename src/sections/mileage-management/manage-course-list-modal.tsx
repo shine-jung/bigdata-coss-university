@@ -27,7 +27,7 @@ import { Course } from 'src/domain/mileage-management/course';
 import Iconify from 'src/components/iconify';
 import EmptyContent from 'src/components/empty-content';
 
-import ExcelUploadSection from './excel-upload-section';
+import ExcelUploadSection from '../common/excel-upload-section';
 import { COURSE_SAMPLE_WORKSHEET_DATA } from './constants/preset-areas';
 
 const TABLE_HEIGHT = 400;
