@@ -10,6 +10,7 @@ import { Card, Stack, Container, Typography } from '@mui/material';
 import { useYearSemesterSelector } from 'src/hooks/use-year-semester-selector';
 
 import { useTranslate } from 'src/locales';
+import { AdminGuard } from 'src/auth/guard';
 import { useAuthContext } from 'src/auth/hooks';
 import { Activity } from 'src/domain/activity/activity';
 import { Application } from 'src/domain/application/application';
@@ -130,30 +131,32 @@ export default function MileageScholarshipApplicationListView() {
   ];
 
   return (
-    <Container>
-      <Stack flexDirection="row" justifyContent="space-between" alignItems="center" mb={5}>
-        <Typography variant="h4">{t('nav.mileageScholarshipApplicationList')}</Typography>
+    <AdminGuard>
+      <Container>
+        <Stack flexDirection="row" justifyContent="space-between" alignItems="center" mb={5}>
+          <Typography variant="h4">{t('nav.mileageScholarshipApplicationList')}</Typography>
 
-        <YearSemesterSelector
-          year={year}
-          semester={semester}
-          setYear={setYear}
-          setSemester={setSemester}
-          yearOptions={yearOptions}
-          size="small"
+          <YearSemesterSelector
+            year={year}
+            semester={semester}
+            setYear={setYear}
+            setSemester={setSemester}
+            yearOptions={yearOptions}
+            size="small"
+          />
+        </Stack>
+
+        <Card sx={{ height: 700 }}>
+          <ApplicationTable applications={applications} columns={columns} loading={loading} />
+        </Card>
+
+        <ApplicationDetailsDialog
+          open={openDialog}
+          onClose={handleCloseDialog}
+          application={selectedApplication}
+          areas={areas}
         />
-      </Stack>
-
-      <Card sx={{ height: 700 }}>
-        <ApplicationTable applications={applications} columns={columns} loading={loading} />
-      </Card>
-
-      <ApplicationDetailsDialog
-        open={openDialog}
-        onClose={handleCloseDialog}
-        application={selectedApplication}
-        areas={areas}
-      />
-    </Container>
+      </Container>
+    </AdminGuard>
   );
 }

@@ -18,9 +18,9 @@ import { useAuthContext } from 'src/auth/hooks';
 import { MileageArea } from 'src/domain/mileage-management/mileage-area';
 
 import AreaList from './area-list';
-import ExcelUploadSection from './excel-upload-section';
 import ExcelDownloadButton from './excel-download-button';
 import { handleExcelFileUpload } from './utils/excel-utils';
+import ExcelUploadSection from '../common/excel-upload-section';
 import MileageManagementAlert from './mileage-management-alert';
 import CourseCompletionSection from './course-completion-section';
 import YearSemesterSelector from '../common/year-semester-selector';
