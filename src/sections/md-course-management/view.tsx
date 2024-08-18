@@ -6,11 +6,12 @@ import { v4 as uuidv4 } from 'uuid';
 import { useSnackbar } from 'notistack';
 import React, { useState, useEffect } from 'react';
 
-import { Stack, Alert, Button, Skeleton, Typography } from '@mui/material';
+import { Stack, Alert, Button, Skeleton, Container, Typography } from '@mui/material';
 
 import { useYearSemesterSelector } from 'src/hooks/use-year-semester-selector';
 
 import { useTranslate } from 'src/locales';
+import { AdminGuard } from 'src/auth/guard';
 import { useAuthContext } from 'src/auth/hooks';
 import { Subject } from 'src/domain/md-process/subject';
 import { MDProcess } from 'src/domain/md-process/md-process';
@@ -232,84 +233,90 @@ export default function MDCourseManagementView() {
   };
 
   return (
-    <Stack>
-      <Stack flexDirection="row" justifyContent="space-between" alignItems="center" mb={5}>
-        <Typography variant="h4">{t('nav.MDCourseManagement')}</Typography>
+    <AdminGuard>
+      <Container>
+        <Stack flexDirection="row" justifyContent="space-between" alignItems="center" mb={5}>
+          <Typography variant="h4">{t('nav.MDCourseManagement')}</Typography>
 
-        <YearSemesterSelector
-          year={year}
-          semester={semester}
-          setYear={setYear}
-          setSemester={setSemester}
-          yearOptions={yearOptions}
-          size="small"
-        />
-      </Stack>
+          <YearSemesterSelector
+            year={year}
+            semester={semester}
+            setYear={setYear}
+            setSemester={setSemester}
+            yearOptions={yearOptions}
+            size="small"
+          />
+        </Stack>
 
-      {loading ? (
-        <Skeleton variant="rounded" height={500} />
-      ) : (
-        <Stack spacing={3}>
-          <Alert severity="warning">
-            학생들이 MD 이수 신청을 한 이후에 수정을 진행하면, 이수 신청 결과에 영향을 줄 수
-            있습니다.
-          </Alert>
+        {loading ? (
+          <Skeleton variant="rounded" height={500} />
+        ) : (
+          <Stack spacing={3}>
+            <Alert severity="warning">
+              학생들이 MD 이수 신청을 한 이후에 수정을 진행하면, 이수 신청 결과에 영향을 줄 수
+              있습니다.
+            </Alert>
 
-          <Stack flexDirection="row" alignItems="center" justifyContent="space-between">
-            <Stack flexDirection="row" spacing={2}>
-              <ExcelDownloadButton />
+            <Stack flexDirection="row" alignItems="center" justifyContent="space-between">
+              <Stack flexDirection="row" spacing={2}>
+                <ExcelDownloadButton />
 
-              {categories && subjects && (
-                <ExcelDownloadButton categories={categories} subjects={subjects} />
-              )}
+                {categories && subjects && (
+                  <ExcelDownloadButton categories={categories} subjects={subjects} />
+                )}
+              </Stack>
+
+              <Button
+                variant="contained"
+                onClick={onClickAddProcess}
+                color="primary"
+                startIcon={<Iconify icon="eva:plus-outline" />}
+              >
+                과정 추가
+              </Button>
             </Stack>
 
-            <Button
-              variant="contained"
-              onClick={onClickAddProcess}
-              color="primary"
-              startIcon={<Iconify icon="eva:plus-outline" />}
-            >
-              과정 추가
-            </Button>
-          </Stack>
+            <Stack>
+              <Typography variant="h6" gutterBottom>
+                과정 목록
+              </Typography>
+              <ProcessTable
+                processes={processes}
+                onEdit={onClickEditProcess}
+                onDelete={handleDeleteProcess}
+              />
+            </Stack>
 
-          <Stack>
-            <Typography variant="h6" gutterBottom>
-              과정 목록
-            </Typography>
-            <ProcessTable
-              processes={processes}
-              onEdit={onClickEditProcess}
-              onDelete={handleDeleteProcess}
+            <Stack>
+              <Typography variant="h6" gutterBottom>
+                과목 분류 목록
+              </Typography>
+              <CategoryTable categories={categories} />
+            </Stack>
+
+            <Stack>
+              <Typography variant="h6" gutterBottom>
+                과목 목록
+              </Typography>
+              <SubjectTable subjects={subjects} />
+            </Stack>
+
+            <ExcelUploadSection
+              file={file}
+              setFile={setFile}
+              onClickExcelUpload={handleFileUpload}
             />
           </Stack>
+        )}
 
-          <Stack>
-            <Typography variant="h6" gutterBottom>
-              과목 분류 목록
-            </Typography>
-            <CategoryTable categories={categories} />
-          </Stack>
-
-          <Stack>
-            <Typography variant="h6" gutterBottom>
-              과목 목록
-            </Typography>
-            <SubjectTable subjects={subjects} />
-          </Stack>
-
-          <ExcelUploadSection file={file} setFile={setFile} onClickExcelUpload={handleFileUpload} />
-        </Stack>
-      )}
-
-      <ProcessModal
-        open={openProcessModal}
-        process={selectedProcess}
-        onClose={() => setOpenProcessModal(false)}
-        onSave={() => (selectedProcess.id ? handleEditProcess() : handleAddProcess())}
-        setProcess={setSelectedProcess}
-      />
-    </Stack>
+        <ProcessModal
+          open={openProcessModal}
+          process={selectedProcess}
+          onClose={() => setOpenProcessModal(false)}
+          onSave={() => (selectedProcess.id ? handleEditProcess() : handleAddProcess())}
+          setProcess={setSelectedProcess}
+        />
+      </Container>
+    </AdminGuard>
   );
 }

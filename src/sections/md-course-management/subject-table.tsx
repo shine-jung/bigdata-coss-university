@@ -32,7 +32,7 @@ export const SubjectTable: React.FC<SubjectTableProps> = ({ subjects }) => (
       <TableBody>
         {subjects.length === 0 ? (
           <TableRow>
-            <TableCell colSpan={5} align="center">
+            <TableCell colSpan={7} align="center">
               데이터가 없습니다.
             </TableCell>
           </TableRow>

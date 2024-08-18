@@ -30,7 +30,7 @@ export const CategoryTable: React.FC<CategoryTableProps> = ({ categories }) => (
       <TableBody>
         {categories.length === 0 ? (
           <TableRow>
-            <TableCell colSpan={3} align="center">
+            <TableCell colSpan={5} align="center">
               데이터가 없습니다.
             </TableCell>
           </TableRow>
