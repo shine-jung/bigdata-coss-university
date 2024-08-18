@@ -20,7 +20,7 @@ import Iconify from 'src/components/iconify';
 import ApplicationTable from './application-table';
 import { generateExcel } from './utils/generate-excel';
 import ApplicationDetailsDialog from './application-details-dialog';
-import YearSemesterSelector from '../mileage-management/year-semester-selector';
+import YearSemesterSelector from '../common/year-semester-selector';
 
 export default function MileageScholarshipApplicationListView() {
   const { t } = useTranslate();
