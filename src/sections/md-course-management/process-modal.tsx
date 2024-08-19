@@ -12,6 +12,7 @@ import {
   FormControlLabel,
 } from '@mui/material';
 
+import { useTranslate } from 'src/locales';
 import { MDProcess } from 'src/domain/md-process/md-process';
 
 interface ProcessModalProps {
@@ -28,65 +29,69 @@ export const ProcessModal: React.FC<ProcessModalProps> = ({
   onClose,
   onSave,
   setProcess,
-}) => (
-  <Dialog open={open} onClose={onClose} maxWidth="xs" fullWidth>
-    <DialogTitle>과정 {process.id ? '수정' : '추가'}</DialogTitle>
-    <DialogContent>
-      <Stack>
-        <TextField
-          label="과정 이름"
-          value={process.name || ''}
-          onChange={(e) => setProcess((prev) => ({ ...prev, name: e.target.value }))}
-          margin="dense"
-        />
-        <TextField
-          label="최소 표준교과목 이수 과목 수"
-          type="number"
-          value={process.minStandardCourses || ''}
-          onChange={(e) =>
-            setProcess((prev) => ({ ...prev, minStandardCourses: parseInt(e.target.value, 10) }))
-          }
-          margin="dense"
-        />
-        <TextField
-          label="최소 연계융합교과목 이수 과목 수"
-          type="number"
-          value={process.minLinkedCourses || ''}
-          onChange={(e) =>
-            setProcess((prev) => ({ ...prev, minLinkedCourses: parseInt(e.target.value, 10) }))
-          }
-          margin="dense"
-        />
-        <TextField
-          label="최소 이수 학점"
-          type="number"
-          value={process.minRequiredCredits || ''}
-          onChange={(e) =>
-            setProcess((prev) => ({ ...prev, minRequiredCredits: parseInt(e.target.value, 10) }))
-          }
-          margin="dense"
-        />
-        <FormControlLabel
-          control={
-            <Switch
-              checked={!!process.requiresCompulsoryCourses}
-              onChange={() =>
-                setProcess((prev) => ({
-                  ...prev,
-                  requiresCompulsoryCourses: !prev.requiresCompulsoryCourses,
-                }))
-              }
-            />
-          }
-          label="필수 교과목 이수 필요 여부"
-        />
-      </Stack>
-    </DialogContent>
-    <DialogActions>
-      <Button onClick={onClose}>취소</Button>
-      <Button onClick={onSave} variant="contained" color="primary">
-        저장
-      </Button>
-    </DialogActions>
-  </Dialog>
-);
+}) => {
+  const { t } = useTranslate();
+
+  return (
+    <Dialog open={open} onClose={onClose} maxWidth="xs" fullWidth>
+      <DialogTitle>{t(`mdProcess.process.${process.id ? 'edit' : 'add'}`)}</DialogTitle>
+      <DialogContent>
+        <Stack>
+          <TextField
+            label={t('mdProcess.process.name')}
+            value={process.name || ''}
+            onChange={(e) => setProcess((prev) => ({ ...prev, name: e.target.value }))}
+            margin="dense"
+          />
+          <TextField
+            label={t('mdProcess.process.minStandardCourses')}
+            type="number"
+            value={process.minStandardCourses || ''}
+            onChange={(e) =>
+              setProcess((prev) => ({ ...prev, minStandardCourses: parseInt(e.target.value, 10) }))
+            }
+            margin="dense"
+          />
+          <TextField
+            label={t('mdProcess.process.minLinkedCourses')}
+            type="number"
+            value={process.minLinkedCourses || ''}
+            onChange={(e) =>
+              setProcess((prev) => ({ ...prev, minLinkedCourses: parseInt(e.target.value, 10) }))
+            }
+            margin="dense"
+          />
+          <TextField
+            label={t('mdProcess.process.minRequiredCredits')}
+            type="number"
+            value={process.minRequiredCredits || ''}
+            onChange={(e) =>
+              setProcess((prev) => ({ ...prev, minRequiredCredits: parseInt(e.target.value, 10) }))
+            }
+            margin="dense"
+          />
+          <FormControlLabel
+            control={
+              <Switch
+                checked={!!process.requiresCompulsoryCourses}
+                onChange={() =>
+                  setProcess((prev) => ({
+                    ...prev,
+                    requiresCompulsoryCourses: !prev.requiresCompulsoryCourses,
+                  }))
+                }
+              />
+            }
+            label={t('mdProcess.process.requiresCompulsoryCourses')}
+          />
+        </Stack>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={onClose}>{t('common.cancel')}</Button>
+        <Button onClick={onSave} variant="contained" color="primary">
+          {t('common.save')}
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+};

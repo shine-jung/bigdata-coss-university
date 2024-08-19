@@ -27,7 +27,8 @@
     "searchClearPromptButton": "Clear",
     "searchClearPromptCancel": "Cancel",
     "searchClearPromptMessage": "Are you sure you want to clear the search?",
-    "searchClearPromptTitle": "Clear search"
+    "searchClearPromptTitle": "Clear search",
+    "noData": "No data"
   },
   "nav": {
     "board": "Board",
@@ -261,6 +262,41 @@
     },
     "noCoursesFound": "No courses found",
     "noCoursesFoundDescription": "Upload an Excel file to add course lists."
+  },
+  "mdProcess": {
+    "process": {
+      "list": "Process List",
+      "add": "Add Process",
+      "edit": "Edit Process",
+      "id": "Process ID",
+      "name": "Name",
+      "minStandardCourses": "Minimum Standard Courses",
+      "minLinkedCourses": "Minimum Linked Courses",
+      "minRequiredCredits": "Minimum Required Credits",
+      "requiresCompulsoryCourses": "Requires Compulsory Courses",
+      "copySuccess": "Process ID has been copied"
+    },
+    "category": {
+      "list": "Category List",
+      "number": "Number",
+      "type": "Type",
+      "code": "Code",
+      "name": "Name",
+      "processId": "Process ID"
+    },
+    "subject": {
+      "list": "Subject List",
+      "name": "Subject Name",
+      "code": "Subject Code",
+      "credit": "Credit",
+      "department": "Department",
+      "required": "Required",
+      "categoryNumber": "Category Number",
+      "processId": "Process ID"
+    },
+    "warningMessage": "Modifying the process after students have applied for the MD process may affect the application results.",
+    "downloadExcel": "Download current MD subject category and subject list as Excel",
+    "downloadTemplate": "Download Excel template"
   },
   "permission": {
     "denied": "Access denied",

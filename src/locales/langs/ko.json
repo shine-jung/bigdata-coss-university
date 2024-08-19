@@ -27,7 +27,8 @@
     "searchClearPromptButton": "지우기",
     "searchClearPromptCancel": "취소",
     "searchClearPromptMessage": "검색을 지우시겠습니까?",
-    "searchClearPromptTitle": "검색 지우기"
+    "searchClearPromptTitle": "검색 지우기",
+    "noData": "데이터가 없습니다"
   },
   "nav": {
     "board": "게시판",
@@ -261,6 +262,41 @@
     },
     "noCoursesFound": "등록된 교과목이 없습니다",
     "noCoursesFoundDescription": "엑셀 파일을 업로드하여 교과목 목록을 추가하세요."
+  },
+  "mdProcess": {
+    "process": {
+      "list": "과정 목록",
+      "add": "과정 추가",
+      "edit": "과정 수정",
+      "id": "과정 ID",
+      "name": "명칭",
+      "minStandardCourses": "표준교과목\n최소 이수 과목 수",
+      "minLinkedCourses": "연계융합교과목\n최소 이수 과목 수",
+      "minRequiredCredits": "최소 이수학점",
+      "requiresCompulsoryCourses": "필수 교과목 이수 필요 여부",
+      "copySuccess": "과정 ID가 복사되었습니다"
+    },
+    "category": {
+      "list": "과목 분류 목록",
+      "number": "연번",
+      "type": "구분",
+      "code": "코드",
+      "name": "명칭",
+      "processId": "과정 ID"
+    },
+    "subject": {
+      "list": "과목 목록",
+      "name": "과목명",
+      "code": "과목코드",
+      "credit": "학점",
+      "department": "개설학부",
+      "required": "필수 여부",
+      "categoryNumber": "과목 분류 연번",
+      "processId": "과정 ID"
+    },
+    "warningMessage": "학생들이 MD 과정을 신청 한 후에 과정을 수정하면, 신청 결과에 영향을 줄 수 있습니다.",
+    "downloadExcel": "현재 MD 과목 분류 및 과목 목록 엑셀 다운로드",
+    "downloadTemplate": "엑셀 템플릿 다운로드"
   },
   "permission": {
     "denied": "접근 권한이 없습니다",

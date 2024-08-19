@@ -252,10 +252,7 @@ export default function MDCourseManagementView() {
           <Skeleton variant="rounded" height={500} />
         ) : (
           <Stack spacing={3}>
-            <Alert severity="warning">
-              학생들이 MD 이수 신청을 한 이후에 수정을 진행하면, 이수 신청 결과에 영향을 줄 수
-              있습니다.
-            </Alert>
+            <Alert severity="warning">{t('mdProcess.warningMessage')}</Alert>
 
             <Stack flexDirection="row" alignItems="center" justifyContent="space-between">
               <Stack flexDirection="row" spacing={2}>
@@ -272,13 +269,13 @@ export default function MDCourseManagementView() {
                 color="primary"
                 startIcon={<Iconify icon="eva:plus-outline" />}
               >
-                과정 추가
+                {t('mdProcess.process.add')}
               </Button>
             </Stack>
 
             <Stack>
               <Typography variant="h6" gutterBottom>
-                과정 목록
+                {t('mdProcess.process.list')}
               </Typography>
               <ProcessTable
                 processes={processes}
@@ -289,14 +286,14 @@ export default function MDCourseManagementView() {
 
             <Stack>
               <Typography variant="h6" gutterBottom>
-                과목 분류 목록
+                {t('mdProcess.category.list')}
               </Typography>
               <CategoryTable categories={categories} />
             </Stack>
 
             <Stack>
               <Typography variant="h6" gutterBottom>
-                과목 목록
+                {t('mdProcess.subject.list')}
               </Typography>
               <SubjectTable subjects={subjects} />
             </Stack>
