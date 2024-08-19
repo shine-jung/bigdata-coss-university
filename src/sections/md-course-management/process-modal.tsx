@@ -46,7 +46,7 @@ export const ProcessModal: React.FC<ProcessModalProps> = ({
           <TextField
             label={t('mdProcess.process.minStandardCourses')}
             type="number"
-            value={process.minStandardCourses || ''}
+            value={process.minStandardCourses || 0}
             onChange={(e) =>
               setProcess((prev) => ({ ...prev, minStandardCourses: parseInt(e.target.value, 10) }))
             }
@@ -55,16 +55,37 @@ export const ProcessModal: React.FC<ProcessModalProps> = ({
           <TextField
             label={t('mdProcess.process.minLinkedCourses')}
             type="number"
-            value={process.minLinkedCourses || ''}
+            value={process.minLinkedCourses || 0}
             onChange={(e) =>
               setProcess((prev) => ({ ...prev, minLinkedCourses: parseInt(e.target.value, 10) }))
             }
             margin="dense"
           />
           <TextField
+            label={t('mdProcess.process.minCompulsoryCourses')}
+            type="number"
+            value={process.minCompulsoryCourses || 0}
+            onChange={(e) =>
+              setProcess((prev) => ({
+                ...prev,
+                minCompulsoryCourses: parseInt(e.target.value, 10),
+              }))
+            }
+            margin="dense"
+          />
+          <TextField
+            label={t('mdProcess.process.minOptionalCourses')}
+            type="number"
+            value={process.minOptionalCourses || 0}
+            onChange={(e) =>
+              setProcess((prev) => ({ ...prev, minOptionalCourses: parseInt(e.target.value, 10) }))
+            }
+            margin="dense"
+          />
+          <TextField
             label={t('mdProcess.process.minRequiredCredits')}
             type="number"
-            value={process.minRequiredCredits || ''}
+            value={process.minRequiredCredits || 0}
             onChange={(e) =>
               setProcess((prev) => ({ ...prev, minRequiredCredits: parseInt(e.target.value, 10) }))
             }

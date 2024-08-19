@@ -88,22 +88,19 @@ export default function MDCourseManagementView() {
 
   const handleAddProcess = async () => {
     try {
-      if (
-        !selectedProcess.name ||
-        selectedProcess.minStandardCourses === undefined ||
-        selectedProcess.minLinkedCourses === undefined ||
-        selectedProcess.minRequiredCredits === undefined
-      ) {
-        enqueueSnackbar('모든 필드를 채워주세요.', { variant: 'warning' });
+      if (!selectedProcess.name) {
+        enqueueSnackbar('과정 이름을 입력해주세요.', { variant: 'warning' });
         return;
       }
 
       const process: MDProcess = {
         id: uuidv4(),
         name: selectedProcess.name,
-        minStandardCourses: selectedProcess.minStandardCourses,
-        minLinkedCourses: selectedProcess.minLinkedCourses,
-        minRequiredCredits: selectedProcess.minRequiredCredits,
+        minStandardCourses: selectedProcess.minStandardCourses || 0,
+        minLinkedCourses: selectedProcess.minLinkedCourses || 0,
+        minCompulsoryCourses: selectedProcess.minCompulsoryCourses || 0,
+        minOptionalCourses: selectedProcess.minOptionalCourses || 0,
+        minRequiredCredits: selectedProcess.minRequiredCredits || 0,
         requiresCompulsoryCourses: selectedProcess.requiresCompulsoryCourses || false,
       };
 
@@ -126,13 +123,8 @@ export default function MDCourseManagementView() {
     if (!selectedProcess.id) return;
 
     try {
-      if (
-        !selectedProcess.name ||
-        selectedProcess.minStandardCourses === undefined ||
-        selectedProcess.minLinkedCourses === undefined ||
-        selectedProcess.minRequiredCredits === undefined
-      ) {
-        enqueueSnackbar('모든 필드를 채워주세요.', { variant: 'warning' });
+      if (!selectedProcess.name) {
+        enqueueSnackbar('과정 이름을 입력해주세요.', { variant: 'warning' });
         return;
       }
 
@@ -188,7 +180,7 @@ export default function MDCourseManagementView() {
       });
 
       subjectData.forEach((subject) => {
-        if (!subject.categoryNumber || !subject.name || !subject.code) {
+        if (!subject.categoryNumber || !subject.code) {
           throw new Error('과목 데이터에 필수 필드가 누락되었습니다. (subjectName, subjectCode)');
         }
         if (!subject.id) subject.id = uuidv4();

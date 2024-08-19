@@ -117,7 +117,7 @@ const ApplicationDetailsDialog: React.FC<ApplicationDetailsDialogProps> = ({
                               {field.name}
                             </TableCell>
                           ))}
-                          <TableCell align="center">점수</TableCell>
+                          <TableCell align="center">{t('mileageApplication.points')}</TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
