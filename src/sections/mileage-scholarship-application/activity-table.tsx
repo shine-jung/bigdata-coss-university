@@ -2,7 +2,7 @@ import React from 'react';
 
 import { koKR, DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
 
-import { useLocales } from 'src/locales';
+import { useLocales, useTranslate } from 'src/locales';
 import { Activity } from 'src/domain/activity/activity';
 
 import Iconify from 'src/components/iconify';
@@ -22,6 +22,7 @@ const ActivityTable: React.FC<ActivityTableProps> = ({
   activityLoading,
   handleDeleteClick,
 }) => {
+  const { t } = useTranslate();
   const { currentLang } = useLocales();
 
   return (
@@ -55,8 +56,8 @@ const ActivityTable: React.FC<ActivityTableProps> = ({
       }}
       slots={{
         toolbar: Toolbar,
-        noRowsOverlay: () => <EmptyContent title="No Data" />,
-        noResultsOverlay: () => <EmptyContent title="No results found" />,
+        noRowsOverlay: () => <EmptyContent title={t('mileageApplication.noActivities')} />,
+        noResultsOverlay: () => <EmptyContent title={t('common.noResults')} />,
       }}
     />
   );

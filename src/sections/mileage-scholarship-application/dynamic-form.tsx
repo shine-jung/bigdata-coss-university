@@ -81,8 +81,8 @@ export const DynamicForm = ({ area }: DynamicFormProps) => {
                 margin="normal"
                 error={Boolean(errors[field.name])}
               >
-                <MenuItem value="true">예</MenuItem>
-                <MenuItem value="false">아니오</MenuItem>
+                <MenuItem value="true">O</MenuItem>
+                <MenuItem value="false">X</MenuItem>
               </TextField>
             )}
           />

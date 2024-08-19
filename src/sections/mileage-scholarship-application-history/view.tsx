@@ -103,19 +103,22 @@ export default function MileageScholarshipApplicationHistoryView() {
           {application ? (
             <Stack spacing={3}>
               <Typography variant="h6">
-                {year}년 {semester}학기 마일리지 장학금 신청 내용
+                {t('mileageApplication.applicationHistory', {
+                  year,
+                  semester,
+                })}
               </Typography>
 
               <Alert severity="info">
-                신청 내용을 수정하려면 마일리지 장학금 신청 페이지에서 다시 신청해주세요.
+                {t('mileageApplication.editApplicationInfo')}
                 <br />
-                현재 학기 신청 내용만 수정할 수 있습니다.
+                {t('mileageApplication.editCurrentSemesterApplicationInfo')}
               </Alert>
 
               {application.studentInfo && (
                 <Stack>
                   <Typography variant="subtitle1" gutterBottom>
-                    학생 정보
+                    {t('mileageApplication.studentInformation')}
                   </Typography>
                   <TableContainer
                     sx={{
@@ -157,7 +160,10 @@ export default function MileageScholarshipApplicationHistoryView() {
                 return (
                   <Stack key={index}>
                     <Typography variant="subtitle1" gutterBottom>
-                      {area.name} 영역 - {totalPoints}점
+                      {t('mileageApplication.areaWithPoints', {
+                        area: area.name,
+                        points: totalPoints,
+                      })}
                     </Typography>
                     <TableContainer
                       sx={{
@@ -198,7 +204,7 @@ export default function MileageScholarshipApplicationHistoryView() {
                           ) : (
                             <TableRow>
                               <TableCell colSpan={area.fields.length} align="center">
-                                No activities found.
+                                {t('mileageApplication.noActivitiesFound')}
                               </TableCell>
                             </TableRow>
                           )}
@@ -211,8 +217,8 @@ export default function MileageScholarshipApplicationHistoryView() {
             </Stack>
           ) : (
             <EmptyContent
-              title="No activities found."
-              description="You have not applied for any mileage scholarships."
+              title={t('mileageApplication.noApplications')}
+              description={t('mileageApplication.noApplicationsDescription')}
             />
           )}
         </>

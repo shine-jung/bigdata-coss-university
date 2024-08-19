@@ -1,10 +1,12 @@
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
+import { useSnackbar } from 'notistack';
 import React, { useState, useEffect } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 
 import { Dialog, Button, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 
+import { useTranslate } from 'src/locales';
 import { Activity } from 'src/domain/activity/activity';
 import { Course } from 'src/domain/mileage-management/course';
 import { MileageArea } from 'src/domain/mileage-management/mileage-area';
@@ -33,6 +35,8 @@ const AddActivityModal = ({
   semester,
   yearOptions,
 }: AddActivityModalProps) => {
+  const { t } = useTranslate();
+  const { enqueueSnackbar } = useSnackbar();
   const methods = useForm();
   const {
     handleSubmit,
@@ -68,7 +72,7 @@ const AddActivityModal = ({
         Object.values(data).every((value) => value === '' || value === undefined || value === null);
 
       if (isDataEmpty) {
-        alert('입력된 내용이 없습니다.');
+        enqueueSnackbar(t('mileageApplication.noInput'), { variant: 'warning' });
         return;
       }
 
@@ -109,7 +113,7 @@ const AddActivityModal = ({
 
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>[{area.name}] 활동 추가</DialogTitle>
+      <DialogTitle>{t('mileageApplication.addAreaActivity', { area: area.name })}</DialogTitle>
       <DialogContent>
         <FormProvider {...methods}>
           {area.isCourseCompletion ? (
@@ -129,10 +133,10 @@ const AddActivityModal = ({
 
       <DialogActions>
         <Button variant="outlined" onClick={onClose}>
-          취소
+          {t('common.cancel')}
         </Button>
         <Button variant="contained" color="primary" type="submit" onClick={handleSubmit(onSubmit)}>
-          추가
+          {t('common.add')}
         </Button>
       </DialogActions>
     </Dialog>

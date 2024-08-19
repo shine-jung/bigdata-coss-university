@@ -19,6 +19,7 @@ import {
   DialogContentText,
 } from '@mui/material';
 
+import { useTranslate } from 'src/locales';
 import { useAuthContext } from 'src/auth/hooks';
 import { Activity } from 'src/domain/activity/activity';
 import { StudentInfo } from 'src/domain/student/student-info';
@@ -46,6 +47,7 @@ export default function UserMileageOverview({
   semester,
   disabled,
 }: UserMileageOverviewProps) {
+  const { t } = useTranslate();
   const { user } = useAuthContext();
   const { enqueueSnackbar } = useSnackbar();
 
@@ -72,6 +74,9 @@ export default function UserMileageOverview({
   const handleApply = async () => {
     if (!studentInfo) {
       alert('User information is not available.');
+      enqueueSnackbar(t('mileageApplication.userInformationNotAvailable'), {
+        variant: 'error',
+      });
       return;
     }
 
@@ -84,11 +89,11 @@ export default function UserMileageOverview({
         activities,
         studentInfo,
       });
-      enqueueSnackbar('Application submitted successfully.', { variant: 'success' });
+      enqueueSnackbar(t('mileageApplication.applicationSubmitSuccess'), { variant: 'success' });
       handleClose();
       handleCloseDialog();
     } catch (error) {
-      enqueueSnackbar('Failed to submit application.', { variant: 'error' });
+      enqueueSnackbar(t('mileageApplication.applicationSubmitError'), { variant: 'error' });
     }
   };
 
@@ -102,20 +107,20 @@ export default function UserMileageOverview({
         disabled={disabled}
         startIcon={<Iconify icon="eva:file-text-outline" />}
       >
-        마일리지 장학금 신청
+        {t('mileageApplication.applyForScholarship')}
       </Button>
       <Dialog open={open} onClose={handleClose} fullWidth maxWidth="lg">
-        <DialogTitle>신청 제출</DialogTitle>
+        <DialogTitle>{t('mileageApplication.submitApplication')}</DialogTitle>
 
         <DialogContent id={PDF_SECTION_ID}>
           <Stack spacing={3}>
             <Typography variant="h5">
-              {year}년 {semester}학기 마일리지 신청서
+              {t('mileageApplication.mileageApplicationForm', { year, semester })}
             </Typography>
 
             <Stack>
               <Typography variant="h6" gutterBottom>
-                User Information
+                {t('mileageApplication.studentInformation')}
               </Typography>
               <TableContainer
                 sx={{ border: (theme) => `1px solid ${theme.palette.divider}`, borderRadius: 1 }}
@@ -150,7 +155,7 @@ export default function UserMileageOverview({
               return (
                 <Stack key={index}>
                   <Typography variant="h6" gutterBottom>
-                    {area.name} 영역
+                    {t('mileageApplication.area', { area: area.name })}
                   </Typography>
                   <TableContainer
                     sx={{
@@ -191,7 +196,7 @@ export default function UserMileageOverview({
                         ) : (
                           <TableRow>
                             <TableCell colSpan={area.fields.length} align="center">
-                              No activities found.
+                              {t('mileageApplication.noActivitiesFound')}
                             </TableCell>
                           </TableRow>
                         )}
@@ -204,10 +209,12 @@ export default function UserMileageOverview({
 
             <Stack alignItems="flex-end" mt={3}>
               <Typography variant="subtitle1" gutterBottom>
-                신청일: {new Date().toLocaleDateString()}
+                {t('mileageApplication.applicationDate', {
+                  date: new Date().toLocaleDateString(),
+                })}
               </Typography>
               <Typography variant="subtitle1" gutterBottom>
-                신청자: {user?.name} (인)
+                {t('mileageApplication.applicant', { name: user?.name })}
               </Typography>
             </Stack>
           </Stack>
@@ -225,30 +232,28 @@ export default function UserMileageOverview({
               )
             }
           >
-            Download PDF
+            {t('mileageApplication.downloadPDF')}
           </Button>
           <Button variant="contained" color="success" onClick={handleOpenDialog}>
-            Apply for Scholarship
+            {t('mileageApplication.applyForScholarship')}
           </Button>
           <Button variant="contained" color="error" onClick={handleClose}>
-            Close
+            {t('common.close')}
           </Button>
         </DialogActions>
       </Dialog>
 
       <Dialog open={openDialog} onClose={handleCloseDialog}>
-        <DialogTitle>Confirm Application</DialogTitle>
+        <DialogTitle>{t('mileageApplication.confirmApplication')}</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            Are you sure you want to submit? You cannot undo this action.
-          </DialogContentText>
+          <DialogContentText>{t('mileageApplication.confirmSubmit')}</DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleApply} color="success" variant="contained">
-            Apply
+            {t('mileageApplication.apply')}
           </Button>
           <Button onClick={handleCloseDialog} color="error" variant="contained">
-            Cancel
+            {t('common.cancel')}
           </Button>
         </DialogActions>
       </Dialog>
