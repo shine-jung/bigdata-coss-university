@@ -9,6 +9,8 @@ interface YearSemesterSelectorProps {
   semester: string;
   setYear: (year: string) => void;
   setSemester: (semester: string) => void;
+  yearOptions: string[];
+  size?: 'small' | 'medium';
 }
 
 export default function YearSemesterSelector({
@@ -16,24 +18,20 @@ export default function YearSemesterSelector({
   semester,
   setYear,
   setSemester,
+  yearOptions,
+  size = 'medium',
 }: YearSemesterSelectorProps) {
   const { t } = useTranslate();
-  const currentYear = new Date().getFullYear();
-
-  const yearOptions = [];
-  // eslint-disable-next-line no-plusplus
-  for (let y = 2024; y <= currentYear; y++) {
-    yearOptions.push(y.toString());
-  }
 
   return (
     <Stack flexDirection="row" spacing={2}>
-      <FormControl fullWidth margin="normal">
+      <FormControl fullWidth margin="normal" sx={{ minWidth: 100 }}>
         <InputLabel>{t('mileageManagement.year')}</InputLabel>
         <Select
           value={year}
           onChange={(e) => setYear(e.target.value)}
           label={t('mileageManagement.year')}
+          size={size}
         >
           {yearOptions.map((y) => (
             <MenuItem key={y} value={y}>
@@ -43,12 +41,13 @@ export default function YearSemesterSelector({
         </Select>
       </FormControl>
 
-      <FormControl fullWidth margin="normal">
+      <FormControl fullWidth margin="normal" sx={{ minWidth: 100 }}>
         <InputLabel>{t('mileageManagement.semester')}</InputLabel>
         <Select
           value={semester}
           onChange={(e) => setSemester(e.target.value)}
           label={t('mileageManagement.semester')}
+          size={size}
         >
           <MenuItem value="1">{t('mileageManagement.semesterOption', { semester: '1' })}</MenuItem>
           <MenuItem value="2">{t('mileageManagement.semesterOption', { semester: '2' })}</MenuItem>

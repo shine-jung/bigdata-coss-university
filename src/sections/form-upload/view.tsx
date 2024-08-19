@@ -38,7 +38,7 @@ export default function FormUploadView() {
         universityCode: user?.university,
         title,
         content,
-        author: user?.displayName,
+        author: user?.name,
         file,
         fileName,
       });

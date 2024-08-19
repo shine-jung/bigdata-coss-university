@@ -89,13 +89,15 @@ export default function EditCourseCompletionNameModal({
             {...register('name')}
             error={!!errors.name}
             helperText={errors.name?.message}
-            sx={{ mt: 1 }}
             autoFocus
+            margin="normal"
           />
         </DialogContent>
 
         <DialogActions>
-          <Button onClick={onClose}>{t('common.cancel')}</Button>
+          <Button variant="outlined" onClick={onClose}>
+            {t('common.cancel')}
+          </Button>
           <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
             {t('common.save')}
           </LoadingButton>

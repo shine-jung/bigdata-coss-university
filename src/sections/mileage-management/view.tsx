@@ -10,18 +10,20 @@ import Skeleton from '@mui/material/Skeleton';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
+import { useYearSemesterSelector } from 'src/hooks/use-year-semester-selector';
+
 import { useTranslate } from 'src/locales';
 import { AdminGuard } from 'src/auth/guard';
 import { useAuthContext } from 'src/auth/hooks';
 import { MileageArea } from 'src/domain/mileage-management/mileage-area';
 
 import AreaList from './area-list';
-import ExcelUploadSection from './excel-upload-section';
 import ExcelDownloadButton from './excel-download-button';
 import { handleExcelFileUpload } from './utils/excel-utils';
-import YearSemesterSelector from './year-semester-selector';
+import ExcelUploadSection from '../common/excel-upload-section';
 import MileageManagementAlert from './mileage-management-alert';
 import CourseCompletionSection from './course-completion-section';
+import YearSemesterSelector from '../common/year-semester-selector';
 import { COURSE_COMPLETION_AREA_INITIAL_NAME } from './constants/preset-areas';
 import EditCourseCompletionNameModal from './edit-course-completion-name-modal';
 
@@ -30,16 +32,10 @@ export default function MileageManagementView() {
   const { user } = useAuthContext();
   const { enqueueSnackbar } = useSnackbar();
 
+  const { year, semester, yearOptions, setYear, setSemester } = useYearSemesterSelector();
+
   const universityCode = user?.university;
-  const currentYear = new Date().getFullYear();
-  const currentMonth = new Date().getMonth() + 1;
-
-  const defaultYear = currentMonth === 1 || currentMonth === 2 ? currentYear - 1 : currentYear;
-  const defaultSemester = currentMonth >= 3 && currentMonth <= 8 ? '1' : '2';
-
   const [loading, setLoading] = useState(true);
-  const [year, setYear] = useState(defaultYear.toString());
-  const [semester, setSemester] = useState(defaultSemester);
   const [file, setFile] = useState<File | null>(null);
   const [areas, setAreas] = useState<MileageArea[] | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -106,18 +102,20 @@ export default function MileageManagementView() {
   return (
     <AdminGuard>
       <Container>
-        <Typography variant="h4" mb={5}>
-          {t('nav.mileageManagement')}
-        </Typography>
+        <Stack flexDirection="row" justifyContent="space-between" alignItems="center" mb={5}>
+          <Typography variant="h4">{t('nav.mileageManagement')}</Typography>
 
-        <Stack spacing={3}>
           <YearSemesterSelector
             year={year}
             semester={semester}
             setYear={setYear}
             setSemester={setSemester}
+            yearOptions={yearOptions}
+            size="small"
           />
+        </Stack>
 
+        <Stack spacing={3}>
           {loading ? (
             <Skeleton variant="rounded" height={500} />
           ) : (

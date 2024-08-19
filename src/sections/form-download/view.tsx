@@ -12,6 +12,8 @@ import { useTranslate } from 'src/locales';
 import { Form } from 'src/domain/form/form';
 import { useAuthContext } from 'src/auth/hooks';
 
+import EmptyContent from 'src/components/empty-content';
+
 import FormList from './list';
 import FormDetail from './detail';
 
@@ -65,7 +67,13 @@ export default function FormView() {
               refetchForms={fetchForms}
             />
           ) : (
-            <FormList forms={forms} onSelectForm={setSelectedForm} />
+            <>
+              {forms.length === 0 ? (
+                <EmptyContent title={t('form.noFormsFound')} />
+              ) : (
+                <FormList forms={forms} onSelectForm={setSelectedForm} />
+              )}
+            </>
           )}
         </>
       )}
