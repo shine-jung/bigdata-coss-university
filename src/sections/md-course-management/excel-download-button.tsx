@@ -80,9 +80,7 @@ const ExcelDownloadButton: React.FC<ExcelDownloadButtonProps> = ({ categories, s
     XLSX.writeFile(workbook, hasData ? 'md-course.xlsx' : 'md-course-template.xlsx');
   };
 
-  const buttonLabel = hasData
-    ? t('mileageManagement.downloadExcel')
-    : t('mileageManagement.downloadTemplate');
+  const buttonLabel = hasData ? t('mdProcess.downloadExcel') : t('mdProcess.downloadTemplate');
   const buttonColor = hasData ? 'secondary' : 'info';
   const buttonStartIcon = hasData ? 'eva:download-outline' : 'eva:file-text-outline';
 

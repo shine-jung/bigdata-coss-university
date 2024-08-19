@@ -11,6 +11,7 @@ import {
   TableContainer,
 } from '@mui/material';
 
+import { useTranslate } from 'src/locales';
 import { MDProcess } from 'src/domain/md-process/md-process';
 
 import Iconify from 'src/components/iconify';
@@ -22,10 +23,11 @@ interface ProcessTableProps {
 }
 
 export const ProcessTable: React.FC<ProcessTableProps> = ({ processes, onEdit, onDelete }) => {
+  const { t } = useTranslate();
   const { enqueueSnackbar } = useSnackbar();
   const onClickProcessIdCell = (processId: string) => {
     navigator.clipboard.writeText(processId);
-    enqueueSnackbar('과정 ID가 복사되었습니다.', { variant: 'success' });
+    enqueueSnackbar(t('mdProcess.process.copySuccess'), { variant: 'success' });
   };
 
   return (
@@ -40,21 +42,21 @@ export const ProcessTable: React.FC<ProcessTableProps> = ({ processes, onEdit, o
       <Table size="small" stickyHeader>
         <TableHead>
           <TableRow sx={{ whiteSpace: 'pre-line' }}>
-            <TableCell>과정 ID</TableCell>
-            <TableCell>과정 이름</TableCell>
-            <TableCell>표준교과목{'\n'}최소 이수 과목 수</TableCell>
-            <TableCell>연계융합교과목{'\n'}최소 이수 과목 수</TableCell>
-            <TableCell>최소 이수 학점</TableCell>
-            <TableCell>필수 교과목 이수 필요 여부</TableCell>
-            <TableCell align="center">수정</TableCell>
-            <TableCell align="center">삭제</TableCell>
+            <TableCell>{t('mdProcess.process.id')}</TableCell>
+            <TableCell>{t('mdProcess.process.name')}</TableCell>
+            <TableCell>{t('mdProcess.process.minStandardCourses')}</TableCell>
+            <TableCell>{t('mdProcess.process.minLinkedCourses')}</TableCell>
+            <TableCell>{t('mdProcess.process.minRequiredCredits')}</TableCell>
+            <TableCell>{t('mdProcess.process.requiresCompulsoryCourses')}</TableCell>
+            <TableCell align="center">{t('common.edit')}</TableCell>
+            <TableCell align="center">{t('common.delete')}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {processes.length === 0 ? (
             <TableRow>
               <TableCell colSpan={8} align="center">
-                데이터가 없습니다.
+                {t('common.noData')}
               </TableCell>
             </TableRow>
           ) : (
