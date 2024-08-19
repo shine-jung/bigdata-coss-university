@@ -87,7 +87,9 @@ export const ProcessModal: React.FC<ProcessModalProps> = ({
         </Stack>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>{t('common.cancel')}</Button>
+        <Button variant="outlined" onClick={onClose}>
+          {t('common.cancel')}
+        </Button>
         <Button onClick={onSave} variant="contained" color="primary">
           {t('common.save')}
         </Button>

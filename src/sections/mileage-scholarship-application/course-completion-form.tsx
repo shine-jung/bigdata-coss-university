@@ -15,6 +15,7 @@ import {
   FormControlLabel,
 } from '@mui/material';
 
+import { useTranslate } from 'src/locales';
 import { Course } from 'src/domain/mileage-management/course';
 
 const SEMESTER_OPTIONS = [1, 2, 3, 4];
@@ -37,22 +38,31 @@ export const CourseCompletionForm = ({
   handleChange,
   setValue,
 }: CourseCompletionFormProps) => {
+  const { t } = useTranslate();
   const { register, control } = useFormContext();
 
   return (
     <Stack sx={{ width: 440 }} spacing={2}>
       <Stack>
-        <InputLabel>과목 유형</InputLabel>
+        <InputLabel>{t('mileageApplication.courseCompletion.subjectType')}</InputLabel>
         <RadioGroup value={subjectType} onChange={handleChange}>
-          <FormControlLabel value={1} control={<Radio color="primary" />} label="본교 교과목" />
-          <FormControlLabel value={0} control={<Radio color="primary" />} label="학점교류 교과목" />
+          <FormControlLabel
+            value={1}
+            control={<Radio color="primary" />}
+            label={t('mileageApplication.courseCompletion.localCourse')}
+          />
+          <FormControlLabel
+            value={2}
+            control={<Radio color="primary" />}
+            label={t('mileageApplication.courseCompletion.creditExchangeCourse')}
+          />
         </RadioGroup>
       </Stack>
 
       <Stack flexDirection="row" spacing={2}>
         <Stack flex={2}>
-          <InputLabel>과목명</InputLabel>
-          {subjectType ? (
+          <InputLabel>{t('mileageApplication.courseCompletion.subjectName')}</InputLabel>
+          {subjectType === 1 ? (
             <Autocomplete
               options={courses}
               getOptionLabel={(option: Course) => option.name}
@@ -65,40 +75,40 @@ export const CourseCompletionForm = ({
               renderInput={(params) => (
                 <TextField
                   {...params}
-                  placeholder="과목을 선택해주세요."
+                  placeholder={t('mileageApplication.courseCompletion.selectSubject')}
                   size="small"
                   fullWidth
                   hiddenLabel
                   error={Boolean(errors?.과목코드)}
                 />
               )}
-              noOptionsText="찾는 과목이 없습니다."
+              noOptionsText={t('mileageApplication.courseCompletion.noSubject')}
             />
           ) : (
             <TextField
-              placeholder="과목명을 입력해주세요."
+              placeholder={t('mileageApplication.courseCompletion.enterSubject')}
               size="small"
               fullWidth
               hiddenLabel
               {...register('과목명', {
-                required: '필수 항목입니다.',
+                required: t('mileageApplication.courseCompletion.required'),
               })}
               error={Boolean(errors?.과목명)}
             />
           )}
         </Stack>
         <Stack flex={1}>
-          <InputLabel>과목코드</InputLabel>
+          <InputLabel>{t('mileageApplication.courseCompletion.subjectCode')}</InputLabel>
           <TextField
-            placeholder={subjectType ? '자동 입력' : ''}
+            placeholder={
+              subjectType === 1 ? t('mileageApplication.courseCompletion.autoInput') : ''
+            }
             size="small"
-            InputProps={{
-              readOnly: Boolean(subjectType),
-            }}
+            InputProps={{ readOnly: subjectType === 1 }}
             fullWidth
             hiddenLabel
             {...register('과목코드', {
-              required: '필수 항목입니다.',
+              required: t('mileageApplication.courseCompletion.required'),
             })}
             error={Boolean(errors?.과목코드)}
           />
@@ -107,11 +117,11 @@ export const CourseCompletionForm = ({
 
       <Stack flexDirection="row" spacing={2}>
         <Stack flex={1}>
-          <InputLabel>년도</InputLabel>
+          <InputLabel>{t('mileageApplication.courseCompletion.year')}</InputLabel>
           <FormControl fullWidth hiddenLabel size="small">
             <Select
               {...register('년도', {
-                required: '필수 항목입니다.',
+                required: t('mileageApplication.courseCompletion.required'),
               })}
               defaultValue=""
               error={Boolean(errors?.년도)}
@@ -125,11 +135,11 @@ export const CourseCompletionForm = ({
           </FormControl>
         </Stack>
         <Stack flex={1}>
-          <InputLabel>학기</InputLabel>
+          <InputLabel>{t('mileageApplication.courseCompletion.semester')}</InputLabel>
           <FormControl fullWidth hiddenLabel size="small">
             <Select
               {...register('학기', {
-                required: '필수 항목입니다.',
+                required: t('mileageApplication.courseCompletion.required'),
               })}
               defaultValue=""
               error={Boolean(errors?.학기)}
@@ -143,11 +153,11 @@ export const CourseCompletionForm = ({
           </FormControl>
         </Stack>
         <Stack flex={1}>
-          <InputLabel>성적</InputLabel>
+          <InputLabel>{t('mileageApplication.courseCompletion.grade')}</InputLabel>
           <FormControl fullWidth hiddenLabel size="small">
             <Select
               {...register('성적', {
-                required: '필수 항목입니다.',
+                required: t('mileageApplication.courseCompletion.required'),
               })}
               defaultValue=""
               error={Boolean(errors?.성적)}
@@ -161,18 +171,18 @@ export const CourseCompletionForm = ({
           </FormControl>
         </Stack>
         <Stack flex={1}>
-          <InputLabel>이수학점</InputLabel>
+          <InputLabel>{t('mileageApplication.courseCompletion.credit')}</InputLabel>
           <TextField
             type="number"
-            placeholder={subjectType ? '자동 입력' : ''}
+            placeholder={
+              subjectType === 1 ? t('mileageApplication.courseCompletion.autoInput') : ''
+            }
             size="small"
-            InputProps={{
-              readOnly: Boolean(subjectType),
-            }}
+            InputProps={{ readOnly: subjectType === 1 }}
             fullWidth
             hiddenLabel
             {...register('이수학점', {
-              required: '필수 항목입니다.',
+              required: t('mileageApplication.courseCompletion.required'),
               valueAsNumber: true,
             })}
             error={Boolean(errors?.이수학점)}
@@ -182,19 +192,19 @@ export const CourseCompletionForm = ({
 
       <Stack flexDirection="row" spacing={2}>
         <Stack flex={1}>
-          <InputLabel>담당교수</InputLabel>
+          <InputLabel>{t('mileageApplication.courseCompletion.professor')}</InputLabel>
           <TextField
             size="small"
             fullWidth
             hiddenLabel
             {...register('담당교수', {
-              required: '필수 항목입니다.',
+              required: t('mileageApplication.courseCompletion.required'),
             })}
             error={Boolean(errors?.담당교수)}
           />
         </Stack>
         <Stack flex={2}>
-          <InputLabel>비고</InputLabel>
+          <InputLabel>{t('mileageApplication.courseCompletion.remarks')}</InputLabel>
           <TextField
             size="small"
             fullWidth
@@ -206,7 +216,10 @@ export const CourseCompletionForm = ({
       </Stack>
 
       <Stack flexDirection="row" spacing={0.5} alignItems="center">
-        <InputLabel>PBL 여부{subjectType ? ' (자동 입력)' : ''}</InputLabel>
+        <InputLabel>
+          {t('mileageApplication.courseCompletion.PBL')}
+          {subjectType === 1 ? ` (${t('mileageApplication.courseCompletion.autoInput')})` : ''}
+        </InputLabel>
         <Controller
           name="PBL여부"
           control={control}
@@ -216,7 +229,7 @@ export const CourseCompletionForm = ({
               color="primary"
               checked={field.value ?? false}
               onChange={(e) => {
-                if (subjectType === 0) field.onChange(e.target.checked);
+                if (subjectType === 2) field.onChange(e.target.checked);
               }}
               readOnly={subjectType === 1}
             />

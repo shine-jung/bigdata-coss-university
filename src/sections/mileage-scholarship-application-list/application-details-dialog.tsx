@@ -16,6 +16,7 @@ import {
   TableContainer,
 } from '@mui/material';
 
+import { useTranslate } from 'src/locales';
 import { StudentInfo } from 'src/domain/student/student-info';
 import { Application } from 'src/domain/application/application';
 import { MileageArea } from 'src/domain/mileage-management/mileage-area';
@@ -34,6 +35,7 @@ const ApplicationDetailsDialog: React.FC<ApplicationDetailsDialogProps> = ({
   application,
   areas,
 }) => {
+  const { t } = useTranslate();
   const selectedApplicationTotalPoints = application?.activities.reduce(
     (total: number, activity: any) => total + activity.points,
     0
@@ -42,8 +44,11 @@ const ApplicationDetailsDialog: React.FC<ApplicationDetailsDialogProps> = ({
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="lg">
       <DialogTitle>
-        마일리지 장학금 신청 상세 정보 - {application?.studentInfo.studentNumber}{' '}
-        {application?.studentInfo.name} (총 {selectedApplicationTotalPoints}점)
+        {t('mileageApplication.applicationDetails', {
+          studentNumber: application?.studentInfo.studentNumber,
+          studentName: application?.studentInfo.name,
+          totalPoints: selectedApplicationTotalPoints,
+        })}
       </DialogTitle>
       <DialogContent dividers>
         {application && (
@@ -51,7 +56,7 @@ const ApplicationDetailsDialog: React.FC<ApplicationDetailsDialogProps> = ({
             {application.studentInfo && (
               <Stack>
                 <Typography variant="subtitle1" gutterBottom>
-                  학생 정보
+                  {t('mileageApplication.studentInformation')}
                 </Typography>
                 <TableContainer
                   sx={{
@@ -93,7 +98,10 @@ const ApplicationDetailsDialog: React.FC<ApplicationDetailsDialogProps> = ({
               return (
                 <Stack key={index}>
                   <Typography variant="subtitle1" gutterBottom>
-                    {area.name} 영역 - {totalPoints}점
+                    {t('mileageApplication.areaWithPoints', {
+                      area: area.name,
+                      points: totalPoints,
+                    })}
                   </Typography>
                   <TableContainer
                     sx={{
@@ -136,7 +144,7 @@ const ApplicationDetailsDialog: React.FC<ApplicationDetailsDialogProps> = ({
                         ) : (
                           <TableRow>
                             <TableCell colSpan={area.fields.length + 1} align="center">
-                              No activities found.
+                              {t('mileageApplication.noActivitiesFound')}
                             </TableCell>
                           </TableRow>
                         )}
@@ -151,7 +159,7 @@ const ApplicationDetailsDialog: React.FC<ApplicationDetailsDialogProps> = ({
       </DialogContent>
       <DialogActions>
         <Button variant="contained" onClick={onClose}>
-          Close
+          {t('common.close')}
         </Button>
       </DialogActions>
     </Dialog>

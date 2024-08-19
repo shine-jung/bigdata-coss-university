@@ -94,7 +94,7 @@ export default function MileageScholarshipApplicationListView() {
     { field: 'email', headerName: '이메일', flex: 1 },
     {
       field: 'totalScore',
-      headerName: '총 점수',
+      headerName: t('mileageApplication.totalScore'),
       flex: 1,
       valueGetter: (params: any) =>
         params.row.activities.reduce(
@@ -105,7 +105,7 @@ export default function MileageScholarshipApplicationListView() {
     {
       field: 'view',
       type: 'actions',
-      headerName: '상세 정보',
+      headerName: t('mileageApplication.viewDetails'),
       flex: 1,
       renderCell: (params: any) => (
         <GridActionsCellItem
@@ -118,7 +118,7 @@ export default function MileageScholarshipApplicationListView() {
     {
       field: 'excel',
       type: 'actions',
-      headerName: '엑셀 다운로드',
+      headerName: t('mileageApplication.downloadExcel'),
       flex: 1,
       renderCell: (params: any) => (
         <GridActionsCellItem

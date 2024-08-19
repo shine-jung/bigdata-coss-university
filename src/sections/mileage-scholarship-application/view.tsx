@@ -141,7 +141,7 @@ export default function MileageScholarshipApplicationView() {
         {
           field: 'actions',
           type: 'actions',
-          headerName: '삭제',
+          headerName: t('common.delete'),
           flex: 1,
           width: 72,
         },
@@ -166,7 +166,10 @@ export default function MileageScholarshipApplicationView() {
       {mileageLoading ? (
         <Stack flexDirection="row" justifyContent="space-between">
           <Skeleton variant="rounded" width={360} height={56} sx={{ borderRadius: 1 }} />
-          <Skeleton variant="rounded" width={120} height={56} sx={{ borderRadius: 1 }} />
+          <Stack flexDirection="row" spacing={2}>
+            <Skeleton variant="rounded" width={112} height={56} sx={{ borderRadius: 1 }} />
+            <Skeleton variant="rounded" width={180} height={56} sx={{ borderRadius: 1 }} />
+          </Stack>
         </Stack>
       ) : (
         <Stack flexDirection="row" justifyContent="space-between" alignItems="center">
@@ -184,7 +187,7 @@ export default function MileageScholarshipApplicationView() {
               size="large"
               startIcon={<Iconify icon="eva:plus-outline" />}
             >
-              활동 추가
+              {t('mileageApplication.addActivity')}
             </Button>
 
             <UserMileageOverview

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { koKR, DataGrid } from '@mui/x-data-grid';
 
-import { useLocales } from 'src/locales';
+import { useLocales, useTranslate } from 'src/locales';
 import { Application } from 'src/domain/application/application';
 
 import Toolbar from 'src/components/toolbar';
@@ -15,6 +15,7 @@ interface ApplicationTableProps {
 }
 
 const ApplicationTable: React.FC<ApplicationTableProps> = ({ applications, columns, loading }) => {
+  const { t } = useTranslate();
   const { currentLang } = useLocales();
 
   const rows = applications.map((application) => ({
@@ -47,8 +48,7 @@ const ApplicationTable: React.FC<ApplicationTableProps> = ({ applications, colum
       }}
       slots={{
         toolbar: Toolbar,
-        noRowsOverlay: () => <EmptyContent title="No Data" />,
-        noResultsOverlay: () => <EmptyContent title="No results found" />,
+        noRowsOverlay: () => <EmptyContent title={t('common.noData')} />,
       }}
     />
   );
