@@ -310,6 +310,7 @@
     "noApplications": "신청 내역이 없습니다",
     "noApplicationsDescription": "해당 학기 마일리지 장학금을 신청하지 않았습니다.",
     "applicationDetails": "마일리지 장학금 신청 상세 정보 - {{studentNumber}} {{studentName}} (총 {{totalPoints}}점)",
+    "points": "점수",
     "totalScore": "총 점수",
     "viewDetails": "상세 정보",
     "downloadExcel": "엑셀 다운로드"
@@ -323,8 +324,10 @@
       "name": "명칭",
       "minStandardCourses": "표준교과목\n최소 이수 과목 수",
       "minLinkedCourses": "연계융합교과목\n최소 이수 과목 수",
+      "minCompulsoryCourses": "필수교과목\n최소 이수 과목 수",
+      "minOptionalCourses": "선택교과목\n최소 이수 과목 수",
       "minRequiredCredits": "최소 이수학점",
-      "requiresCompulsoryCourses": "필수 교과목 이수 필요 여부",
+      "requiresCompulsoryCourses": "필수 교과목\n이수 필요 여부",
       "copySuccess": "과정 ID가 복사되었습니다"
     },
     "category": {
