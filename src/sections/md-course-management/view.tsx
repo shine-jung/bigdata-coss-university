@@ -98,8 +98,8 @@ export default function MDCourseManagementView() {
         name: selectedProcess.name,
         minStandardCourses: selectedProcess.minStandardCourses || 0,
         minLinkedCourses: selectedProcess.minLinkedCourses || 0,
-        minCompulsoryCourses: selectedProcess.minCompulsoryCourses || 0,
-        minOptionalCourses: selectedProcess.minOptionalCourses || 0,
+        minCompulsoryCredits: selectedProcess.minCompulsoryCredits || 0,
+        minOptionalCredits: selectedProcess.minOptionalCredits || 0,
         minRequiredCredits: selectedProcess.minRequiredCredits || 0,
         requiresCompulsoryCourses: selectedProcess.requiresCompulsoryCourses || false,
       };
@@ -128,11 +128,22 @@ export default function MDCourseManagementView() {
         return;
       }
 
+      const process: MDProcess = {
+        id: selectedProcess.id,
+        name: selectedProcess.name,
+        minStandardCourses: selectedProcess.minStandardCourses || 0,
+        minLinkedCourses: selectedProcess.minLinkedCourses || 0,
+        minCompulsoryCredits: selectedProcess.minCompulsoryCredits || 0,
+        minOptionalCredits: selectedProcess.minOptionalCredits || 0,
+        minRequiredCredits: selectedProcess.minRequiredCredits || 0,
+        requiresCompulsoryCourses: selectedProcess.requiresCompulsoryCourses || false,
+      };
+
       await axios.put('/api/md-process', {
         universityCode,
         year,
         semester,
-        process: selectedProcess,
+        process,
       });
 
       enqueueSnackbar('과정이 성공적으로 수정되었습니다.', { variant: 'success' });
@@ -227,7 +238,7 @@ export default function MDCourseManagementView() {
   return (
     <AdminGuard>
       <Container>
-        <Stack flexDirection="row" justifyContent="space-between" alignItems="center" mb={5}>
+        <Stack direction="row" justifyContent="space-between" alignItems="center" mb={5}>
           <Typography variant="h4">{t('nav.MDCourseManagement')}</Typography>
 
           <YearSemesterSelector
@@ -246,8 +257,8 @@ export default function MDCourseManagementView() {
           <Stack spacing={3}>
             <Alert severity="warning">{t('mdProcess.warningMessage')}</Alert>
 
-            <Stack flexDirection="row" alignItems="center" justifyContent="space-between">
-              <Stack flexDirection="row" spacing={2}>
+            <Stack direction="row" alignItems="center" justifyContent="space-between">
+              <Stack direction="row" spacing={2}>
                 <ExcelDownloadButton />
 
                 {categories && subjects && (
