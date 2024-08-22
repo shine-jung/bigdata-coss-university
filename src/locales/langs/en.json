@@ -324,8 +324,8 @@
       "name": "Name",
       "minStandardCourses": "Minimum Standard Courses",
       "minLinkedCourses": "Minimum Linked Courses",
-      "minCompulsoryCourses": "Minimum Compulsory Courses",
-      "minOptionalCourses": "Minimum Optional Courses",
+      "minCompulsoryCredits": "Minimum Compulsory Credits",
+      "minOptionalCredits": "Minimum Optional Credits",
       "minRequiredCredits": "Minimum Required Credits",
       "requiresCompulsoryCourses": "Requires Compulsory Courses",
       "copySuccess": "Process ID has been copied"

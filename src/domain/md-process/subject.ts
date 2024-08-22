@@ -7,4 +7,5 @@ export interface Subject {
   code: string;
   department: string;
   required: boolean;
+  type?: string;
 }

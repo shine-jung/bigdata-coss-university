@@ -62,23 +62,23 @@ export const ProcessModal: React.FC<ProcessModalProps> = ({
             margin="dense"
           />
           <TextField
-            label={t('mdProcess.process.minCompulsoryCourses')}
+            label={t('mdProcess.process.minCompulsoryCredits')}
             type="number"
-            value={process.minCompulsoryCourses || 0}
+            value={process.minCompulsoryCredits || 0}
             onChange={(e) =>
               setProcess((prev) => ({
                 ...prev,
-                minCompulsoryCourses: parseInt(e.target.value, 10),
+                minCompulsoryCredits: parseInt(e.target.value, 10),
               }))
             }
             margin="dense"
           />
           <TextField
-            label={t('mdProcess.process.minOptionalCourses')}
+            label={t('mdProcess.process.minOptionalCredits')}
             type="number"
-            value={process.minOptionalCourses || 0}
+            value={process.minOptionalCredits || 0}
             onChange={(e) =>
-              setProcess((prev) => ({ ...prev, minOptionalCourses: parseInt(e.target.value, 10) }))
+              setProcess((prev) => ({ ...prev, minOptionalCredits: parseInt(e.target.value, 10) }))
             }
             margin="dense"
           />

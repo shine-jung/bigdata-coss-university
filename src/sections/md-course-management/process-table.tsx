@@ -46,8 +46,8 @@ export const ProcessTable: React.FC<ProcessTableProps> = ({ processes, onEdit, o
             <TableCell>{t('mdProcess.process.name')}</TableCell>
             <TableCell>{t('mdProcess.process.minStandardCourses')}</TableCell>
             <TableCell>{t('mdProcess.process.minLinkedCourses')}</TableCell>
-            <TableCell>{t('mdProcess.process.minCompulsoryCourses')}</TableCell>
-            <TableCell>{t('mdProcess.process.minOptionalCourses')}</TableCell>
+            <TableCell>{t('mdProcess.process.minCompulsoryCredits')}</TableCell>
+            <TableCell>{t('mdProcess.process.minOptionalCredits')}</TableCell>
             <TableCell>{t('mdProcess.process.minRequiredCredits')}</TableCell>
             <TableCell>{t('mdProcess.process.requiresCompulsoryCourses')}</TableCell>
             <TableCell align="center">{t('common.edit')}</TableCell>
@@ -79,11 +79,11 @@ export const ProcessTable: React.FC<ProcessTableProps> = ({ processes, onEdit, o
                 >
                   {process.id}
                 </TableCell>
-                <TableCell>{process.name}</TableCell>
+                <TableCell sx={{ maxWidth: 150, wordBreak: 'keep-all' }}>{process.name}</TableCell>
                 <TableCell>{process.minStandardCourses}</TableCell>
                 <TableCell>{process.minLinkedCourses}</TableCell>
-                <TableCell>{process.minCompulsoryCourses}</TableCell>
-                <TableCell>{process.minOptionalCourses}</TableCell>
+                <TableCell>{process.minCompulsoryCredits}</TableCell>
+                <TableCell>{process.minOptionalCredits}</TableCell>
                 <TableCell>{process.minRequiredCredits}</TableCell>
                 <TableCell>{process.requiresCompulsoryCourses ? 'O' : 'X'}</TableCell>
                 <TableCell align="center">
