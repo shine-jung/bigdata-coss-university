@@ -23,6 +23,8 @@ import { generateExcel } from './utils/generate-excel';
 import ApplicationDetailsDialog from './application-details-dialog';
 import YearSemesterSelector from '../common/year-semester-selector';
 
+// ----------------------------------------------------------------------
+
 export default function MileageScholarshipApplicationListView() {
   const { t } = useTranslate();
   const { user } = useAuthContext();

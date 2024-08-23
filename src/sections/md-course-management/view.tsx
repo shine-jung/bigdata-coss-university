@@ -88,22 +88,19 @@ export default function MDCourseManagementView() {
 
   const handleAddProcess = async () => {
     try {
-      if (
-        !selectedProcess.name ||
-        selectedProcess.minStandardCourses === undefined ||
-        selectedProcess.minLinkedCourses === undefined ||
-        selectedProcess.minRequiredCredits === undefined
-      ) {
-        enqueueSnackbar('모든 필드를 채워주세요.', { variant: 'warning' });
+      if (!selectedProcess.name) {
+        enqueueSnackbar('과정 이름을 입력해주세요.', { variant: 'warning' });
         return;
       }
 
       const process: MDProcess = {
         id: uuidv4(),
         name: selectedProcess.name,
-        minStandardCourses: selectedProcess.minStandardCourses,
-        minLinkedCourses: selectedProcess.minLinkedCourses,
-        minRequiredCredits: selectedProcess.minRequiredCredits,
+        minStandardCourses: selectedProcess.minStandardCourses || 0,
+        minLinkedCourses: selectedProcess.minLinkedCourses || 0,
+        minCompulsoryCredits: selectedProcess.minCompulsoryCredits || 0,
+        minOptionalCredits: selectedProcess.minOptionalCredits || 0,
+        minRequiredCredits: selectedProcess.minRequiredCredits || 0,
         requiresCompulsoryCourses: selectedProcess.requiresCompulsoryCourses || false,
       };
 
@@ -126,21 +123,27 @@ export default function MDCourseManagementView() {
     if (!selectedProcess.id) return;
 
     try {
-      if (
-        !selectedProcess.name ||
-        selectedProcess.minStandardCourses === undefined ||
-        selectedProcess.minLinkedCourses === undefined ||
-        selectedProcess.minRequiredCredits === undefined
-      ) {
-        enqueueSnackbar('모든 필드를 채워주세요.', { variant: 'warning' });
+      if (!selectedProcess.name) {
+        enqueueSnackbar('과정 이름을 입력해주세요.', { variant: 'warning' });
         return;
       }
+
+      const process: MDProcess = {
+        id: selectedProcess.id,
+        name: selectedProcess.name,
+        minStandardCourses: selectedProcess.minStandardCourses || 0,
+        minLinkedCourses: selectedProcess.minLinkedCourses || 0,
+        minCompulsoryCredits: selectedProcess.minCompulsoryCredits || 0,
+        minOptionalCredits: selectedProcess.minOptionalCredits || 0,
+        minRequiredCredits: selectedProcess.minRequiredCredits || 0,
+        requiresCompulsoryCourses: selectedProcess.requiresCompulsoryCourses || false,
+      };
 
       await axios.put('/api/md-process', {
         universityCode,
         year,
         semester,
-        process: selectedProcess,
+        process,
       });
 
       enqueueSnackbar('과정이 성공적으로 수정되었습니다.', { variant: 'success' });
@@ -188,7 +191,7 @@ export default function MDCourseManagementView() {
       });
 
       subjectData.forEach((subject) => {
-        if (!subject.categoryNumber || !subject.name || !subject.code) {
+        if (!subject.categoryNumber || !subject.code) {
           throw new Error('과목 데이터에 필수 필드가 누락되었습니다. (subjectName, subjectCode)');
         }
         if (!subject.id) subject.id = uuidv4();
@@ -235,7 +238,7 @@ export default function MDCourseManagementView() {
   return (
     <AdminGuard>
       <Container>
-        <Stack flexDirection="row" justifyContent="space-between" alignItems="center" mb={5}>
+        <Stack direction="row" justifyContent="space-between" alignItems="center" mb={5}>
           <Typography variant="h4">{t('nav.MDCourseManagement')}</Typography>
 
           <YearSemesterSelector
@@ -254,8 +257,8 @@ export default function MDCourseManagementView() {
           <Stack spacing={3}>
             <Alert severity="warning">{t('mdProcess.warningMessage')}</Alert>
 
-            <Stack flexDirection="row" alignItems="center" justifyContent="space-between">
-              <Stack flexDirection="row" spacing={2}>
+            <Stack direction="row" alignItems="center" justifyContent="space-between">
+              <Stack direction="row" spacing={2}>
                 <ExcelDownloadButton />
 
                 {categories && subjects && (

@@ -310,6 +310,7 @@
     "noApplications": "신청 내역이 없습니다",
     "noApplicationsDescription": "해당 학기 마일리지 장학금을 신청하지 않았습니다.",
     "applicationDetails": "마일리지 장학금 신청 상세 정보 - {{studentNumber}} {{studentName}} (총 {{totalPoints}}점)",
+    "points": "점수",
     "totalScore": "총 점수",
     "viewDetails": "상세 정보",
     "downloadExcel": "엑셀 다운로드"
@@ -323,8 +324,10 @@
       "name": "명칭",
       "minStandardCourses": "표준교과목\n최소 이수 과목 수",
       "minLinkedCourses": "연계융합교과목\n최소 이수 과목 수",
+      "minCompulsoryCredits": "필수교과목\n최소 이수학점",
+      "minOptionalCredits": "선택교과목\n최소 이수학점",
       "minRequiredCredits": "최소 이수학점",
-      "requiresCompulsoryCourses": "필수 교과목 이수 필요 여부",
+      "requiresCompulsoryCourses": "필수 교과목\n이수 필요 여부",
       "copySuccess": "과정 ID가 복사되었습니다"
     },
     "category": {
@@ -348,6 +351,30 @@
     "warningMessage": "학생들이 MD 과정을 신청 한 후에 과정을 수정하면, 신청 결과에 영향을 줄 수 있습니다.",
     "downloadExcel": "현재 MD 과목 분류 및 과목 목록 엑셀 다운로드",
     "downloadTemplate": "엑셀 템플릿 다운로드"
+  },
+  "mdApplication": {
+    "subjectInformation": "이수 과목",
+    "subject": {
+      "number": "순번",
+      "type": "구분",
+      "code": "과목코드",
+      "name": "과목명",
+      "credit": "학점",
+      "department": "개설학부",
+      "required": "필수 여부"
+    },
+    "applicationProcess": "신청 MD 과정",
+    "required": "필수",
+    "optional": "선택",
+    "studentInformation": "학생 정보",
+    "noSubjectsFound": "등록된 과목이 없습니다",
+    "applicationHistory": "{{year}}년 {{semester}}학기 MD 이수 신청 내역",
+    "editApplicationInfo": "신청 내용을 수정하려면 MD 이수 신청 페이지에서 다시 신청해주세요.",
+    "editCurrentSemesterApplicationInfo": "현재 학기 신청 내용만 수정할 수 있습니다.",
+    "noApplications": "신청 내역이 없습니다",
+    "noApplicationsDescription": "해당 학기 MD 이수를 신청하지 않았습니다.",
+    "applicationDetails": "MD 이수 신청 상세 정보 - {{studentNumber}} {{studentName}}",
+    "viewDetails": "상세 정보"
   },
   "permission": {
     "denied": "접근 권한이 없습니다",

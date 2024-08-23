@@ -73,7 +73,6 @@ export default function UserMileageOverview({
 
   const handleApply = async () => {
     if (!studentInfo) {
-      alert('User information is not available.');
       enqueueSnackbar(t('mileageApplication.userInformationNotAvailable'), {
         variant: 'error',
       });

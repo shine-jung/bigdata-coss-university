@@ -4,5 +4,7 @@ export interface MDProcess {
   minStandardCourses: number;
   minLinkedCourses: number;
   minRequiredCredits: number;
+  minCompulsoryCredits: number;
+  minOptionalCredits: number;
   requiresCompulsoryCourses: boolean;
 }
