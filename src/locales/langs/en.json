@@ -352,6 +352,30 @@
     "downloadExcel": "Download current MD subject category and subject list as Excel",
     "downloadTemplate": "Download Excel template"
   },
+  "mdApplication": {
+    "subjectInformation": "Subject Information",
+    "subject": {
+      "number": "Number",
+      "type": "Type",
+      "code": "Subject Code",
+      "name": "Subject Name",
+      "credit": "Credit",
+      "department": "Department",
+      "required": "Required"
+    },
+    "applicationProcess": "MD Completion",
+    "required": "Required",
+    "optional": "Optional",
+    "studentInformation": "Student Information",
+    "noSubjectsFound": "No subjects found",
+    "applicationHistory": "MD Completion Application History",
+    "editApplicationInfo": "To edit the application information, please reapply on the MD Completion Application page.",
+    "editCurrentSemesterApplicationInfo": "You can only edit the current semester application information.",
+    "noApplications": "No applications found",
+    "noApplicationsDescription": "You have not applied for the MD completion for this semester.",
+    "applicationDetails": "MD Completion Application Details - {{studentNumber}} {{studentName}}",
+    "viewDetails": "View details"
+  },
   "permission": {
     "denied": "Access denied",
     "deniedDescription": "You do not have permission to access this page. Please contact the administrator."

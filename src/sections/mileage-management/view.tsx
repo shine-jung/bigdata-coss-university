@@ -27,6 +27,8 @@ import YearSemesterSelector from '../common/year-semester-selector';
 import { COURSE_COMPLETION_AREA_INITIAL_NAME } from './constants/preset-areas';
 import EditCourseCompletionNameModal from './edit-course-completion-name-modal';
 
+// ----------------------------------------------------------------------
+
 export default function MileageManagementView() {
   const { t } = useTranslate();
   const { user } = useAuthContext();

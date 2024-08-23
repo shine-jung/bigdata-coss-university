@@ -21,6 +21,8 @@ import AddActivityModal from './add-activity-modal';
 import UserMileageOverview from './user-mileage-overview';
 import YearSemesterSelector from '../common/year-semester-selector';
 
+// ----------------------------------------------------------------------
+
 export default function MileageScholarshipApplicationView() {
   const { t } = useTranslate();
   const { user } = useAuthContext();
