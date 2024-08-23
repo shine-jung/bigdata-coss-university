@@ -7,7 +7,15 @@ export async function POST(request: NextRequest) {
   const { universityCode, userId, year, semester, processNames, subjects, studentInfo } =
     await request.json();
 
-  if (!universityCode || !userId || !year || !semester || !subjects || !studentInfo) {
+  if (
+    !universityCode ||
+    !userId ||
+    !year ||
+    !semester ||
+    !processNames ||
+    !subjects ||
+    !studentInfo
+  ) {
     return NextResponse.json({ error: '필드가 부족합니다' }, { status: 400 });
   }
 

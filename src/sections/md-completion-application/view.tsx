@@ -40,6 +40,8 @@ import MDResult from './md-result';
 import AddSubjectModal from './add-subject-modal';
 import YearSemesterSelector from '../common/year-semester-selector';
 
+// ----------------------------------------------------------------------
+
 export default function MDCompletionApplicationView() {
   const { t } = useTranslate();
   const { user } = useAuthContext();
