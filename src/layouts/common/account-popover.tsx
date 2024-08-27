@@ -93,7 +93,8 @@ export default function AccountPopover() {
             {t('account.home')}
           </MenuItem>
 
-          {isAdmin ? (
+          {/* TODO(seokmin): Uncomment the following code */}
+          {/* {isAdmin ? (
             <MenuItem onClick={() => handleClickItem(paths.main.adminManagement)}>
               {t('nav.adminAccountManagement')}
             </MenuItem>
@@ -101,7 +102,7 @@ export default function AccountPopover() {
             <MenuItem onClick={() => handleClickItem(paths.main.studentRecordManagement)}>
               {t('nav.studentRecordManagement')}
             </MenuItem>
-          )}
+          )} */}
         </Stack>
 
         <Divider sx={{ borderStyle: 'dashed' }} />
