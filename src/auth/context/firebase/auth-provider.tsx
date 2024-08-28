@@ -156,7 +156,7 @@ export function AuthProvider({ children }: Props) {
       const userProfile = doc(collection(DB, 'users'), newUser.user.uid);
 
       await setDoc(userProfile, {
-        uid: newUser.user.uid,
+        id: newUser.user.uid,
         email,
         name,
         university,
