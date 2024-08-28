@@ -34,7 +34,7 @@ export default function MileageScholarshipApplicationHistoryView() {
   const { user } = useAuthContext();
   const { enqueueSnackbar } = useSnackbar();
   const { year, semester, yearOptions, setYear, setSemester } = useYearSemesterSelector();
-  const userId = user?.uid;
+  const userId = user?.id;
   const universityCode = user?.university;
   const [application, setApplication] = useState<Application | null>(null);
   const [areas, setAreas] = useState<MileageArea[]>([]);

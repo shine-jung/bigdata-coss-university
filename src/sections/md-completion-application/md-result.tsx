@@ -52,7 +52,7 @@ export default function MDResult({ processes, completedSubjects, year, semester 
   const { enqueueSnackbar } = useSnackbar();
   const [open, setOpen] = useState(false);
 
-  const userId = user?.uid;
+  const userId = user?.id;
   const universityCode = user?.university;
 
   const handleOpen = () => setOpen(true);

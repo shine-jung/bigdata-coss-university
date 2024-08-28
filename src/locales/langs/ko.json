@@ -138,6 +138,12 @@
     "HGU": "한동대학교",
     "SNU": "서울대학교"
   },
+  "profile": {
+    "nameAlert": "이름을 변경하려면 관리자에게 문의하세요.",
+    "emailAlert": "이메일을 변경하려면 관리자에게 문의하세요.",
+    "universityAlert": "대학교를 변경하려면 관리자에게 문의하세요.",
+    "updateSuccess": "프로필이 업데이트되었습니다"
+  },
   "notice": {
     "title": "제목",
     "titleRequired": "제목이 필요합니다",
