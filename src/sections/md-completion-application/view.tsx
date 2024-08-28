@@ -252,7 +252,7 @@ export default function MDCompletionApplicationView() {
       ['과목코드', '명칭', '학점', '삭제'],
       (subject) => (
         <TableRow key={subject.id}>
-          <TableCell>{subject.code}</TableCell>
+          <TableCell align="center">{subject.code}</TableCell>
           <TableCell>{subject.name}</TableCell>
           <TableCell align="center">{subject.credit}</TableCell>
           <TableCell align="center">
