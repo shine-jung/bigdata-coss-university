@@ -13,6 +13,7 @@ import Typography from '@mui/material/Typography';
 import LoadingButton from '@mui/lab/LoadingButton';
 
 import { useTranslate } from 'src/locales';
+import { AdminGuard } from 'src/auth/guard';
 import { useAuthContext } from 'src/auth/hooks';
 
 import { UploadAvatar } from 'src/components/upload';
@@ -79,43 +80,45 @@ export default function AdminManagementView() {
   };
 
   return (
-    <Container maxWidth="xs">
-      <Typography variant="h4" mb={5}>
-        {t('nav.adminAccountManagement')}
-      </Typography>
+    <AdminGuard>
+      <Container maxWidth="xs">
+        <Typography variant="h4" mb={5}>
+          {t('nav.adminAccountManagement')}
+        </Typography>
 
-      <FormProvider methods={methods} onSubmit={onSubmit}>
-        <Stack spacing={3}>
-          <UploadAvatar file={avatarFile || user?.photoURL} onDrop={handleDrop} />
+        <FormProvider methods={methods} onSubmit={onSubmit}>
+          <Stack spacing={3}>
+            <UploadAvatar file={avatarFile || user?.photoURL} onDrop={handleDrop} />
 
-          <RHFTextField name="name" label={t('register.name')} />
-          <TextField
-            name="email"
-            label={t('register.email')}
-            value={user?.email}
-            inputProps={{ readOnly: true }}
-            onClick={onClickEmail}
-          />
-          <TextField
-            name="university"
-            label={t('register.university')}
-            value={t(`university.${user?.university}`)}
-            inputProps={{ readOnly: true }}
-            onClick={onClickUniversity}
-          />
+            <RHFTextField name="name" label={t('register.name')} />
+            <TextField
+              name="email"
+              label={t('register.email')}
+              value={user?.email}
+              inputProps={{ readOnly: true }}
+              onClick={onClickEmail}
+            />
+            <TextField
+              name="university"
+              label={t('register.university')}
+              value={t(`university.${user?.university}`)}
+              inputProps={{ readOnly: true }}
+              onClick={onClickUniversity}
+            />
 
-          <LoadingButton
-            fullWidth
-            color="inherit"
-            size="large"
-            type="submit"
-            variant="contained"
-            loading={isSubmitting}
-          >
-            {t('common.save')}
-          </LoadingButton>
-        </Stack>
-      </FormProvider>
-    </Container>
+            <LoadingButton
+              fullWidth
+              color="inherit"
+              size="large"
+              type="submit"
+              variant="contained"
+              loading={isSubmitting}
+            >
+              {t('common.save')}
+            </LoadingButton>
+          </Stack>
+        </FormProvider>
+      </Container>
+    </AdminGuard>
   );
 }
