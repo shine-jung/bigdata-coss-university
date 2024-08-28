@@ -28,7 +28,7 @@ export default function MileageScholarshipApplicationView() {
   const { user } = useAuthContext();
   const { enqueueSnackbar } = useSnackbar();
   const { year, semester, yearOptions, setYear, setSemester } = useYearSemesterSelector();
-  const userId = user?.uid;
+  const userId = user?.id;
   const universityCode = user?.university;
   const [areas, setAreas] = useState<MileageArea[]>([]);
   const [activities, setActivities] = useState<Activity[]>([]);
@@ -214,7 +214,7 @@ export default function MileageScholarshipApplicationView() {
         />
       </Card>
 
-      {currentArea && (
+      {universityCode && currentArea && (
         <AddActivityModal
           open={open}
           onClose={() => setOpen(false)}

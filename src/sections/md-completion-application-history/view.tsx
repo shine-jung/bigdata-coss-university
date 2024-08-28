@@ -33,7 +33,7 @@ export default function MdApplicationApplicationHistoryView() {
   const { user } = useAuthContext();
   const { enqueueSnackbar } = useSnackbar();
   const { year, semester, yearOptions, setYear, setSemester } = useYearSemesterSelector();
-  const userId = user?.uid;
+  const userId = user?.id;
   const universityCode = user?.university;
   const [application, setApplication] = useState<MDApplication | null>(null);
   const [loading, setLoading] = useState<boolean>(true);

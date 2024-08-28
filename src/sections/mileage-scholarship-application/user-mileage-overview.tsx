@@ -61,6 +61,7 @@ export default function UserMileageOverview({
 
   const studentInfo = user
     ? ({
+        id: user.id,
         studentNumber: user.studentNumber,
         name: user.name,
         department: user.department,
@@ -82,7 +83,7 @@ export default function UserMileageOverview({
     try {
       await axios.post('/api/applications', {
         universityCode: user?.university,
-        userId: user?.uid,
+        userId: user?.id,
         year,
         semester,
         activities,
