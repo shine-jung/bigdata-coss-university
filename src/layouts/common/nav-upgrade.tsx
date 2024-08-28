@@ -30,7 +30,7 @@ export default function NavUpgrade() {
       }}
     >
       <Stack alignItems="center">
-        <Avatar src={user?.photoURL} alt={user?.name} sx={{ width: 48, height: 48 }}>
+        <Avatar src={user?.photoURL || ''} alt={user?.name} sx={{ width: 48, height: 48 }}>
           {user?.name?.charAt(0).toUpperCase()}
         </Avatar>
 

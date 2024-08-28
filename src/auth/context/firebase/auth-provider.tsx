@@ -2,6 +2,7 @@
 
 import { useMemo, useEffect, useReducer, useCallback } from 'react';
 import { doc, getDoc, setDoc, Timestamp, collection } from 'firebase/firestore';
+import { ref, getStorage, uploadBytes, getDownloadURL } from 'firebase/storage';
 import {
   signOut,
   getAuth,
@@ -10,21 +11,15 @@ import {
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
+  updateProfile as firebaseUpdateProfile,
 } from 'firebase/auth';
 
 import { DB, firebaseApp } from './lib';
 import { AuthContext } from './auth-context';
 import { AuthUserType, ActionMapType, AuthStateType } from '../../types';
 
-// ----------------------------------------------------------------------
-/**
- * NOTE:
- * We only build demo at basic level.
- * Customer will need to do some extra handling yourself if you want to extend the logic and other features...
- */
-// ----------------------------------------------------------------------
-
 const AUTH = getAuth(firebaseApp);
+const STORAGE = getStorage(firebaseApp);
 
 enum Types {
   INITIAL = 'INITIAL',
@@ -68,10 +63,20 @@ export function AuthProvider({ children }: Props) {
         if (user) {
           if (user.emailVerified) {
             const userProfile = doc(DB, 'users', user.uid);
-
             const docSnap = await getDoc(userProfile);
+            const profile = docSnap.data() as AuthUserType;
 
-            const profile = docSnap.data();
+            if (!profile) {
+              dispatch({
+                type: Types.INITIAL,
+                payload: {
+                  user: null,
+                },
+              });
+              await signOut(AUTH);
+              alert('프로필을 찾을 수 없습니다.\nProfile not found.');
+              return;
+            }
 
             dispatch({
               type: Types.INITIAL,
@@ -117,6 +122,14 @@ export function AuthProvider({ children }: Props) {
     initialize();
   }, [initialize]);
 
+  // Function to upload photo to Firebase Storage
+  const uploadPhoto = async (file: File, userId: string): Promise<string> => {
+    const storageRef = ref(STORAGE, `users/${userId}/profile/${file.name}`);
+    const snapshot = await uploadBytes(storageRef, file);
+    const downloadURL = await getDownloadURL(snapshot.ref);
+    return downloadURL;
+  };
+
   // LOGIN
   const login = useCallback(async (email: string, password: string) => {
     await signInWithEmailAndPassword(AUTH, email, password);
@@ -140,10 +153,10 @@ export function AuthProvider({ children }: Props) {
 
       await sendEmailVerification(newUser.user);
 
-      const userProfile = doc(collection(DB, 'users'), newUser.user?.uid);
+      const userProfile = doc(collection(DB, 'users'), newUser.user.uid);
 
       await setDoc(userProfile, {
-        uid: newUser.user?.uid,
+        uid: newUser.user.uid,
         email,
         name,
         university,
@@ -153,6 +166,7 @@ export function AuthProvider({ children }: Props) {
         major,
         grade,
         semester,
+        photoURL: null,
         createdAt: Timestamp.now(),
         updatedAt: Timestamp.now(),
       });
@@ -169,6 +183,47 @@ export function AuthProvider({ children }: Props) {
   const forgotPassword = useCallback(async (email: string) => {
     await sendPasswordResetEmail(AUTH, email);
   }, []);
+
+  // UPDATE PROFILE
+  const updateProfile = useCallback(
+    async (updates: Partial<AuthUserType>, photoFile: File | null) => {
+      const user = AUTH.currentUser;
+      if (!state.user || !user) return;
+
+      let { photoURL } = state.user;
+
+      if (photoFile) {
+        photoURL = await uploadPhoto(photoFile, state.user.id);
+        await firebaseUpdateProfile(user, { photoURL });
+      }
+
+      const userRef = doc(DB, 'users', state.user.id);
+
+      await setDoc(
+        userRef,
+        {
+          ...updates,
+          photoURL,
+          updatedAt: Timestamp.now(),
+        },
+        { merge: true }
+      );
+
+      const updatedUserDoc = await getDoc(userRef);
+      const updatedUserProfile = updatedUserDoc.data();
+
+      dispatch({
+        type: Types.INITIAL,
+        payload: {
+          user: {
+            ...state.user,
+            ...updatedUserProfile,
+          } as AuthUserType,
+        },
+      });
+    },
+    [state.user]
+  );
 
   // ----------------------------------------------------------------------
 
@@ -189,6 +244,7 @@ export function AuthProvider({ children }: Props) {
       logout,
       register,
       forgotPassword,
+      updateProfile,
     }),
     [
       status,
@@ -198,6 +254,7 @@ export function AuthProvider({ children }: Props) {
       logout,
       register,
       forgotPassword,
+      updateProfile,
     ]
   );
 

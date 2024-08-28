@@ -56,17 +56,16 @@ export function useNavData(isAdmin: boolean) {
             {
               subheader: t('nav.admin'),
               items: [
-                // TODO(seokmin): Uncomment the following code
-                // {
-                //   title: t('nav.adminAccountManagement'),
-                //   path: paths.main.adminManagement,
-                //   icon: ICONS.admin,
-                // },
-                // {
-                //   title: t('nav.schoolManagement'),
-                //   path: paths.main.schoolManagement,
-                //   icon: ICONS.school,
-                // },
+                {
+                  title: t('nav.adminAccountManagement'),
+                  path: paths.main.adminManagement,
+                  icon: ICONS.admin,
+                },
+                {
+                  title: t('nav.schoolManagement'),
+                  path: paths.main.schoolManagement,
+                  icon: ICONS.school,
+                },
                 {
                   title: t('nav.noticeCreation'),
                   path: paths.main.noticeCreation,
@@ -136,17 +135,16 @@ export function useNavData(isAdmin: boolean) {
                 },
               ],
             },
-            // TODO(seokmin): Uncomment the following code
-            // {
-            //   subheader: t('nav.studentRecordManagement'),
-            //   items: [
-            //     {
-            //       title: t('nav.studentRecordManagement'),
-            //       path: paths.main.studentRecordManagement,
-            //       icon: ICONS.user,
-            //     },
-            //   ],
-            // },
+            {
+              subheader: t('nav.studentRecordManagement'),
+              items: [
+                {
+                  title: t('nav.studentRecordManagement'),
+                  path: paths.main.studentRecordManagement,
+                  icon: ICONS.user,
+                },
+              ],
+            },
           ]),
     ],
     [isAdmin, t, boardData]
