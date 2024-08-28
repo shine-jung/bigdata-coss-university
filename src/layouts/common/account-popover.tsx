@@ -63,7 +63,7 @@ export default function AccountPopover() {
         }}
       >
         <Avatar
-          src={user?.photoURL}
+          src={user?.photoURL || ''}
           alt={user?.name}
           sx={{
             width: 36,
@@ -93,8 +93,7 @@ export default function AccountPopover() {
             {t('account.home')}
           </MenuItem>
 
-          {/* TODO(seokmin): Uncomment the following code */}
-          {/* {isAdmin ? (
+          {isAdmin ? (
             <MenuItem onClick={() => handleClickItem(paths.main.adminManagement)}>
               {t('nav.adminAccountManagement')}
             </MenuItem>
@@ -102,7 +101,7 @@ export default function AccountPopover() {
             <MenuItem onClick={() => handleClickItem(paths.main.studentRecordManagement)}>
               {t('nav.studentRecordManagement')}
             </MenuItem>
-          )} */}
+          )}
         </Stack>
 
         <Divider sx={{ borderStyle: 'dashed' }} />

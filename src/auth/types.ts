@@ -13,7 +13,20 @@ export type ActionMapType<M extends { [index: string]: any }> = {
       };
 };
 
-export type AuthUserType = null | Record<string, any>;
+export type AuthUserType = null | {
+  id: string;
+  emailVerified: boolean;
+  email: string;
+  name: string;
+  university: string;
+  role: string;
+  studentNumber: string | undefined;
+  department: string | undefined;
+  major: string | undefined;
+  grade: string | undefined;
+  semester: string | undefined;
+  photoURL: string | null;
+};
 
 export type AuthStateType = {
   status?: string;
@@ -56,4 +69,5 @@ export type FirebaseContextType = CanRemove & {
     semester: string | undefined
   ) => Promise<void>;
   forgotPassword: (email: string) => Promise<void>;
+  updateProfile: (updates: Partial<AuthUserType>, photoFile: File | null) => Promise<void>;
 };

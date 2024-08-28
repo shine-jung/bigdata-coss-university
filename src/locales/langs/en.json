@@ -138,6 +138,12 @@
     "HGU": "Handong Global University",
     "SNU": "Seoul National University"
   },
+  "profile": {
+    "nameAlert": "To change your name, please contact the administrator.",
+    "emailAlert": "To change your email, please contact the administrator.",
+    "universityAlert": "To change your university, please contact the administrator.",
+    "updateSuccess": "Profile has been updated"
+  },
   "notice": {
     "title": "Title",
     "titleRequired": "Title is required",
