@@ -69,6 +69,11 @@ export default function MileageManagementView() {
       return;
     }
 
+    if (!universityCode) {
+      enqueueSnackbar('대학교 정보가 없습니다.', { variant: 'warning' });
+      return;
+    }
+
     await handleExcelFileUpload(file, universityCode, year, semester, fetchAreas);
   };
 
@@ -130,15 +135,17 @@ export default function MileageManagementView() {
 
               <MileageManagementAlert />
 
-              <CourseCompletionSection
-                isCourseCompletionActive={isCourseCompletionActive}
-                setIsModalOpen={setIsModalOpen}
-                fetchAreas={fetchAreas}
-                areas={areas}
-                universityCode={universityCode}
-                year={year}
-                semester={semester}
-              />
+              {universityCode && (
+                <CourseCompletionSection
+                  isCourseCompletionActive={isCourseCompletionActive}
+                  setIsModalOpen={setIsModalOpen}
+                  fetchAreas={fetchAreas}
+                  areas={areas}
+                  universityCode={universityCode}
+                  year={year}
+                  semester={semester}
+                />
+              )}
 
               {areas && <AreaList areas={areas.sort((a, b) => (a.isCourseCompletion ? -1 : 1))} />}
 

@@ -24,7 +24,7 @@ export default function RoleBasedGuard({ hasContent, roles, children, sx }: Role
   const { t } = useTranslate();
   const { user } = useAuthContext();
 
-  const currentRole = user?.role;
+  const currentRole = user?.role || 'user';
 
   if (typeof roles !== 'undefined' && !roles.includes(currentRole)) {
     return hasContent ? (

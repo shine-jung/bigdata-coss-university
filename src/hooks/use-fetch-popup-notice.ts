@@ -3,7 +3,7 @@ import { useState, useEffect, useCallback } from 'react';
 
 import { PopupNotice } from 'src/domain/popup-notice/popup-notice';
 
-export const useFetchPopupNotice = (universityCode: string) => {
+export const useFetchPopupNotice = (universityCode?: string) => {
   const [popupNotice, setPopupNotice] = useState<PopupNotice | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);

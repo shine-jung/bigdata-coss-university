@@ -79,7 +79,9 @@ const PopupNoticeView = () => {
                 {t('popupNotice.createPopupNotice')}
               </Typography>
 
-              <PopupNoticeForm universityCode={universityCode} refetch={refetch} />
+              {universityCode && (
+                <PopupNoticeForm universityCode={universityCode} refetch={refetch} />
+              )}
             </Box>
           </Grid>
         </Grid>
