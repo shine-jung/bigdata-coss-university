@@ -3,7 +3,7 @@ import MileageScholarshipApplicationHistoryView from 'src/sections/mileage-schol
 // ----------------------------------------------------------------------
 
 export const metadata = {
-  title: '마일리지 장학금 신청 내역',
+  title: '빅데이터 갈매기 장학금 신청 내역',
 };
 
 export default function Page() {
