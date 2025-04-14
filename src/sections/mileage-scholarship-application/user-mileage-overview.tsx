@@ -115,7 +115,8 @@ export default function UserMileageOverview({
         <DialogContent id={PDF_SECTION_ID}>
           <Stack spacing={3}>
             <Typography variant="h5">
-              {t('mileageApplication.mileageApplicationForm', { year, semester })}
+              {/* {t('mileageApplication.mileageApplicationForm', { year, semester })} */}
+              {`${year}년 ${semester}학기 갈매기 장학금 신청서`}
             </Typography>
 
             <Stack>
