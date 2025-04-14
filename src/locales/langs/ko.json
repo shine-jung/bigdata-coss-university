@@ -299,7 +299,7 @@
     "applicationSubmitError": "신청 중 오류가 발생했습니다",
     "applyForScholarship": "빅데이터 갈매기 장학금 신청",
     "submitApplication": "신청 제출",
-    "mileageApplicationForm": "{{year}}년 {{semester}}학기 마일리지 신청서",
+    "mileageApplicationForm": "{{year}}년 {{semester}}학기 갈매기 장학금 신청서",
     "studentInformation": "학생 정보",
     "area": "{{area}} 영역",
     "noActivitiesFound": "등록된 활동이 없습니다",
