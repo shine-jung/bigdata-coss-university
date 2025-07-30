@@ -22,6 +22,13 @@ import { Application } from 'src/domain/application/application';
 import { MileageArea } from 'src/domain/mileage-management/mileage-area';
 import { STUDENT_INFO_TABLE_HEAD } from 'src/domain/student/student-info-table-head';
 
+const SEMESTER_OPTIONS = [
+  { value: '1', label: '1학기' },
+  { value: '2', label: '2학기' },
+  { value: '3', label: '하계 계절학기' },
+  { value: '4', label: '동계 계절학기' },
+];
+
 interface ApplicationDetailsDialogProps {
   open: boolean;
   onClose: () => void;
@@ -134,7 +141,14 @@ const ApplicationDetailsDialog: React.FC<ApplicationDetailsDialogProps> = ({
                                 }
                                 return (
                                   <TableCell key={fieldIndex} align="center">
-                                    {activity.data[field.name]?.toString()}
+                                    {field.name === '학기' 
+                                      ? (() => {
+                                          const semesterValue = activity.data[field.name];
+                                          const semesterOption = SEMESTER_OPTIONS.find(option => option.value === semesterValue);
+                                          return semesterOption ? semesterOption.label : semesterValue?.toString();
+                                        })()
+                                      : activity.data[field.name]?.toString()
+                                    }
                                   </TableCell>
                                 );
                               })}

@@ -23,6 +23,13 @@ import YearSemesterSelector from '../common/year-semester-selector';
 
 // ----------------------------------------------------------------------
 
+const SEMESTER_OPTIONS = [
+  { value: '1', label: '1학기' },
+  { value: '2', label: '2학기' },
+  { value: '3', label: '하계 계절학기' },
+  { value: '4', label: '동계 계절학기' },
+];
+
 export default function MileageScholarshipApplicationView() {
   const { t } = useTranslate();
   const { user } = useAuthContext();
@@ -138,7 +145,13 @@ export default function MileageScholarshipApplicationView() {
           minWidth: 100,
           headerAlign: field.type === 'boolean' ? 'center' : 'left',
           align: field.type === 'boolean' ? 'center' : 'left',
-          // 미관상 type이 boolean인 경우만 center로 설정, 나머지는 left로 설정
+          ...(field.name === '학기' && {
+            valueGetter: (params: any) => {
+              const semesterValue = params.value;
+              const semesterOption = SEMESTER_OPTIONS.find(option => option.value === semesterValue);
+              return semesterOption ? semesterOption.label : semesterValue;
+            },
+          }),
         })),
         {
           field: 'actions',

@@ -25,6 +25,13 @@ import YearSemesterSelector from '../common/year-semester-selector';
 
 // ----------------------------------------------------------------------
 
+const SEMESTER_OPTIONS = [
+  { value: '1', label: '1학기' },
+  { value: '2', label: '2학기' },
+  { value: '3', label: '하계 계절학기' },
+  { value: '4', label: '동계 계절학기' },
+];
+
 export default function MileageScholarshipApplicationListView() {
   const { t } = useTranslate();
   const { user } = useAuthContext();
@@ -92,7 +99,16 @@ export default function MileageScholarshipApplicationListView() {
     { field: 'department', headerName: '학부(학과)', flex: 1 },
     { field: 'major', headerName: '전공', flex: 1 },
     { field: 'grade', headerName: '학년', flex: 1 },
-    { field: 'semester', headerName: '학기', flex: 1 },
+    { 
+      field: 'semester', 
+      headerName: '학기', 
+      flex: 1,
+      valueGetter: (params: any) => {
+        const semesterValue = params.value;
+        const semesterOption = SEMESTER_OPTIONS.find(option => option.value === String(semesterValue));
+        return semesterOption ? semesterOption.label : semesterValue;
+      },
+    },
     { field: 'email', headerName: '이메일', flex: 1 },
     {
       field: 'totalScore',

@@ -18,7 +18,12 @@ import {
 import { useTranslate } from 'src/locales';
 import { Course } from 'src/domain/mileage-management/course';
 
-const SEMESTER_OPTIONS = [1, 2, 3, 4];
+const SEMESTER_OPTIONS = [
+  { value: '1', label: '1학기' },
+  { value: '2', label: '2학기' },
+  { value: '3', label: '하계 계절학기' },
+  { value: '4', label: '동계 계절학기' },
+]
 const GRADE_OPTIONS = ['A+', 'A0', 'A-', 'B+', 'PD', 'P'];
 
 interface CourseCompletionFormProps {
@@ -144,9 +149,9 @@ export const CourseCompletionForm = ({
               defaultValue=""
               error={Boolean(errors?.학기)}
             >
-              {SEMESTER_OPTIONS.map((semesterOption) => (
-                <MenuItem key={semesterOption} value={semesterOption}>
-                  {semesterOption}
+              {SEMESTER_OPTIONS.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
                 </MenuItem>
               ))}
             </Select>
