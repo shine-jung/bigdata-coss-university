@@ -29,6 +29,13 @@ import YearSemesterSelector from '../common/year-semester-selector';
 
 // ----------------------------------------------------------------------
 
+const SEMESTER_OPTIONS = [
+  { value: '1', label: '1학기' },
+  { value: '2', label: '2학기' },
+  { value: '3', label: '하계 계절학기' },
+  { value: '4', label: '동계 계절학기' },
+];
+
 export default function MileageScholarshipApplicationHistoryView() {
   const { t } = useTranslate();
   const { user } = useAuthContext();
@@ -195,7 +202,14 @@ export default function MileageScholarshipApplicationHistoryView() {
                                   }
                                   return (
                                     <TableCell key={fieldIndex} align="center">
-                                      {activity.data[field.name]?.toString()}
+                                      {field.name === '학기' 
+                                        ? (() => {
+                                            const semesterValue = activity.data[field.name];
+                                            const semesterOption = SEMESTER_OPTIONS.find(option => option.value === String(semesterValue));
+                                            return semesterOption ? semesterOption.label : semesterValue?.toString();
+                                          })()
+                                        : activity.data[field.name]?.toString()
+                                      }
                                     </TableCell>
                                   );
                                 })}
