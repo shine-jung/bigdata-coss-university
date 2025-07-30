@@ -3,8 +3,20 @@ import * as XLSX from 'xlsx';
 import { Application } from 'src/domain/application/application';
 import { MileageArea } from 'src/domain/mileage-management/mileage-area';
 
+const SEMESTER_OPTIONS = [
+  { value: '1', label: '1학기' },
+  { value: '2', label: '2학기' },
+  { value: '3', label: '하계 계절학기' },
+  { value: '4', label: '동계 계절학기' },
+];
+
 export const generateExcel = (application: Application, areas: MileageArea[]) => {
   const workbook = XLSX.utils.book_new();
+
+  // 학생 정보 시트에서 학기 값 변환
+  const semesterValue = application.studentInfo.semester;
+  const semesterOption = SEMESTER_OPTIONS.find(option => option.value === semesterValue);
+  const displaySemester = semesterOption ? semesterOption.label : semesterValue;
 
   const studentInfoData = [
     ['학번', application.studentInfo.studentNumber],
@@ -12,7 +24,7 @@ export const generateExcel = (application: Application, areas: MileageArea[]) =>
     ['학부(학과)', application.studentInfo.department],
     ['전공', application.studentInfo.major],
     ['학년', application.studentInfo.grade],
-    ['학기', application.studentInfo.semester],
+    ['학기', displaySemester],
     ['이메일', application.studentInfo.email],
     ['총 점수', application.activities.reduce((total, activity) => total + activity.points, 0)],
   ];
@@ -29,7 +41,14 @@ export const generateExcel = (application: Application, areas: MileageArea[]) =>
     filteredActivities.forEach((activity, index) => {
       const rowData = [
         (index + 1).toString(),
-        ...area.fields.map((field) => activity.data[field.name]?.toString() ?? ''),
+        ...area.fields.map((field) => {
+          const value = activity.data[field.name];
+          if (field.name === '학기') {
+            const semesterOption = SEMESTER_OPTIONS.find(option => option.value === value);
+            return semesterOption ? semesterOption.label : value?.toString() ?? '';
+          }
+          return value?.toString() ?? '';
+        }),
         activity.points.toString(),
       ];
       areaData.push(rowData);
