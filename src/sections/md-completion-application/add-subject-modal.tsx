@@ -40,15 +40,20 @@ export default function AddSubjectModal({
   const { enqueueSnackbar } = useSnackbar();
   const [selectedSubjectId, setSelectedSubjectId] = useState('');
   const [open, setOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    setSelectedSubjectId('');
+    setIsLoading(false);
+  };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedSubjectId(event.target.value);
   };
 
-  const handleAddSubject = () => {
+  const handleAddSubject = async () => {
     if (!selectedSubjectId) {
       enqueueSnackbar('과목을 선택해주세요.', { variant: 'warning' });
       return;
@@ -74,8 +79,14 @@ export default function AddSubjectModal({
       type: category.type,
     };
 
-    addSubject(updatedSubject);
-    handleClose();
+    setIsLoading(true);
+    try {
+      await addSubject(updatedSubject);
+      handleClose();
+      setSelectedSubjectId(''); // 선택 초기화
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const filteredSubjects = subjects.filter(
@@ -115,11 +126,16 @@ export default function AddSubjectModal({
             variant="contained"
             onClick={handleAddSubject}
             color="success"
-            disabled={!selectedSubjectId}
+            disabled={!selectedSubjectId || isLoading}
           >
-            추가
+            {isLoading ? '추가 중...' : '추가'}
           </Button>
-          <Button variant="contained" onClick={handleClose} color="error">
+          <Button 
+            variant="contained" 
+            onClick={handleClose} 
+            color="error"
+            disabled={isLoading}
+          >
             취소
           </Button>
         </DialogActions>
