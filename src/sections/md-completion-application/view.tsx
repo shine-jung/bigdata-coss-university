@@ -116,26 +116,40 @@ export default function MDCompletionApplicationView() {
   };
 
   const addSubject = async (subject: Subject) => {
+    const optimisticSubject = { ...subject, id: `temp-${Date.now()}` };
+    setCompletedSubjects(prev => [...prev, optimisticSubject]);
+    
     try {
-      await axios.post('/api/md-completed-subjects', {
+      const response = await axios.post('/api/md-completed-subjects', {
         userId,
         year,
         semester,
         subject,
       });
-      fetchCompletedSubjects();
+      
+      // 성공 시 임시 ID를 실제 ID로 교체 (서버에서 반환된 ID 사용)
+      const actualSubject = response.data.subject || { ...subject, id: subject.id || optimisticSubject.id };
+      setCompletedSubjects(prev => 
+        prev.map(s => s.id === optimisticSubject.id ? actualSubject : s)
+      );
     } catch (error) {
+      // 실패 시 롤백: 추가한 항목을 제거
+      setCompletedSubjects(prev => prev.filter(s => s.id !== optimisticSubject.id));
       enqueueSnackbar('과목 추가 중 오류가 발생했습니다.', { variant: 'error' });
     }
   };
 
   const deleteSubject = async (subject: Subject) => {
+    const previousSubjects = completedSubjects;
+    setCompletedSubjects(prev => prev.filter(s => s.id !== subject.id));
+    
     try {
       await axios.delete('/api/md-completed-subjects', {
         data: { userId, year, semester, subject },
       });
-      fetchCompletedSubjects();
     } catch (error) {
+      // 실패 시 롤백: 이전 상태로 복원
+      setCompletedSubjects(previousSubjects);
       enqueueSnackbar('과목 삭제 중 오류가 발생했습니다.', { variant: 'error' });
     }
   };
