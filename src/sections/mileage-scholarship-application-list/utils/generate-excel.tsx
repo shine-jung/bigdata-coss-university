@@ -44,8 +44,8 @@ export const generateExcel = (application: Application, areas: MileageArea[]) =>
         ...area.fields.map((field) => {
           const value = activity.data[field.name];
           if (field.name === '학기') {
-            const semesterOption = SEMESTER_OPTIONS.find(option => option.value === value);
-            return semesterOption ? semesterOption.label : value?.toString() ?? '';
+            const activitySemesterOption = SEMESTER_OPTIONS.find(option => option.value === value);
+            return activitySemesterOption ? activitySemesterOption.label : value?.toString() ?? '';
           }
           return value?.toString() ?? '';
         }),
