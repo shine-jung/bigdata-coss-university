@@ -10,6 +10,7 @@ import { useYearSemesterSelector } from 'src/hooks/use-year-semester-selector';
 
 import { useTranslate } from 'src/locales';
 import { useAuthContext } from 'src/auth/hooks';
+import { convertSemesterToLabel } from 'src/utils/semester-utils';
 import { Activity } from 'src/domain/activity/activity';
 import { MileageArea } from 'src/domain/mileage-management/mileage-area';
 
@@ -23,12 +24,7 @@ import YearSemesterSelector from '../common/year-semester-selector';
 
 // ----------------------------------------------------------------------
 
-const SEMESTER_OPTIONS = [
-  { value: '1', label: '1학기' },
-  { value: '2', label: '2학기' },
-  { value: '3', label: '하계 계절학기' },
-  { value: '4', label: '동계 계절학기' },
-];
+
 
 export default function MileageScholarshipApplicationView() {
   const { t } = useTranslate();
@@ -146,11 +142,7 @@ export default function MileageScholarshipApplicationView() {
           headerAlign: field.type === 'boolean' ? 'center' : 'left',
           align: field.type === 'boolean' ? 'center' : 'left',
           ...(field.name === '학기' && {
-            valueGetter: (params: any) => {
-              const semesterValue = params.value;
-              const semesterOption = SEMESTER_OPTIONS.find(option => option.value === semesterValue);
-              return semesterOption ? semesterOption.label : semesterValue;
-            },
+            valueGetter: (params: any) => convertSemesterToLabel(params.value),
           }),
         })),
         {

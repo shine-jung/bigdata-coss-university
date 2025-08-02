@@ -27,17 +27,13 @@ import { MileageArea } from 'src/domain/mileage-management/mileage-area';
 
 import Iconify from 'src/components/iconify';
 
-import generatePDF from './utils/generate-pdf';
+import { convertSemesterToLabel } from 'src/utils/semester-utils';
+
 import { STUDENT_INFO_TABLE_HEAD } from '../../domain/student/student-info-table-head';
 
-const PDF_SECTION_ID = 'PDF';
+import generatePDF from './utils/generate-pdf';
 
-const SEMESTER_OPTIONS = [
-  { value: '1', label: '1학기' },
-  { value: '2', label: '2학기' },
-  { value: '3', label: '하계 계절학기' },
-  { value: '4', label: '동계 계절학기' },
-];
+const PDF_SECTION_ID = 'PDF';
 
 interface UserMileageOverviewProps {
   areas: MileageArea[];
@@ -196,11 +192,7 @@ export default function UserMileageOverview({
                                 return (
                                   <TableCell key={fieldIndex} align="center">
                                     {field.name === '학기' 
-                                      ? (() => {
-                                          const semesterValue = activity.data[field.name];
-                                          const semesterOption = SEMESTER_OPTIONS.find(option => option.value === String(semesterValue));
-                                          return semesterOption ? semesterOption.label : semesterValue?.toString();
-                                        })()
+                                      ? convertSemesterToLabel(activity.data[field.name] as string | number | undefined)
                                       : activity.data[field.name]?.toString()
                                     }
                                   </TableCell>
