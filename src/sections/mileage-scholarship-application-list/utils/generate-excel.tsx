@@ -1,22 +1,15 @@
 import * as XLSX from 'xlsx';
 
+import { convertSemesterToLabel } from 'src/utils/semester-utils';
+
 import { Application } from 'src/domain/application/application';
 import { MileageArea } from 'src/domain/mileage-management/mileage-area';
-
-const SEMESTER_OPTIONS = [
-  { value: '1', label: '1학기' },
-  { value: '2', label: '2학기' },
-  { value: '3', label: '하계 계절학기' },
-  { value: '4', label: '동계 계절학기' },
-];
 
 export const generateExcel = (application: Application, areas: MileageArea[]) => {
   const workbook = XLSX.utils.book_new();
 
   // 학생 정보 시트에서 학기 값 변환
-  const semesterValue = application.studentInfo.semester;
-  const semesterOption = SEMESTER_OPTIONS.find(option => option.value === semesterValue);
-  const displaySemester = semesterOption ? semesterOption.label : semesterValue;
+  const displaySemester = convertSemesterToLabel(application.studentInfo.semester);
 
   const studentInfoData = [
     ['학번', application.studentInfo.studentNumber],
@@ -44,8 +37,7 @@ export const generateExcel = (application: Application, areas: MileageArea[]) =>
         ...area.fields.map((field) => {
           const value = activity.data[field.name];
           if (field.name === '학기') {
-            const activitySemesterOption = SEMESTER_OPTIONS.find(option => option.value === value);
-            return activitySemesterOption ? activitySemesterOption.label : value?.toString() ?? '';
+            return convertSemesterToLabel(value as string | number | undefined);
           }
           return value?.toString() ?? '';
         }),
