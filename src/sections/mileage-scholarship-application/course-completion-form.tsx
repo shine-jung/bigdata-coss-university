@@ -15,8 +15,9 @@ import {
   FormControlLabel,
 } from '@mui/material';
 
-import { useTranslate } from 'src/locales';
 import { SEMESTER_OPTIONS } from 'src/utils/semester-constants';
+
+import { useTranslate } from 'src/locales';
 import { Course } from 'src/domain/mileage-management/course';
 
 const GRADE_OPTIONS = ['A+', 'A0', 'A-', 'B+', 'PD', 'P'];

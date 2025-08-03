@@ -16,12 +16,13 @@ import {
   TableContainer,
 } from '@mui/material';
 
+import { convertSemesterToLabel } from 'src/utils/semester-utils';
+
 import { useTranslate } from 'src/locales';
 import { StudentInfo } from 'src/domain/student/student-info';
 import { Application } from 'src/domain/application/application';
 import { MileageArea } from 'src/domain/mileage-management/mileage-area';
 import { STUDENT_INFO_TABLE_HEAD } from 'src/domain/student/student-info-table-head';
-import { convertSemesterToLabel } from 'src/utils/semester-utils';
 
 interface ApplicationDetailsDialogProps {
   open: boolean;

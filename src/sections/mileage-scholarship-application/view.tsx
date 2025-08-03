@@ -8,9 +8,10 @@ import { Card, Stack, Button, Skeleton, Container, Typography } from '@mui/mater
 
 import { useYearSemesterSelector } from 'src/hooks/use-year-semester-selector';
 
+import { convertSemesterToLabel } from 'src/utils/semester-utils';
+
 import { useTranslate } from 'src/locales';
 import { useAuthContext } from 'src/auth/hooks';
-import { convertSemesterToLabel } from 'src/utils/semester-utils';
 import { Activity } from 'src/domain/activity/activity';
 import { MileageArea } from 'src/domain/mileage-management/mileage-area';
 

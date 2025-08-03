@@ -19,6 +19,8 @@ import {
   DialogContentText,
 } from '@mui/material';
 
+import { convertSemesterToLabel } from 'src/utils/semester-utils';
+
 import { useTranslate } from 'src/locales';
 import { useAuthContext } from 'src/auth/hooks';
 import { Activity } from 'src/domain/activity/activity';
@@ -27,11 +29,8 @@ import { MileageArea } from 'src/domain/mileage-management/mileage-area';
 
 import Iconify from 'src/components/iconify';
 
-import { convertSemesterToLabel } from 'src/utils/semester-utils';
-
-import { STUDENT_INFO_TABLE_HEAD } from '../../domain/student/student-info-table-head';
-
 import generatePDF from './utils/generate-pdf';
+import { STUDENT_INFO_TABLE_HEAD } from '../../domain/student/student-info-table-head';
 
 const PDF_SECTION_ID = 'PDF';
 
