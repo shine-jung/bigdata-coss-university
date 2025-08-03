@@ -16,10 +16,10 @@ import TableContainer from '@mui/material/TableContainer';
 
 import { useYearSemesterSelector } from 'src/hooks/use-year-semester-selector';
 
-import { useTranslate } from 'src/locales';
-import { useAuthContext } from 'src/auth/hooks';
 import { convertSemesterToLabel } from 'src/utils/semester-utils';
 
+import { useTranslate } from 'src/locales';
+import { useAuthContext } from 'src/auth/hooks';
 import { StudentInfo } from 'src/domain/student/student-info';
 import { Application } from 'src/domain/application/application';
 import { MileageArea } from 'src/domain/mileage-management/mileage-area';
