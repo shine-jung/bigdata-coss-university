@@ -9,10 +9,11 @@ import { Card, Stack, Container, Typography } from '@mui/material';
 
 import { useYearSemesterSelector } from 'src/hooks/use-year-semester-selector';
 
+import { convertSemesterToLabel } from 'src/utils/semester-utils';
+
 import { useTranslate } from 'src/locales';
 import { AdminGuard } from 'src/auth/guard';
 import { useAuthContext } from 'src/auth/hooks';
-import { convertSemesterToLabel } from 'src/utils/semester-utils';
 import { Activity } from 'src/domain/activity/activity';
 import { Application } from 'src/domain/application/application';
 import { MileageArea } from 'src/domain/mileage-management/mileage-area';
