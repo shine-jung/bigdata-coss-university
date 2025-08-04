@@ -4,8 +4,7 @@ import { Controller, useFormContext } from 'react-hook-form';
 
 import { Stack, MenuItem, TextField } from '@mui/material';
 
-import { SEMESTER_OPTIONS } from 'src/utils/semester-constants';
-
+import { SEMESTER_OPTIONS } from 'src/constants/semester-constants';
 import { MileageArea } from 'src/domain/mileage-management/mileage-area';
 
 // 년도 옵션 생성
@@ -32,7 +31,6 @@ export const DynamicForm = ({ area }: DynamicFormProps) => {
   } = useFormContext();
 
   const renderField = (field: { name: string; type: string }) => {
-
     if (field.name === '년도') {
       return (
         <Controller
@@ -59,8 +57,7 @@ export const DynamicForm = ({ area }: DynamicFormProps) => {
         />
       );
     }
-    
-    
+
     if (field.name === '학기') {
       return (
         <Controller

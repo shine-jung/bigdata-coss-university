@@ -136,10 +136,11 @@ const ApplicationDetailsDialog: React.FC<ApplicationDetailsDialogProps> = ({
                                 }
                                 return (
                                   <TableCell key={fieldIndex} align="center">
-                                    {field.name === '학기' 
-                                      ? convertSemesterToLabel(activity.data[field.name] as string | number | undefined)
-                                      : activity.data[field.name]?.toString()
-                                    }
+                                    {field.name === '학기'
+                                      ? convertSemesterToLabel(
+                                          activity.data[field.name] as string | number | undefined
+                                        )
+                                      : activity.data[field.name]?.toString()}
                                   </TableCell>
                                 );
                               })}

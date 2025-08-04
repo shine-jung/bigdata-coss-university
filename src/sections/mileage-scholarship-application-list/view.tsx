@@ -94,9 +94,9 @@ export default function MileageScholarshipApplicationListView() {
     { field: 'department', headerName: '학부(학과)', flex: 1 },
     { field: 'major', headerName: '전공', flex: 1 },
     { field: 'grade', headerName: '학년', flex: 1 },
-    { 
-      field: 'semester', 
-      headerName: '학기', 
+    {
+      field: 'semester',
+      headerName: '학기',
       flex: 1,
       valueGetter: (params: any) => convertSemesterToLabel(params.value),
     },

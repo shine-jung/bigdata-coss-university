@@ -117,6 +117,7 @@ export default function UserMileageOverview({
         <DialogContent id={PDF_SECTION_ID}>
           <Stack spacing={3}>
             <Typography variant="h5">
+              {/* TODO: 번역 추가 */}
               {/* {t('mileageApplication.mileageApplicationForm', { year, semester })} */}
               {`${year}년 ${semester}학기 갈매기 장학금 신청서`}
             </Typography>
@@ -190,10 +191,11 @@ export default function UserMileageOverview({
                                 }
                                 return (
                                   <TableCell key={fieldIndex} align="center">
-                                    {field.name === '학기' 
-                                      ? convertSemesterToLabel(activity.data[field.name] as string | number | undefined)
-                                      : activity.data[field.name]?.toString()
-                                    }
+                                    {field.name === '학기'
+                                      ? convertSemesterToLabel(
+                                          activity.data[field.name] as string | number | undefined
+                                        )
+                                      : activity.data[field.name]?.toString()}
                                   </TableCell>
                                 );
                               })}
