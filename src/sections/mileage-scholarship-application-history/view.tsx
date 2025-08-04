@@ -31,8 +31,6 @@ import YearSemesterSelector from '../common/year-semester-selector';
 
 // ----------------------------------------------------------------------
 
-
-
 export default function MileageScholarshipApplicationHistoryView() {
   const { t } = useTranslate();
   const { user } = useAuthContext();
@@ -199,10 +197,11 @@ export default function MileageScholarshipApplicationHistoryView() {
                                   }
                                   return (
                                     <TableCell key={fieldIndex} align="center">
-                                      {field.name === '학기' 
-                                        ? convertSemesterToLabel(activity.data[field.name] as string | number | undefined)
-                                        : activity.data[field.name]?.toString()
-                                      }
+                                      {field.name === '학기'
+                                        ? convertSemesterToLabel(
+                                            activity.data[field.name] as string | number | undefined
+                                          )
+                                        : activity.data[field.name]?.toString()}
                                     </TableCell>
                                   );
                                 })}
