@@ -25,8 +25,6 @@ import YearSemesterSelector from '../common/year-semester-selector';
 
 // ----------------------------------------------------------------------
 
-
-
 export default function MileageScholarshipApplicationView() {
   const { t } = useTranslate();
   const { user } = useAuthContext();
@@ -142,6 +140,7 @@ export default function MileageScholarshipApplicationView() {
           minWidth: 100,
           headerAlign: field.type === 'boolean' ? 'center' : 'left',
           align: field.type === 'boolean' ? 'center' : 'left',
+          // 미관상 type이 boolean인 경우만 center로 설정, 나머지는 left로 설정
           ...(field.name === '학기' && {
             valueGetter: (params: any) => convertSemesterToLabel(params.value),
           }),

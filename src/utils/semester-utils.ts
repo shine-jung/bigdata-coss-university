@@ -1,4 +1,4 @@
-import { SEMESTER_OPTIONS } from './semester-constants';
+import { SEMESTER_OPTIONS } from '../constants/semester-constants';
 
 /**
  * 학기 값을 라벨로 변환하는 함수
@@ -7,9 +7,9 @@ import { SEMESTER_OPTIONS } from './semester-constants';
  */
 export const convertSemesterToLabel = (semesterValue: string | number | undefined): string => {
   if (semesterValue == null) return '';
-  
+
   const stringValue = String(semesterValue);
-  const semesterOption = SEMESTER_OPTIONS.find(option => option.value === stringValue);
-  
+  const semesterOption = SEMESTER_OPTIONS.find((option) => option.value === stringValue);
+
   return semesterOption ? semesterOption.label : stringValue;
 };
