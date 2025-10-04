@@ -155,12 +155,15 @@ export function AuthProvider({ children }: Props) {
 
       const userProfile = doc(collection(DB, 'users'), newUser.user.uid);
 
+      // 교직원인 경우 role을 'staff'로 설정하고, 관리자 권한 요청을 생성
+      const finalRole = role === 'staff' ? 'staff' : role;
+
       await setDoc(userProfile, {
         id: newUser.user.uid,
         email,
         name,
         university,
-        role,
+        role: finalRole,
         studentNumber,
         department,
         major,
@@ -170,6 +173,31 @@ export function AuthProvider({ children }: Props) {
         createdAt: Timestamp.now(),
         updatedAt: Timestamp.now(),
       });
+
+      // 교직원인 경우 관리자 권한 요청 생성
+      if (role === 'staff') {
+        try {
+          const response = await fetch('/api/admin-requests', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              userId: newUser.user.uid,
+              userName: name,
+              userEmail: email,
+              university,
+              message: `${name}님이 관리자 권한을 요청했습니다.`,
+            }),
+          });
+
+          if (!response.ok) {
+            console.error('Failed to create admin request');
+          }
+        } catch (error) {
+          console.error('Error creating admin request:', error);
+        }
+      }
     },
     []
   );
