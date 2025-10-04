@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 import { paths } from 'src/routes/paths';
 
 import { useTranslate } from 'src/locales';
+import { useAuthContext } from 'src/auth/hooks';
 
 import Iconify from 'src/components/iconify';
 
@@ -22,12 +23,17 @@ const ICONS = {
   fileUpload: icon('file-send-bold-duotone'),
   popup: icon('window-frame-bold-duotone'),
   settings: icon('widget-add-bold-duotone'),
+  superAdmin: icon('crown-bold-duotone'),
 };
 
 // ----------------------------------------------------------------------
 
 export function useNavData(isAdmin: boolean) {
   const { t } = useTranslate();
+  const { user } = useAuthContext();
+  
+  // 슈퍼 어드민 권한 확인
+  const isSuperAdmin = user?.role === 'superadmin' || user?.email === 'happihanjy@naver.com';
 
   const boardData = useMemo(
     () => ({
@@ -51,6 +57,22 @@ export function useNavData(isAdmin: boolean) {
   const data = useMemo(
     () => [
       boardData,
+      // 슈퍼 어드민 메뉴 (최우선)
+      ...(isSuperAdmin
+        ? [
+            {
+              subheader: '슈퍼 어드민',
+              items: [
+                {
+                  title: '관리자 권한 관리',
+                  path: paths.main.superAdmin,
+                  icon: ICONS.superAdmin,
+                },
+              ],
+            },
+          ]
+        : []),
+      // 일반 관리자 메뉴
       ...(isAdmin
         ? [
             {
@@ -147,7 +169,7 @@ export function useNavData(isAdmin: boolean) {
             },
           ]),
     ],
-    [isAdmin, t, boardData]
+    [isAdmin, isSuperAdmin, t, boardData]
   );
 
   return data;
