@@ -147,7 +147,8 @@ export function AuthProvider({ children }: Props) {
       department: string | undefined,
       major: string | undefined,
       grade: string | undefined,
-      semester: string | undefined
+      semester: string | undefined,
+      adminRequestReason?: string
     ) => {
       const newUser = await createUserWithEmailAndPassword(AUTH, email, password);
 
@@ -155,7 +156,6 @@ export function AuthProvider({ children }: Props) {
 
       const userProfile = doc(collection(DB, 'users'), newUser.user.uid);
 
-      // 교직원인 경우 role을 'staff'로 설정하고, 관리자 권한 요청을 생성
       const finalRole = role === 'staff' ? 'staff' : role;
 
       await setDoc(userProfile, {
@@ -187,7 +187,7 @@ export function AuthProvider({ children }: Props) {
               userName: name,
               userEmail: email,
               university,
-              message: `${name}님이 관리자 권한을 요청했습니다.`,
+              message: adminRequestReason || `${name}님이 관리자 권한을 요청했습니다.`,
             }),
           });
 

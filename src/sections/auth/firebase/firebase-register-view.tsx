@@ -64,6 +64,11 @@ export default function FirebaseRegisterView() {
     major: Yup.string(),
     grade: Yup.string(),
     semester: Yup.string(),
+    adminRequestReason: Yup.string().when('role', {
+      is: 'staff',
+      then: (schema) => schema.required('교직원 권한 요청 사유를 입력해주세요.'),
+      otherwise: (schema) => schema.notRequired(),
+    }),
   });
 
   const defaultValues = {
@@ -78,6 +83,7 @@ export default function FirebaseRegisterView() {
     major: '',
     grade: '',
     semester: '',
+    adminRequestReason: '',
   };
 
   const methods = useForm({
@@ -93,6 +99,7 @@ export default function FirebaseRegisterView() {
   } = methods;
 
   const isStudent = watch('role') === 'user';
+  const isStaff = watch('role') === 'staff';
 
   const onSubmit = handleSubmit(async (data) => {
     try {
@@ -106,7 +113,8 @@ export default function FirebaseRegisterView() {
         data.department,
         data.major,
         data.grade,
-        data.semester
+        data.semester,
+        data.adminRequestReason
       );
       const searchParams = new URLSearchParams({
         email: data.email,
@@ -152,10 +160,20 @@ export default function FirebaseRegisterView() {
     </>
   );
 
-  const renderStaffAlert = (
-    <Alert severity="info" sx={{ whiteSpace: 'pre-line' }}>
-      {t('register.staffAlert', { email: EMAIL_CONTACT })}
-    </Alert>
+  const renderStaffForm = (
+    <>
+      <RHFTextField
+        name="adminRequestReason"
+        label="교직원(관리자) 권한 요청 사유"
+        placeholder="관리자 권한이 필요한 사유를 상세히 작성해주세요."
+        multiline
+        rows={4}
+        required
+      />
+      <Alert severity="info" sx={{ whiteSpace: 'pre-line' }}>
+        {t('register.staffAlert', { email: EMAIL_CONTACT })}
+      </Alert>
+    </>
   );
 
   const renderForm = (
@@ -212,7 +230,7 @@ export default function FirebaseRegisterView() {
         ]}
       />
 
-      {isStudent ? renderStudentForm : renderStaffAlert}
+      {isStudent ? renderStudentForm : isStaff ? renderStaffForm : null}
 
       <LoadingButton
         fullWidth

@@ -46,7 +46,7 @@ export default function SuperAdminView() {
 
   const [requests, setRequests] = useState<AdminRequest[]>([]);
   const [loading, setLoading] = useState(true);
-  
+
   // 확인 다이얼로그 상태
   const [confirmDialog, setConfirmDialog] = useState<{
     open: boolean;
@@ -57,6 +57,15 @@ export default function SuperAdminView() {
     open: false,
     type: 'approve',
     requestId: '',
+    requestData: undefined,
+  });
+
+  // 사유 상세보기 다이얼로그 상태
+  const [reasonDialog, setReasonDialog] = useState<{
+    open: boolean;
+    requestData?: AdminRequest;
+  }>({
+    open: false,
     requestData: undefined,
   });
 
@@ -106,7 +115,7 @@ export default function SuperAdminView() {
     });
   }, []);
 
-  // 실제 상태 변경 처리 (확인 후)
+  // 상태 변경 처리(수락/거절)
   const handleStatusChangeConfirmed = useCallback(
     async (requestId: string, status: 'approved' | 'rejected') => {
       try {
@@ -138,7 +147,7 @@ export default function SuperAdminView() {
     [user, enqueueSnackbar, fetchRequests]
   );
 
-  // 실제 삭제 처리 (확인 후)
+  // 삭제 처리
   const handleDeleteConfirmed = useCallback(
     async (requestId: string) => {
       try {
@@ -165,7 +174,7 @@ export default function SuperAdminView() {
   // 확인된 작업 실행
   const executeConfirmedAction = useCallback(async () => {
     const { type, requestId } = confirmDialog;
-    
+
     try {
       if (type === 'delete') {
         await handleDeleteConfirmed(requestId);
@@ -200,6 +209,26 @@ export default function SuperAdminView() {
     },
     [openConfirmDialog]
   );
+
+  // 사유 상세보기 다이얼로그 열기
+  const openReasonDialog = useCallback(
+    (requestId: string) => {
+      const requestData = requests.find(req => req.id === requestId);
+      setReasonDialog({
+        open: true,
+        requestData,
+      });
+    },
+    [requests]
+  );
+
+  // 사유 상세보기 다이얼로그 닫기
+  const closeReasonDialog = useCallback(() => {
+    setReasonDialog({
+      open: false,
+      requestData: undefined,
+    });
+  }, []);
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -245,8 +274,42 @@ export default function SuperAdminView() {
     },
     {
       field: 'message',
-      headerName: '메시지',
-      width: 300,
+      headerName: '권한 요청 사유',
+      width: 400,
+      renderCell: (params) => (
+        <Stack direction="row" alignItems="center" spacing={1} sx={{ width: '100%' }}>
+          <Typography
+            variant="body2"
+            sx={{
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              display: '-webkit-box',
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: 'vertical',
+              lineHeight: 1.2,
+              flex: 1,
+            }}
+            title={params.value}
+          >
+            {params.value || '사유 없음'}
+          </Typography>
+          {params.value && (
+            <Button
+              size="small"
+              variant="outlined"
+              onClick={() => openReasonDialog(params.id as string)}
+              sx={{
+                minWidth: 'auto',
+                px: 1,
+                py: 0.5,
+                fontSize: '0.75rem',
+              }}
+            >
+              자세히
+            </Button>
+          )}
+        </Stack>
+      ),
     },
     {
       field: 'status',
@@ -281,7 +344,7 @@ export default function SuperAdminView() {
       field: 'actions',
       type: 'actions',
       headerName: '작업',
-      width: 120,
+      width: 200,
       getActions: (params: GridRowParams) => {
         const actions = [];
 
@@ -289,17 +352,35 @@ export default function SuperAdminView() {
           actions.push(
             <GridActionsCellItem
               key="approve"
-              icon={<Iconify icon="eva:checkmark-circle-2-fill" />}
+              icon={<Iconify icon="eva:checkmark-circle-2-fill" sx={{ width: 32, height: 32 }} />}
               label="승인"
               onClick={() => handleApprove(params.id as string)}
               color="success"
+              sx={{
+                '& .MuiSvgIcon-root': { fontSize: '2rem' },
+                minWidth: 40,
+                minHeight: 40,
+                borderRadius: 2,
+                '&:hover': {
+                  backgroundColor: 'success.lighter',
+                },
+              }}
             />,
             <GridActionsCellItem
               key="reject"
-              icon={<Iconify icon="eva:close-circle-fill" />}
+              icon={<Iconify icon="eva:close-circle-fill" sx={{ width: 32, height: 32 }} />}
               label="거부"
               onClick={() => handleReject(params.id as string)}
               color="error"
+              sx={{
+                '& .MuiSvgIcon-root': { fontSize: '2rem' },
+                minWidth: 40,
+                minHeight: 40,
+                borderRadius: 2,
+                '&:hover': {
+                  backgroundColor: 'error.lighter',
+                },
+              }}
             />
           );
         }
@@ -307,10 +388,19 @@ export default function SuperAdminView() {
         actions.push(
           <GridActionsCellItem
             key="delete"
-            icon={<Iconify icon="eva:trash-2-outline" />}
+            icon={<Iconify icon="eva:trash-2-outline" sx={{ width: 32, height: 32 }} />}
             label="삭제"
             onClick={() => handleDelete(params.id as string)}
             color="error"
+            sx={{
+              '& .MuiSvgIcon-root': { fontSize: '2rem' },
+              minWidth: 40,
+              minHeight: 40,
+              borderRadius: 2,
+              '&:hover': {
+                backgroundColor: 'error.lighter',
+              },
+            }}
           />
         );
 
@@ -322,7 +412,7 @@ export default function SuperAdminView() {
   // 확인 창
   const getDialogContent = () => {
     const { type, requestData } = confirmDialog;
-    
+
     switch (type) {
       case 'approve':
         return {
@@ -357,7 +447,7 @@ export default function SuperAdminView() {
 
   const renderConfirmDialog = () => {
     const { title, message, confirmText, confirmColor } = getDialogContent();
-    
+
     return (
       <Dialog
         open={confirmDialog.open}
@@ -373,6 +463,9 @@ export default function SuperAdminView() {
           {confirmDialog.requestData && (
             <Stack spacing={1} sx={{ mt: 2, p: 2, bgcolor: 'background.neutral', borderRadius: 1 }}>
               <Typography variant="body2">
+                <strong>이름:</strong> {confirmDialog.requestData.userName}
+              </Typography>
+              <Typography variant="body2">
                 <strong>이메일:</strong> {confirmDialog.requestData.userEmail}
               </Typography>
               <Typography variant="body2">
@@ -380,16 +473,13 @@ export default function SuperAdminView() {
               </Typography>
               {confirmDialog.requestData.message && (
                 <Typography variant="body2">
-                  <strong>내용:</strong> {confirmDialog.requestData.message}
+                  <strong>권한 요청 사유:</strong> {confirmDialog.requestData.message}
                 </Typography>
               )}
             </Stack>
           )}
         </DialogContent>
         <DialogActions>
-          <Button onClick={closeConfirmDialog} color="inherit">
-            취소
-          </Button>
           <Button
             onClick={executeConfirmedAction}
             color={confirmColor}
@@ -398,10 +488,117 @@ export default function SuperAdminView() {
           >
             {confirmText}
           </Button>
+          <Button onClick={closeConfirmDialog} color="inherit">
+            취소
+          </Button>
         </DialogActions>
       </Dialog>
     );
   };
+
+  // 사유 상세보기 다이얼로그에서 승인/거절 처리
+  const handleApproveFromReason = useCallback(() => {
+    if (reasonDialog.requestData) {
+      closeReasonDialog();
+      handleApprove(reasonDialog.requestData.id);
+    }
+  }, [reasonDialog.requestData, closeReasonDialog, handleApprove]);
+
+  const handleRejectFromReason = useCallback(() => {
+    if (reasonDialog.requestData) {
+      closeReasonDialog();
+      handleReject(reasonDialog.requestData.id);
+    }
+  }, [reasonDialog.requestData, closeReasonDialog, handleReject]);
+
+  // 사유 상세보기 다이얼로그
+  const renderReasonDialog = () => (
+    <Dialog
+      open={reasonDialog.open}
+      onClose={closeReasonDialog}
+      maxWidth="md"
+      fullWidth
+    >
+      <DialogTitle>권한 요청 사유 상세보기</DialogTitle>
+      <DialogContent>
+        {reasonDialog.requestData && (
+          <Stack spacing={2}>
+            <Stack spacing={1} sx={{ p: 2, bgcolor: 'background.neutral', borderRadius: 1 }}>
+              <Typography variant="body2">
+                <strong>이름:</strong> {reasonDialog.requestData.userName}
+              </Typography>
+              <Typography variant="body2">
+                <strong>이메일:</strong> {reasonDialog.requestData.userEmail}
+              </Typography>
+              <Typography variant="body2">
+                <strong>대학교:</strong> {reasonDialog.requestData.university}
+              </Typography>
+              <Typography variant="body2">
+                <strong>요청일시:</strong> {new Date(reasonDialog.requestData.createdAt).toLocaleString('ko-KR')}
+              </Typography>
+              <Typography variant="body2">
+                <strong>상태:</strong>
+                <Button
+                  variant="outlined"
+                  size="small"
+                  color={getStatusColor(reasonDialog.requestData.status) as any}
+                  sx={{ ml: 1, minWidth: 80 }}
+                >
+                  {getStatusText(reasonDialog.requestData.status)}
+                </Button>
+              </Typography>
+            </Stack>
+
+            <Stack spacing={1}>
+              <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                권한 요청 사유
+              </Typography>
+              <Typography
+                variant="body1"
+                sx={{
+                  p: 2,
+                  bgcolor: 'grey.50',
+                  borderRadius: 1,
+                  border: '1px solid',
+                  borderColor: 'grey.300',
+                  whiteSpace: 'pre-wrap',
+                  lineHeight: 1.6,
+                  minHeight: 100,
+                }}
+              >
+                {reasonDialog.requestData.message || '사유가 입력되지 않았습니다.'}
+              </Typography>
+            </Stack>
+          </Stack>
+        )}
+      </DialogContent>
+      <DialogActions>
+        {reasonDialog.requestData?.status === 'pending' && (
+          <>
+            <Button
+              onClick={handleApproveFromReason}
+              color="success"
+              variant="contained"
+              startIcon={<Iconify icon="eva:checkmark-circle-2-fill" />}
+            >
+              승인
+            </Button>
+            <Button
+              onClick={handleRejectFromReason}
+              color="error"
+              variant="outlined"
+              startIcon={<Iconify icon="eva:close-circle-fill" />}
+            >
+              거부
+            </Button>
+          </>
+        )}
+        <Button onClick={closeReasonDialog} color="inherit">
+          닫기
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
 
   return (
     <>
@@ -445,6 +642,9 @@ export default function SuperAdminView() {
 
       {/* 확인 다이얼로그 */}
       {renderConfirmDialog()}
+
+      {/* 사유 상세보기 다이얼로그 */}
+      {renderReasonDialog()}
     </>
   );
 }
