@@ -5,7 +5,6 @@ import { m } from 'framer-motion';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
-import { useTranslate } from 'src/locales';
 import { useAuthContext } from 'src/auth/hooks';
 import { ForbiddenIllustration } from 'src/assets/illustrations';
 
@@ -19,7 +18,6 @@ type SuperAdminGuardProp = {
 };
 
 export default function SuperAdminGuard({ hasContent, children }: SuperAdminGuardProp) {
-  const { t } = useTranslate();
   const { user } = useAuthContext();
 
   // 슈퍼 어드민 권한 확인 (특별한 role)
