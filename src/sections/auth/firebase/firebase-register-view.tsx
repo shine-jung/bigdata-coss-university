@@ -230,7 +230,8 @@ export default function FirebaseRegisterView() {
         ]}
       />
 
-      {isStudent ? renderStudentForm : isStaff ? renderStaffForm : null}
+      {isStudent && renderStudentForm}
+      {isStaff && renderStaffForm}
 
       <LoadingButton
         fullWidth
