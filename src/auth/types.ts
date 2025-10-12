@@ -66,7 +66,8 @@ export type FirebaseContextType = CanRemove & {
     department: string | undefined,
     major: string | undefined,
     grade: string | undefined,
-    semester: string | undefined
+    semester: string | undefined,
+    adminRequestReason?: string
   ) => Promise<void>;
   forgotPassword: (email: string) => Promise<void>;
   updateProfile: (updates: Partial<AuthUserType>, photoFile: File | null) => Promise<void>;
