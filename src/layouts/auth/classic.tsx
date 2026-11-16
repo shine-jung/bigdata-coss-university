@@ -1,4 +1,4 @@
-import Lottie from 'react-lottie-player';
+import dynamic from 'next/dynamic';
 
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
@@ -11,6 +11,10 @@ import { useTranslate } from 'src/locales';
 import lottieJson from 'src/assets/lotties/school-lottie1.json';
 
 import Logo from 'src/components/logo';
+
+// lottie-web touches `document` at import time whenever a global `navigator` exists, and
+// Node.js 21+ defines `navigator` on the server too, so load it on the client only.
+const Lottie = dynamic(() => import('react-lottie-player'), { ssr: false });
 
 // ----------------------------------------------------------------------
 
