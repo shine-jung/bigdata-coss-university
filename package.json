@@ -19,6 +19,9 @@
     "ts": "tsc --noEmit --incremental",
     "ts:watch": "yarn ts --watch"
   },
+  "engines": {
+    "node": "24.x"
+  },
   "dependencies": {
     "@auth0/auth0-react": "^2.2.3",
     "@emotion/cache": "^11.10.5",
