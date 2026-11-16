@@ -36,5 +36,6 @@ export const paths = {
     MDCompletionApplication: `${ROOTS.MAIN}/md-completion-application`,
     MDCompletionApplicationHistory: `${ROOTS.MAIN}/md-completion-application-history`,
     studentRecordManagement: `${ROOTS.MAIN}/student-record-management`,
+    superAdmin: `${ROOTS.MAIN}/super-admin`,
   },
 };
